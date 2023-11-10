@@ -1,4 +1,4 @@
-package com.tec.myapplication
+package com.tec.nuevoamanecer
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
-import com.tec.myapplication.databinding.FragmentDatosDeAlumnoBinding
+import com.tec.nuevoamanecer.databinding.FragmentMainBinding
 
-class DatosDeAlumnoFragment : Fragment() {
-    private var _binding : FragmentDatosDeAlumnoBinding? = null
+class MainFragment : Fragment() {
+    private var _binding : FragmentMainBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,27 +20,26 @@ class DatosDeAlumnoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentDatosDeAlumnoBinding.inflate(inflater,container,false)
+        _binding = FragmentMainBinding.inflate(inflater,container,false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnRegresar.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_datosDeAlumnoFragment_to_registroFragment)
+        binding.btnIniciarSesion.setOnClickListener{
+            Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_loginFragment)
         }
 
-        binding.btnSiguiente.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_datosDeAlumnoFragment_to_datosRegistradosFragment)
+        binding.btnRegistrar.setOnClickListener{
+            Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_registroFragment)
         }
-
     }
 
     companion object {
         @JvmStatic
         fun newInstance() =
-            DatosDeAlumnoFragment().apply {
+            MainFragment().apply {
                 arguments = Bundle().apply {
                 }
             }

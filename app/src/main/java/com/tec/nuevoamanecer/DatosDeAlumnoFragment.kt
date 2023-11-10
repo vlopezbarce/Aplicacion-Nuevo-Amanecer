@@ -1,4 +1,4 @@
-package com.tec.myapplication
+package com.tec.nuevoamanecer
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
-import com.tec.myapplication.databinding.FragmentEditaDatosAlumnoBinding
+import com.tec.nuevoamanecer.databinding.FragmentDatosDeAlumnoBinding
 
-class EditaDatosAlumnoFragment : Fragment() {
-    private var _binding : FragmentEditaDatosAlumnoBinding? = null
+class DatosDeAlumnoFragment : Fragment() {
+    private var _binding : FragmentDatosDeAlumnoBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +20,7 @@ class EditaDatosAlumnoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentEditaDatosAlumnoBinding.inflate(inflater,container,false)
+        _binding = FragmentDatosDeAlumnoBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -28,22 +28,19 @@ class EditaDatosAlumnoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnRegresar.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_editaDatosAlumnoFragment_to_terapeutaFragment)
+            Navigation.findNavController(view).navigate(R.id.action_datosDeAlumnoFragment_to_registroFragment)
         }
 
         binding.btnSiguiente.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_editaDatosAlumnoFragment_to_terapeutaFragment)
+            Navigation.findNavController(view).navigate(R.id.action_datosDeAlumnoFragment_to_datosRegistradosFragment)
         }
 
-        binding.btnFolder.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_editaDatosAlumnoFragment_to_folderFragment)
-        }
     }
 
     companion object {
         @JvmStatic
         fun newInstance() =
-            EditaDatosAlumnoFragment().apply {
+            DatosDeAlumnoFragment().apply {
                 arguments = Bundle().apply {
                 }
             }

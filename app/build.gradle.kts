@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.tec.myapplication"
+    namespace = "com.tec.nuevoamanecer"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.tec.myapplication"
+        applicationId = "com.tec.nuevoamanecer"
         minSdk = 29
         targetSdk = 33
         versionCode = 1

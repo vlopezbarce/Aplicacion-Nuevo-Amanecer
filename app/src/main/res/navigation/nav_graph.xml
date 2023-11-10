@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.tec.myapplication.MainFragment"
+        android:name="com.tec.nuevoamanecer.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.tec.myapplication.LoginFragment"
+        android:name="com.tec.nuevoamanecer.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/registroFragment"
-        android:name="com.tec.myapplication.RegistroFragment"
+        android:name="com.tec.nuevoamanecer.RegistroFragment"
         android:label="fragment_registro"
         tools:layout="@layout/fragment_registro" >
         <action
@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/datosDeAlumnoFragment"
-        android:name="com.tec.myapplication.DatosDeAlumnoFragment"
+        android:name="com.tec.nuevoamanecer.DatosDeAlumnoFragment"
         android:label="fragment_datos_de_alumno"
         tools:layout="@layout/fragment_datos_de_alumno" >
         <action
@@ -58,7 +58,7 @@
     </fragment>
     <fragment
         android:id="@+id/datosRegistradosFragment"
-        android:name="com.tec.myapplication.DatosRegistradosFragment"
+        android:name="com.tec.nuevoamanecer.DatosRegistradosFragment"
         android:label="fragment_datos_registrados"
         tools:layout="@layout/fragment_datos_registrados">
         <action
@@ -70,7 +70,7 @@
     </fragment>
     <fragment
         android:id="@+id/alumnoFragment"
-        android:name="com.tec.myapplication.AlumnoFragment"
+        android:name="com.tec.nuevoamanecer.AlumnoFragment"
         android:label="fragment_alumno"
         tools:layout="@layout/fragment_alumno" >
         <action
@@ -79,7 +79,7 @@
     </fragment>
     <fragment
         android:id="@+id/terapeutaFragment"
-        android:name="com.tec.myapplication.TerapeutaFragment"
+        android:name="com.tec.nuevoamanecer.TerapeutaFragment"
         android:label="fragment_terapeuta"
         tools:layout="@layout/fragment_terapeuta" >
         <action
@@ -92,7 +92,7 @@
     </fragment>
     <fragment
         android:id="@+id/editaDatosAlumnoFragment"
-        android:name="com.tec.myapplication.EditaDatosAlumnoFragment"
+        android:name="com.tec.nuevoamanecer.EditaDatosAlumnoFragment"
         android:label="fragment_edita_datos_alumno"
         tools:layout="@layout/fragment_edita_datos_alumno" >
         <action
@@ -104,7 +104,7 @@
     </fragment>
     <fragment
         android:id="@+id/folderFragment"
-        android:name="com.tec.myapplication.FolderFragment"
+        android:name="com.tec.nuevoamanecer.FolderFragment"
         android:label="fragment_folder"
         tools:layout="@layout/fragment_folder" >
         <action

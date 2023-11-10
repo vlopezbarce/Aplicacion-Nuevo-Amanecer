@@ -1,4 +1,4 @@
-package com.tec.myapplication
+package com.tec.nuevoamanecer
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import androidx.navigation.Navigation
-import com.tec.myapplication.databinding.FragmentTerapeutaBinding
+import com.tec.nuevoamanecer.databinding.FragmentTerapeutaBinding
 
 class TerapeutaFragment : Fragment() {
     private var _binding : FragmentTerapeutaBinding? = null

@@ -1,4 +1,4 @@
-package com.tec.myapplication
+package com.tec.nuevoamanecer
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
-import com.tec.myapplication.databinding.FragmentAlumnoBinding
+import com.tec.nuevoamanecer.databinding.FragmentEditaDatosAlumnoBinding
 
-class AlumnoFragment : Fragment() {
-    private var _binding : FragmentAlumnoBinding? = null
+class EditaDatosAlumnoFragment : Fragment() {
+    private var _binding : FragmentEditaDatosAlumnoBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +20,7 @@ class AlumnoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentAlumnoBinding.inflate(inflater,container,false)
+        _binding = FragmentEditaDatosAlumnoBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -28,14 +28,22 @@ class AlumnoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnRegresar.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_alumnoFragment_to_mainFragment)
+            Navigation.findNavController(view).navigate(R.id.action_editaDatosAlumnoFragment_to_terapeutaFragment)
+        }
+
+        binding.btnSiguiente.setOnClickListener{
+            Navigation.findNavController(view).navigate(R.id.action_editaDatosAlumnoFragment_to_terapeutaFragment)
+        }
+
+        binding.btnFolder.setOnClickListener{
+            Navigation.findNavController(view).navigate(R.id.action_editaDatosAlumnoFragment_to_folderFragment)
         }
     }
 
     companion object {
         @JvmStatic
         fun newInstance() =
-            AlumnoFragment().apply {
+            EditaDatosAlumnoFragment().apply {
                 arguments = Bundle().apply {
                 }
             }

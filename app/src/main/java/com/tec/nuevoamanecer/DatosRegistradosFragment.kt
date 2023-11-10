@@ -1,4 +1,4 @@
-package com.tec.myapplication
+package com.tec.nuevoamanecer
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
-import com.tec.myapplication.databinding.FragmentRegistroBinding
+import com.tec.nuevoamanecer.databinding.FragmentDatosRegistradosBinding
 
-class RegistroFragment : Fragment() {
-    private var _binding : FragmentRegistroBinding? = null
+class DatosRegistradosFragment : Fragment() {
+    private var _binding : FragmentDatosRegistradosBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +20,7 @@ class RegistroFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentRegistroBinding.inflate(inflater,container,false)
+        _binding = FragmentDatosRegistradosBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -28,18 +28,18 @@ class RegistroFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnRegresar.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_registroFragment_to_mainFragment)
+            Navigation.findNavController(view).navigate(R.id.action_datosRegistradosFragment_to_datosDeAlumnoFragment)
         }
 
         binding.btnSiguiente.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_registroFragment_to_datosDeAlumnoFragment)
+            Navigation.findNavController(view).navigate(R.id.action_datosRegistradosFragment_to_alumnoFragment)
         }
     }
 
     companion object {
         @JvmStatic
         fun newInstance() =
-            LoginFragment().apply {
+            DatosRegistradosFragment().apply {
                 arguments = Bundle().apply {
                 }
             }

@@ -1,8 +1,8 @@
-package com.tec.myapplication
+package com.tec.nuevoamanecer
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.tec.myapplication.databinding.ActivityMainBinding
+import com.tec.nuevoamanecer.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding

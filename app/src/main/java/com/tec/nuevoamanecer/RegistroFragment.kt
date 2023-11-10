@@ -1,4 +1,4 @@
-package com.tec.myapplication
+package com.tec.nuevoamanecer
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
-import com.tec.myapplication.databinding.FragmentLoginBinding
+import com.tec.nuevoamanecer.databinding.FragmentRegistroBinding
 
-class LoginFragment : Fragment() {
-    private var _binding : FragmentLoginBinding? = null
+class RegistroFragment : Fragment() {
+    private var _binding : FragmentRegistroBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +20,7 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentLoginBinding.inflate(inflater,container,false)
+        _binding = FragmentRegistroBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -28,15 +28,11 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnRegresar.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_mainFragment)
+            Navigation.findNavController(view).navigate(R.id.action_registroFragment_to_mainFragment)
         }
 
         binding.btnSiguiente.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_alumnoFragment)
-        }
-
-        binding.btnAdmin.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_terapeutaFragment)
+            Navigation.findNavController(view).navigate(R.id.action_registroFragment_to_datosDeAlumnoFragment)
         }
     }
 
