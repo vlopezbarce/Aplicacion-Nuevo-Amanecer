@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">My Application</string>
+
+    <!-- Main -->
+    <string name="inicia_sesion">Inicia Sesión</string>
+    <string name="registrate">Regístrate</string>
+
+    <!-- Login -->
+    <string name="correo">Correo</string>
+    <string name="contrasena">Contraseña</string>
+
+    <!-- Registro -->
+    <string name="registro">Registro</string>
+
+    <!-- Datos De Alumno -->
+    <string name="datos_de_alumno">Datos de Alumno</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellidos">Apellido(s)</string>
+    <string name="nivel">Nivel</string>
+    <string name="fecha_nacimiento">Fecha de Nacimiento</string>
+
+    <!-- Datos Registrados -->
+    <string name="nombre_registro">Nombre:</string>
+    <string name="apellidos_registro">Apellido(s):</string>
+    <string name="nivel_registro">Nivel:</string>
+    <string name="correo_registro">Correo:</string>
+    <string name="dato">dato</string>
+
+    <!-- Alumno -->
+    <string name="hola_usuario">Hola Usuario</string>
+    <string name="selecciona_juego">SELECCIONA EL JUEGO...</string>
+    <string name="tablero">Tablero</string>
+
+    <!-- Terapeuta -->
+    <string name="hola_terapeuta">Hola Terapeuta</string>
+    <string name="buscar_alumno">BUSCAR ALUMNO...</string>
+    <string name="nombre_alumno">NOMBRE DEL ALUMNO</string>
+    <string name="editar">EDITAR</string>
+
+    <!-- Imágenes -->
+    <string name="imagenes">IMÁGENES</string>
+    <string name="nombre_imagen">NOMBRE DE LA IMAGEN</string>
+    <string name="subir_imagen">Subir Imagen</string>
+
+</resources>

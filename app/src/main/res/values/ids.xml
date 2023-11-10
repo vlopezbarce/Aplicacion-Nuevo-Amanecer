@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="loginButton" type="id" />
+    <item name="iniciarSesionButton" type="id" />
+    <item name="registrateButton" type="id" />
+    <item name="administradorButton" type="id" />
+    <item name="btnBack" type="id" />
+    <item name="tvTitle" type="id" />
+    <item name="etNombre" type="id" />
+    <item name="etApellidoPaterno" type="id" />
+    <item name="etApellidoMaterno" type="id" />
+    <item name="btnConfirm" type="id" />
+    <item name="btnConfirmRegistro" type="id" />
+    <item name="lastEditText" type="id" />
+    <item name="studentNameTextView" type="id" />
+    <item name="editButton" type="id" />
+</resources>

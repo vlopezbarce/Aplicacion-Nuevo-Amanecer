@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.tec.myapplication.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_registroFragment"
+            app:destination="@id/registroFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.tec.myapplication.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_alumnoFragment"
+            app:destination="@id/alumnoFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_terapeutaFragment"
+            app:destination="@id/terapeutaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registroFragment"
+        android:name="com.tec.myapplication.RegistroFragment"
+        android:label="fragment_registro"
+        tools:layout="@layout/fragment_registro" >
+        <action
+            android:id="@+id/action_registroFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_registroFragment_to_datosDeAlumnoFragment"
+            app:destination="@id/datosDeAlumnoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/datosDeAlumnoFragment"
+        android:name="com.tec.myapplication.DatosDeAlumnoFragment"
+        android:label="fragment_datos_de_alumno"
+        tools:layout="@layout/fragment_datos_de_alumno" >
+        <action
+            android:id="@+id/action_datosDeAlumnoFragment_to_datosRegistradosFragment"
+            app:destination="@id/datosRegistradosFragment" />
+        <action
+            android:id="@+id/action_datosDeAlumnoFragment_to_registroFragment"
+            app:destination="@id/registroFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/datosRegistradosFragment"
+        android:name="com.tec.myapplication.DatosRegistradosFragment"
+        android:label="fragment_datos_registrados"
+        tools:layout="@layout/fragment_datos_registrados">
+        <action
+            android:id="@+id/action_datosRegistradosFragment_to_alumnoFragment"
+            app:destination="@id/alumnoFragment" />
+        <action
+            android:id="@+id/action_datosRegistradosFragment_to_datosDeAlumnoFragment"
+            app:destination="@id/datosDeAlumnoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/alumnoFragment"
+        android:name="com.tec.myapplication.AlumnoFragment"
+        android:label="fragment_alumno"
+        tools:layout="@layout/fragment_alumno" >
+        <action
+            android:id="@+id/action_alumnoFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/terapeutaFragment"
+        android:name="com.tec.myapplication.TerapeutaFragment"
+        android:label="fragment_terapeuta"
+        tools:layout="@layout/fragment_terapeuta" >
+        <action
+            android:id="@+id/action_terapeutaFragment_to_editaDatosAlumnoFragment"
+            app:destination="@id/editaDatosAlumnoFragment">
+        </action>
+        <action
+            android:id="@+id/action_terapeutaFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editaDatosAlumnoFragment"
+        android:name="com.tec.myapplication.EditaDatosAlumnoFragment"
+        android:label="fragment_edita_datos_alumno"
+        tools:layout="@layout/fragment_edita_datos_alumno" >
+        <action
+            android:id="@+id/action_editaDatosAlumnoFragment_to_terapeutaFragment"
+            app:destination="@id/terapeutaFragment" />
+        <action
+            android:id="@+id/action_editaDatosAlumnoFragment_to_folderFragment"
+            app:destination="@id/folderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/folderFragment"
+        android:name="com.tec.myapplication.FolderFragment"
+        android:label="fragment_folder"
+        tools:layout="@layout/fragment_folder" >
+        <action
+            android:id="@+id/action_folderFragment_to_editaDatosAlumnoFragment"
+            app:destination="@id/editaDatosAlumnoFragment" />
+    </fragment>
+</navigation>
