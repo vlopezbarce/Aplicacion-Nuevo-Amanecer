@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "180682127330",
+    "firebase_url": "https://recycler-4311b-default-rtdb.firebaseio.com",
+    "project_id": "recycler-4311b",
+    "storage_bucket": "recycler-4311b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:180682127330:android:f3191c51bdd1d5ba666bbb",
+        "android_client_info": {
+          "package_name": "com.tec.ejer4y5"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "180682127330-a8l499a07imsccb37g7nqufhhasck2sj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnpwWONj3qfHMYjenJI4wB8_RP-tFS2fQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "180682127330-a8l499a07imsccb37g7nqufhhasck2sj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:180682127330:android:65d4e1cd57e59c12666bbb",
+        "android_client_info": {
+          "package_name": "com.tec.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "180682127330-a8l499a07imsccb37g7nqufhhasck2sj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnpwWONj3qfHMYjenJI4wB8_RP-tFS2fQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "180682127330-a8l499a07imsccb37g7nqufhhasck2sj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:180682127330:android:5f9ed2462ae69ff1666bbb",
+        "android_client_info": {
+          "package_name": "com.tec.nuevoamanecer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "180682127330-a8l499a07imsccb37g7nqufhhasck2sj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnpwWONj3qfHMYjenJI4wB8_RP-tFS2fQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "180682127330-a8l499a07imsccb37g7nqufhhasck2sj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

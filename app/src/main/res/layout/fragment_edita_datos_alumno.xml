@@ -10,7 +10,7 @@
         android:id="@+id/btnRegresar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:layout_marginStart="20dp"
         android:background="@color/transparente"
         android:scaleType="fitCenter"
@@ -60,7 +60,7 @@
             <EditText
                 android:id="@+id/editTextNombre"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="70dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/edit_text_redondo"
                 android:fontFamily="@font/lilita_one"
@@ -81,7 +81,7 @@
             <EditText
                 android:id="@+id/editTextApellidos"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="70dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/edit_text_redondo"
                 android:fontFamily="@font/lilita_one"
@@ -90,7 +90,7 @@
                 android:textSize="40sp" />
 
             <TextView
-                android:id="@+id/txtViewFechaNacimiento"
+                android:id="@+id/txtViewFecha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -100,9 +100,9 @@
                 android:textSize="40sp" />
 
             <EditText
-                android:id="@+id/editTextFechaNacimiento"
+                android:id="@+id/editTextFecha"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="70dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/edit_text_redondo"
                 android:fontFamily="@font/lilita_one"
@@ -129,7 +129,7 @@
             <EditText
                 android:id="@+id/editTextNivel"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="70dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/edit_text_redondo"
                 android:fontFamily="@font/lilita_one"
@@ -139,14 +139,14 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom">
 
                 <ImageButton
                     android:id="@+id/btnFolder"
                     android:layout_width="400dp"
-                    android:layout_height="250dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="40dp"
+                    android:layout_height="220dp"
+                    android:layout_marginTop="50dp"
                     android:background="@color/transparente"
                     android:scaleType="fitCenter"
                     android:src="@drawable/icono_folder"
@@ -162,7 +162,7 @@
                     android:fontFamily="@font/lilita_one"
                     android:text="@string/imagenes"
                     android:textColor="@color/white"
-                    android:textSize="55sp"
+                    android:textSize="50sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />

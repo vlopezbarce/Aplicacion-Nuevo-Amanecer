@@ -17,8 +17,8 @@
         android:id="@+id/btnRegresar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
         android:background="@color/transparente"
         android:scaleType="fitCenter"
         android:src="@drawable/flecha_atras"
@@ -34,7 +34,7 @@
         android:fontFamily="@font/lilita_one"
         android:text="@string/datos_de_alumno"
         android:textColor="@color/azul_datos"
-        android:textSize="100sp"
+        android:textSize="90sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -50,7 +50,7 @@
         <LinearLayout
             android:layout_width="500dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
+            android:layout_marginStart="80dp"
             android:orientation="vertical">
 
             <TextView
@@ -59,17 +59,17 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lilita_one"
                 android:textColor="@color/azul_datos"
-                android:textSize="40sp"
+                android:textSize="30sp"
                 android:text="@string/nombre" />
 
             <EditText
                 android:id="@+id/editTextNombre"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="60dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/lilita_one"
                 android:paddingLeft="20dp"
-                android:textSize="40sp"
+                android:textSize="30sp"
                 android:background="@drawable/edit_text_redondo"
                 android:inputType="text" />
 
@@ -77,43 +77,66 @@
                 android:id="@+id/txtViewApellidos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/lilita_one"
                 android:textColor="@color/azul_datos"
-                android:textSize="40sp"
+                android:textSize="30sp"
                 android:text="@string/apellidos" />
 
             <EditText
                 android:id="@+id/editTextApellidos"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="60dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/lilita_one"
                 android:paddingLeft="20dp"
-                android:textSize="40sp"
+                android:textSize="30sp"
                 android:background="@drawable/edit_text_redondo"
                 android:inputType="text" />
+
+            <TextView
+                android:id="@+id/txtViewFecha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/lilita_one"
+                android:textColor="@color/azul_datos"
+                android:textSize="30sp"
+                android:text="@string/fecha_nacimiento" />
+
+            <EditText
+                android:id="@+id/editTextFecha"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/lilita_one"
+                android:paddingLeft="20dp"
+                android:textSize="30sp"
+                android:background="@drawable/edit_text_redondo"
+                android:inputType="none"
+                android:focusable="false"
+                android:clickable="true" />
 
             <TextView
                 android:id="@+id/txtViewNivel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/lilita_one"
                 android:textColor="@color/azul_datos"
-                android:textSize="40sp"
+                android:textSize="30sp"
                 android:text="@string/nivel" />
 
             <EditText
                 android:id="@+id/editTextNivel"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="60dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/lilita_one"
                 android:paddingLeft="20dp"
-                android:textSize="40sp"
+                android:textSize="30sp"
                 android:background="@drawable/edit_text_redondo"
-                android:inputType="text" />
+                android:inputType="number" />
         </LinearLayout>
     </LinearLayout>
 

@@ -16,12 +16,13 @@
     <string name="datos_de_alumno">Datos de Alumno</string>
     <string name="nombre">Nombre</string>
     <string name="apellidos">Apellido(s)</string>
-    <string name="nivel">Nivel</string>
     <string name="fecha_nacimiento">Fecha de Nacimiento</string>
+    <string name="nivel">Nivel</string>
 
     <!-- Datos Registrados -->
     <string name="nombre_registro">Nombre:</string>
     <string name="apellidos_registro">Apellido(s):</string>
+    <string name="fecha_registro">Fecha de Nacimiento:</string>
     <string name="nivel_registro">Nivel:</string>
     <string name="correo_registro">Correo:</string>
     <string name="dato">dato</string>

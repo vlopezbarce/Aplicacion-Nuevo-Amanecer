@@ -17,7 +17,7 @@
         android:id="@+id/btnRegresar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:layout_marginStart="20dp"
         android:background="@color/transparente"
         android:scaleType="fitCenter"
@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/lilita_one"
         android:textColor="@color/rosa"
         android:textSize="100sp"
@@ -84,7 +84,7 @@
                 android:text="@string/contrasena" />
 
             <EditText
-                android:id="@+id/editTextContraseña"
+                android:id="@+id/editTextContrasena"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_marginTop="10dp"
@@ -101,7 +101,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="30dp"
         android:background="@color/transparente"
         android:scaleType="fitCenter"
         android:src="@drawable/boton_siguiente"
