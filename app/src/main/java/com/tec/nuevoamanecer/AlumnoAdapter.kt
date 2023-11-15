@@ -7,14 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.navigation.Navigation
-
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class AlumnoAdapter(context: Context, alumnos: List<Alumno>) :
     ArrayAdapter<Alumno>(context, 0, alumnos) {
 
-    // private lateinit var database: DatabaseReference
+    private lateinit var database: DatabaseReference
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view : View =
@@ -32,14 +34,16 @@ class AlumnoAdapter(context: Context, alumnos: List<Alumno>) :
             Navigation.findNavController(view).navigate(R.id.action_terapeutaFragment_to_editaDatosAlumnoFragment, bundle)
         }
 
-        // database = FirebaseDatabase.getInstance().reference
+        database = FirebaseDatabase.getInstance().reference
 
-        // val btnEliminar = view.findViewById<ImageButton>(R.id.btnEliminar)
-        // btnEliminar.setOnClickListener {
-        //     if (alumno != null) {
-        //         database.child("Usuarios").child("Alumnos").child(alumno.id).removeValue()
-        //     }
-        // }
+        val btnEliminar = view.findViewById<ImageButton>(R.id.btnEliminar)
+        btnEliminar.setOnClickListener {
+            if (alumno != null) {
+                database.child("Usuarios").child("Alumnos").child(alumno.id).removeValue()
+                database.child("Usuarios").child("Usuario").child(alumno.id).removeValue()
+                database.child("Usuarios").child("Tablero").child(alumno.id).removeValue()
+            }
+        }
 
         return view
     }
