@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AlumnoFragment">
+    tools:context=".AlumnoFragment4">
 
     <LinearLayout
         android:id="@+id/layoutTitulo"
@@ -62,6 +62,29 @@
 
     </LinearLayout>
 
+    <ImageButton
+        android:id="@+id/btnTablero"
+        android:layout_width="350dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="60dp"
+        android:background="@drawable/boton_placeholder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtViewTablero"
+        android:layout_width="350dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="60dp"
+        android:gravity="center"
+        android:fontFamily="@font/lilita_one"
+        android:text="@string/tablero"
+        android:textColor="@color/verde"
+        android:textSize="100sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <GridLayout
         android:id="@+id/layoutJuegos"
