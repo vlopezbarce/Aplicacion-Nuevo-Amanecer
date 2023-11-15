@@ -6,15 +6,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
 import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import kotlin.random.Random
 import androidx.navigation.Navigation
-import com.tec.nuevoamanecer.databinding.FragmentAlumnoBinding
 import com.tec.nuevoamanecer.databinding.FragmentGame1Binding
 
 class Game1Fragment : Fragment() {
@@ -29,12 +25,16 @@ class Game1Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_game_1, container, false)
+        _binding = FragmentGame1Binding.inflate(inflater, container,false)
+        return binding.root
+    }
 
-        progressBar = view.findViewById(R.id.progressBar)
-        val burbuja = view.findViewById<ImageButton>(R.id.imagenBurbuja)
-        val contador = view.findViewById<TextView>(R.id.textContador)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        progressBar = binding.progressBar
+        val burbuja = binding.imagenBurbuja
+        val contador = binding.textContador
         val mp = MediaPlayer.create(requireContext(), R.raw.sample)
 
         burbuja.setOnClickListener {
@@ -73,6 +73,9 @@ class Game1Fragment : Fragment() {
                 burbuja.visibility = View.INVISIBLE
             }
         }
-        return view
+
+        binding.btnRegresar.setOnClickListener{
+            Navigation.findNavController(view).navigate(R.id.action_game1Fragment_to_alumnoFragment)
+        }
     }
 }

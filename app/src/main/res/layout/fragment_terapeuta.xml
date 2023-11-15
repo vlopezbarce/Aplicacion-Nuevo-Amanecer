@@ -13,10 +13,23 @@
         android:layout_marginStart="60dp"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/lilita_one"
-        android:text="@string/hola_terapeuta"
+        android:text="@string/hola"
         android:textColor="@color/verde"
         android:textSize="100sp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtViewNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/lilita_one"
+        android:text="@string/terapeuta"
+        android:textColor="@color/verde"
+        android:textSize="100sp"
+        app:layout_constraintStart_toEndOf="@+id/txtViewHola"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
