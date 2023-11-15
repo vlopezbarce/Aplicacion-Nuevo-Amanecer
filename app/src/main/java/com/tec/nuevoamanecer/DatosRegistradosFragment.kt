@@ -68,7 +68,9 @@ class DatosRegistradosFragment : Fragment() {
         }
 
         binding.btnSiguiente.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_datosRegistradosFragment_to_alumnoFragment)
+            val bundle = Bundle()
+            bundle.putString("userUID", userUID)
+            Navigation.findNavController(binding.root).navigate(R.id.action_datosRegistradosFragment_to_alumnoFragment, bundle)
         }
     }
 

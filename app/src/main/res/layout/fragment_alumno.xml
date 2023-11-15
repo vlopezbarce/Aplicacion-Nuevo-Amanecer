@@ -6,30 +6,61 @@
     android:layout_height="match_parent"
     tools:context=".AlumnoFragment">
 
-    <TextView
-        android:id="@+id/txtViewHola"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/layoutTitulo"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/lilita_one"
-        android:text="@string/hola_usuario"
-        android:textColor="@color/verde"
-        android:textSize="100sp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/txtViewSelecciona"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:fontFamily="@font/lilita_one"
-        android:text="@string/selecciona_juego"
-        android:textColor="@color/black"
-        android:textSize="40sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtViewHola" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtViewHola"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/lilita_one"
+                android:text="@string/hola_usuario"
+                android:textColor="@color/verde"
+                android:textSize="100sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtViewNombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/lilita_one"
+                android:text="Usuario"
+                android:textColor="@color/verde"
+                android:textSize="100sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtViewSelecciona"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:fontFamily="@font/lilita_one"
+            android:text="@string/selecciona_juego"
+            android:textColor="@color/black"
+            android:textSize="40sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewHola" />
+
+    </LinearLayout>
 
     <ImageButton
         android:id="@+id/btnTablero"
@@ -67,7 +98,7 @@
         android:rowCount="3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtViewSelecciona">
+        app:layout_constraintTop_toBottomOf="@+id/layoutTitulo">
 
         <ImageButton
             android:id="@+id/btnJuego1"
