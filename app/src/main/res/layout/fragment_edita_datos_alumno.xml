@@ -106,9 +106,11 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/edit_text_redondo"
                 android:fontFamily="@font/lilita_one"
-                android:inputType="text"
                 android:paddingLeft="20dp"
-                android:textSize="40sp" />
+                android:textSize="40sp"
+                android:inputType="none"
+                android:focusable="false"
+                android:clickable="true" />
         </LinearLayout>
 
         <LinearLayout

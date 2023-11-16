@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.Navigation
 import com.tec.nuevoamanecer.databinding.FragmentDatosDeAlumnoBinding
 import java.text.SimpleDateFormat
@@ -83,6 +84,14 @@ class DatosDeAlumnoFragment : Fragment() {
                 bundle.putString("nivel", nivel)
 
                 Navigation.findNavController(view).navigate(R.id.action_datosDeAlumnoFragment_to_datosRegistradosFragment, bundle)
+            } else {
+                val alertDialogBuilder = AlertDialog.Builder(requireContext())
+                alertDialogBuilder.setTitle("Datos Insuficientes")
+                alertDialogBuilder.setMessage("Por favor, ingresa todos los campos requeridos.")
+                alertDialogBuilder.setPositiveButton("OK") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                alertDialogBuilder.create().show()
             }
         }
 

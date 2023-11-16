@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.Navigation
 import com.tec.nuevoamanecer.databinding.FragmentRegistroBinding
 
@@ -61,6 +62,14 @@ class RegistroFragment : Fragment() {
                 bundle.putString("nivel", nivel)
 
                 Navigation.findNavController(binding.root).navigate(R.id.action_registroFragment_to_datosDeAlumnoFragment, bundle)
+            } else {
+                val alertDialogBuilder = AlertDialog.Builder(requireContext())
+                alertDialogBuilder.setTitle("Datos Insuficientes")
+                alertDialogBuilder.setMessage("Por favor, ingresa todos los campos requeridos.")
+                alertDialogBuilder.setPositiveButton("OK") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                alertDialogBuilder.create().show()
             }
         }
     }
