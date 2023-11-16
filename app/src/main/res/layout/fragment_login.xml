@@ -7,7 +7,7 @@
     tools:context=".LoginFragment">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imgViewFondo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
@@ -40,60 +40,55 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/linearLayout"
+        android:layout_width="700dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/txtViewInicia"
         app:layout_constraintBottom_toTopOf="@+id/btnSiguiente"
-        tools:layout_editor_absoluteX="1dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewInicia">
 
-        <LinearLayout
-            android:layout_width="700dp"
+        <TextView
+            android:id="@+id/txtViewCorreo"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center_horizontal">
+            android:fontFamily="@font/lilita_one"
+            android:textColor="@color/verde"
+            android:textSize="40sp"
+            android:text="@string/correo" />
 
-            <TextView
-                android:id="@+id/txtViewCorreo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/lilita_one"
-                android:textColor="@color/verde"
-                android:textSize="40sp"
-                android:text="@string/correo" />
+        <EditText
+            android:id="@+id/editTextCorreo"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/lilita_one"
+            android:paddingLeft="20dp"
+            android:textSize="40sp"
+            android:background="@drawable/edit_text_redondo"
+            android:inputType="textEmailAddress" />
 
-            <EditText
-                android:id="@+id/editTextCorreo"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/lilita_one"
-                android:paddingLeft="20dp"
-                android:textSize="40sp"
-                android:background="@drawable/edit_text_redondo"
-                android:inputType="textEmailAddress" />
+        <TextView
+            android:id="@+id/txtViewContraseña"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/lilita_one"
+            android:textColor="@color/verde"
+            android:textSize="40sp"
+            android:text="@string/contrasena" />
 
-            <TextView
-                android:id="@+id/txtViewContraseña"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/lilita_one"
-                android:textColor="@color/verde"
-                android:textSize="40sp"
-                android:text="@string/contrasena" />
-
-            <EditText
-                android:id="@+id/editTextContrasena"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/lilita_one"
-                android:paddingLeft="20dp"
-                android:textSize="40sp"
-                android:background="@drawable/edit_text_redondo"
-                android:inputType="textPassword" />
-        </LinearLayout>
+        <EditText
+            android:id="@+id/editTextContrasena"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/lilita_one"
+            android:paddingLeft="20dp"
+            android:textSize="40sp"
+            android:background="@drawable/edit_text_redondo"
+            android:inputType="textPassword" />
     </LinearLayout>
 
     <ImageButton

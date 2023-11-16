@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.Navigation
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -39,6 +41,12 @@ class EditaDatosAlumnoFragment : Fragment() {
     ): View? {
         _binding = FragmentEditaDatosAlumnoBinding.inflate(inflater,container,false)
 
+        val dropDownNivel = binding.dropDownNivel
+        val options = arrayOf("", "1", "2", "3", "4")
+        val adapter = ArrayAdapter(requireContext(), R.layout.item_nivel, options)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        dropDownNivel.adapter = adapter
+
         userRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
@@ -47,8 +55,7 @@ class EditaDatosAlumnoFragment : Fragment() {
                         binding.editTextNombre.setText(alumno.nombre)
                         binding.editTextApellidos.setText(alumno.apellidos)
                         binding.editTextFecha.setText(alumno.fechaNacimiento)
-                        binding.editTextNivel.setText(alumno.nivel)
-
+                        dropDownNivel.setSelection(options.indexOf(alumno.nivel))
                     }
                 }
             }
@@ -72,14 +79,24 @@ class EditaDatosAlumnoFragment : Fragment() {
             val nombre = binding.editTextNombre.text.toString()
             val apellidos = binding.editTextApellidos.text.toString()
             val fechaNacimiento = binding.editTextFecha.text.toString()
-            val nivel = binding.editTextNivel.text.toString()
+            val nivel = binding.dropDownNivel.selectedItem.toString()
 
-            userRef.child("nombre").setValue(nombre)
-            userRef.child("apellidos").setValue(apellidos)
-            userRef.child("fechaNacimiento").setValue(fechaNacimiento)
-            userRef.child("nivel").setValue(nivel)
+            if (nombre.isNotEmpty() && apellidos.isNotEmpty() && fechaNacimiento.isNotEmpty() && nivel.isNotEmpty()) {
+                userRef.child("nombre").setValue(nombre)
+                userRef.child("apellidos").setValue(apellidos)
+                userRef.child("fechaNacimiento").setValue(fechaNacimiento)
+                userRef.child("nivel").setValue(nivel)
 
-            Navigation.findNavController(view).navigate(R.id.action_editaDatosAlumnoFragment_to_terapeutaFragment)
+                Navigation.findNavController(view).navigate(R.id.action_editaDatosAlumnoFragment_to_terapeutaFragment)
+            } else {
+                val alertDialogBuilder = AlertDialog.Builder(requireContext())
+                alertDialogBuilder.setTitle("Datos Insuficientes")
+                alertDialogBuilder.setMessage("Por favor, ingresa todos los campos requeridos.")
+                alertDialogBuilder.setPositiveButton("OK") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                alertDialogBuilder.create().show()
+            }
         }
 
         binding.btnFolder.setOnClickListener{

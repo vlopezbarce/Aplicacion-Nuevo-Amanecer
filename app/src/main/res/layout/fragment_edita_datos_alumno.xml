@@ -105,12 +105,15 @@
                 android:layout_height="70dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/edit_text_redondo"
+                android:drawableRight="@drawable/icono_fecha_verde"
+                android:paddingEnd="20dp"
                 android:fontFamily="@font/lilita_one"
                 android:paddingLeft="20dp"
                 android:textSize="40sp"
                 android:inputType="none"
                 android:focusable="false"
                 android:clickable="true" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -128,16 +131,31 @@
                 android:textColor="@color/verde"
                 android:textSize="40sp" />
 
-            <EditText
-                android:id="@+id/editTextNivel"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/edit_text_redondo"
-                android:fontFamily="@font/lilita_one"
-                android:inputType="text"
-                android:paddingLeft="20dp"
-                android:textSize="40sp" />
+                android:layout_marginTop="10dp">
+
+                <Spinner
+                    android:id="@+id/dropDownNivel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edit_text_redondo"
+                    android:paddingLeft="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imgViewFlecha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/flecha_dropdown_verde"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="@+id/dropDownNivel"
+                    app:layout_constraintTop_toTopOf="@+id/dropDownNivel"
+                    app:layout_constraintBottom_toBottomOf="@+id/dropDownNivel" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
