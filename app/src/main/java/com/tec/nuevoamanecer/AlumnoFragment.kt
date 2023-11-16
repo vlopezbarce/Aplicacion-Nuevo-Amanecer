@@ -58,6 +58,7 @@ class AlumnoFragment : Fragment() {
         })
 
         binding.btnRegresar.setOnClickListener{
+            FirebaseAuth.getInstance().signOut()
             Navigation.findNavController(view).navigate(R.id.action_alumnoFragment_to_mainFragment)
         }
 

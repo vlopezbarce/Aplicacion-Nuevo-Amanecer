@@ -20,12 +20,14 @@ class AlumnoFragment2 : Fragment() {
 
     private lateinit var database: DatabaseReference
     private lateinit var userRef: DatabaseReference
+    private lateinit var auth: FirebaseAuth
     private lateinit var userUID: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         database = FirebaseDatabase.getInstance().reference
-        userUID = arguments?.getString("userUID").orEmpty()
+        auth = FirebaseAuth.getInstance()
+        userUID = auth.currentUser?.uid.orEmpty()
         userRef = database.child("Usuarios").child("Alumnos").child(userUID)
     }
 
@@ -56,6 +58,7 @@ class AlumnoFragment2 : Fragment() {
         })
 
         binding.btnRegresar.setOnClickListener{
+            FirebaseAuth.getInstance().signOut()
             Navigation.findNavController(view).navigate(R.id.action_alumnoFragment2_to_mainFragment)
         }
 

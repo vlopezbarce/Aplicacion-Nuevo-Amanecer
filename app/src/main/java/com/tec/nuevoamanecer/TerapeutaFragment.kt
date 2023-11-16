@@ -65,6 +65,7 @@ class TerapeutaFragment : Fragment() {
         })
 
         binding.btnRegresar.setOnClickListener{
+            FirebaseAuth.getInstance().signOut()
             Navigation.findNavController(view).navigate(R.id.action_terapeutaFragment_to_mainFragment)
         }
 

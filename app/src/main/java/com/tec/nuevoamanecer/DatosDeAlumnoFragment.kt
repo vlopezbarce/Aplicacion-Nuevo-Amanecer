@@ -8,9 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
-import com.google.firebase.database.DatabaseReference
 import com.tec.nuevoamanecer.databinding.FragmentDatosDeAlumnoBinding
-import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -19,13 +17,21 @@ class DatosDeAlumnoFragment : Fragment() {
     private var _binding : FragmentDatosDeAlumnoBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var database: DatabaseReference
-    private lateinit var userUID: String
+    private lateinit var email: String
+    private lateinit var password: String
+    private lateinit var nombre: String
+    private lateinit var apellidos: String
+    private lateinit var fechaNacimiento: String
+    private lateinit var nivel: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        database = FirebaseDatabase.getInstance().reference
-        userUID = arguments?.getString("userUID").orEmpty()
+        email = arguments?.getString("email").orEmpty()
+        password = arguments?.getString("password").orEmpty()
+        nombre = arguments?.getString("nombre").orEmpty()
+        apellidos = arguments?.getString("apellidos").orEmpty()
+        fechaNacimiento = arguments?.getString("fechaNacimiento").orEmpty()
+        nivel = arguments?.getString("nivel").orEmpty()
     }
 
     override fun onCreateView(
@@ -39,35 +45,50 @@ class DatosDeAlumnoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.editTextNombre.setText(nombre)
+        binding.editTextApellidos.setText(apellidos)
+        binding.editTextFecha.setText(fechaNacimiento)
+        binding.editTextNivel.setText(nivel)
+
+        binding.btnRegresar.setOnClickListener {
+            nombre = binding.editTextNombre.text.toString()
+            apellidos = binding.editTextApellidos.text.toString()
+            fechaNacimiento = binding.editTextFecha.text.toString()
+            nivel = binding.editTextNivel.text.toString()
+
+            val bundle = Bundle()
+            bundle.putString("email", email)
+            bundle.putString("password", password)
+            bundle.putString("nombre", nombre)
+            bundle.putString("apellidos", apellidos)
+            bundle.putString("fechaNacimiento", fechaNacimiento)
+            bundle.putString("nivel", nivel)
+
+            Navigation.findNavController(view).navigate(R.id.action_datosDeAlumnoFragment_to_registroFragment, bundle)
+        }
+
         binding.btnSiguiente.setOnClickListener {
-            saveStudentData()
+            nombre = binding.editTextNombre.text.toString()
+            apellidos = binding.editTextApellidos.text.toString()
+            fechaNacimiento = binding.editTextFecha.text.toString()
+            nivel = binding.editTextNivel.text.toString()
+
+            if (nombre.isNotEmpty() && apellidos.isNotEmpty() && fechaNacimiento.isNotEmpty() && nivel.isNotEmpty()) {
+                val bundle = Bundle()
+                bundle.putString("email", email)
+                bundle.putString("password", password)
+                bundle.putString("nombre", nombre)
+                bundle.putString("apellidos", apellidos)
+                bundle.putString("fechaNacimiento", fechaNacimiento)
+                bundle.putString("nivel", nivel)
+
+                Navigation.findNavController(view).navigate(R.id.action_datosDeAlumnoFragment_to_datosRegistradosFragment, bundle)
+            }
         }
 
         binding.editTextFecha.setOnClickListener {
             showDatePickerDialog()
         }
-    }
-
-    private fun saveStudentData() {
-        val nombre = binding.editTextNombre.text.toString()
-        val apellidos = binding.editTextApellidos.text.toString()
-        val fecha_nacimiento = binding.editTextFecha.text.toString()
-        val nivel = binding.editTextNivel.text.toString()
-
-        val alumno = Alumno(userUID, nombre, apellidos, fecha_nacimiento, nivel)
-
-        // Store data under 'Usuario > UID > Alumno'
-        database.child("Usuarios").child("Usuario").child(userUID).setValue("Alumno")
-        database.child("Usuarios").child("Alumnos").child(userUID).setValue(alumno)
-            .addOnSuccessListener {
-                // Handle success, e.g., navigate to next fragment
-                val bundle = Bundle()
-                bundle.putString("userUID", userUID)
-                Navigation.findNavController(binding.root).navigate(R.id.action_datosDeAlumnoFragment_to_datosRegistradosFragment, bundle)
-            }
-            .addOnFailureListener {
-                // Handle failure, e.g., show error message
-            }
     }
 
     private fun showDatePickerDialog() {
