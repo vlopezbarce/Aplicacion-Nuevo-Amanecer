@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/jungle"
+    tools:context=".Game2Fragment">
+
+    <ImageView
+        android:id="@+id/imagenFondo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/zoo2"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <TextView
+        android:id="@+id/Selecciona"
+        android:layout_width="526dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="377dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="377dp"
+        android:layout_marginBottom="672dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="SELECCIONA ..."
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="55dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/Chango"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="275dp"
+        android:layout_marginTop="210dp"
+        android:layout_marginEnd="750dp"
+        android:layout_marginBottom="335dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/chango"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/imagenFondo"
+        app:layout_constraintEnd_toEndOf="@+id/imagenFondo"
+        app:layout_constraintStart_toStartOf="@+id/imagenFondo"
+        app:layout_constraintTop_toTopOf="@+id/imagenFondo" />
+
+    <ImageButton
+        android:id="@+id/Rana"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="750dp"
+        android:layout_marginTop="210dp"
+        android:layout_marginEnd="275dp"
+        android:layout_marginBottom="335dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/rana"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/imagenFondo"
+        app:layout_constraintEnd_toEndOf="@+id/imagenFondo"
+        app:layout_constraintStart_toStartOf="@+id/imagenFondo"
+        app:layout_constraintTop_toTopOf="@+id/imagenFondo" />
+
+    <ImageButton
+        android:id="@+id/Tigre"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="515dp"
+        android:layout_marginTop="505dp"
+        android:layout_marginEnd="515dp"
+        android:layout_marginBottom="45dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/tigre"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/imagenFondo"
+        app:layout_constraintEnd_toEndOf="@+id/imagenFondo"
+        app:layout_constraintStart_toStartOf="@+id/imagenFondo"
+        app:layout_constraintTop_toTopOf="@+id/imagenFondo" />
+
+    <ImageButton
+        android:id="@+id/Cerdo"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="950dp"
+        android:layout_marginTop="450dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="75dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/cerdo"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/imagenFondo"
+        app:layout_constraintEnd_toEndOf="@+id/imagenFondo"
+        app:layout_constraintStart_toStartOf="@+id/imagenFondo"
+        app:layout_constraintTop_toTopOf="@+id/imagenFondo" />
+
+    <ImageButton
+        android:id="@+id/Vaca"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="450dp"
+        android:layout_marginEnd="950dp"
+        android:layout_marginBottom="75dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/vaca"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/imagenFondo"
+        app:layout_constraintEnd_toEndOf="@+id/imagenFondo"
+        app:layout_constraintStart_toStartOf="@+id/imagenFondo"
+        app:layout_constraintTop_toTopOf="@+id/imagenFondo" />
+
+    <TextView
+        android:id="@+id/textAnimal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:text="ANIMAL"
+        android:textColor="@color/white"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:background="@color/gold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Selecciona" />
+
+    <ImageButton
+        android:id="@+id/btnRegresar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/transparente"
+        android:scaleType="fitCenter"
+        android:src="@drawable/flecha_atras_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

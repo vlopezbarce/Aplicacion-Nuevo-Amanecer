@@ -95,7 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/lilita_one"
-            android:text="@string/juego_1"
+            android:text="@string/burbujas"
             android:textColor="@color/black"
             android:textSize="40sp" />
 
@@ -105,7 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/lilita_one"
-            android:text="@string/juego_2"
+            android:text="@string/animales"
             android:textColor="@color/black"
             android:textSize="40sp" />
 

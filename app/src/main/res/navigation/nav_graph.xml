@@ -97,6 +97,9 @@
         <action
             android:id="@+id/action_alumnoFragment_to_game1Fragment"
             app:destination="@id/game1Fragment" />
+        <action
+            android:id="@+id/action_alumnoFragment_to_game2Fragment"
+            app:destination="@id/game2Fragment" />
     </fragment>
     <fragment
         android:id="@+id/terapeutaFragment"
@@ -167,5 +170,14 @@
         <action
             android:id="@+id/action_alumnoFragment4_to_mainFragment"
             app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/game2Fragment"
+        android:name="com.tec.nuevoamanecer.Game2Fragment"
+        android:label="fragment_game_2"
+        tools:layout="@layout/fragment_game_2" >
+        <action
+            android:id="@+id/action_game2Fragment_to_alumnoFragment"
+            app:destination="@id/alumnoFragment" />
     </fragment>
 </navigation>

@@ -67,6 +67,9 @@ class AlumnoFragment : Fragment() {
             Navigation.findNavController(view).navigate(R.id.action_alumnoFragment_to_game1Fragment)
         }
 
+        binding.btnJuego2.setOnClickListener{
+            Navigation.findNavController(view).navigate(R.id.action_alumnoFragment_to_game2Fragment)
+        }
 
     }
 

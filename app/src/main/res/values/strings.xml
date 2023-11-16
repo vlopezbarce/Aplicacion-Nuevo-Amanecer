@@ -34,6 +34,8 @@
     <string name="tablero">Tablero</string>
 
     <!-- Juegos -->
+    <string name="burbujas">Burbujas</string>
+    <string name="animales">Animales</string>
     <string name="juego_1">Juego 1</string>
     <string name="juego_2">Juego 2</string>
 
