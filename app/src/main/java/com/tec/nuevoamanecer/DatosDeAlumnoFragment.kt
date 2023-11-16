@@ -40,16 +40,17 @@ class DatosDeAlumnoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentDatosDeAlumnoBinding.inflate(inflater,container,false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         binding.editTextNombre.setText(nombre)
         binding.editTextApellidos.setText(apellidos)
         binding.editTextFecha.setText(fechaNacimiento)
         binding.editTextNivel.setText(nivel)
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.btnRegresar.setOnClickListener {
             nombre = binding.editTextNombre.text.toString()

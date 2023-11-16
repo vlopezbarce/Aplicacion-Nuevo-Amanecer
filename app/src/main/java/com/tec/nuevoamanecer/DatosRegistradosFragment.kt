@@ -43,17 +43,18 @@ class DatosRegistradosFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentDatosRegistradosBinding.inflate(inflater,container,false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         binding.txtViewNombre.text = nombre
         binding.txtViewApellidos.text = apellidos
         binding.txtViewFecha.text = fechaNacimiento
         binding.txtViewNivel.text = nivel
         binding.txtViewCorreo.text = email
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.btnRegresar.setOnClickListener{
             val bundle = Bundle()

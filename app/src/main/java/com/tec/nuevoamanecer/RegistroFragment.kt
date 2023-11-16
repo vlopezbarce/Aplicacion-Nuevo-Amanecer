@@ -35,14 +35,15 @@ class RegistroFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentRegistroBinding.inflate(inflater,container,false)
+
+        binding.editTextCorreo.setText(email)
+        binding.editTextContrasena.setText(password)
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.editTextCorreo.setText(email)
-        binding.editTextContrasena.setText(password)
 
         binding.btnRegresar.setOnClickListener{
             Navigation.findNavController(view).navigate(R.id.action_registroFragment_to_mainFragment)

@@ -43,11 +43,6 @@ class TerapeutaFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentTerapeutaBinding.inflate(inflater,container,false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         userRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -64,18 +59,24 @@ class TerapeutaFragment : Fragment() {
             }
         })
 
-        binding.btnRegresar.setOnClickListener{
-            FirebaseAuth.getInstance().signOut()
-            Navigation.findNavController(view).navigate(R.id.action_terapeutaFragment_to_mainFragment)
-        }
-
-        listViewAlumnos = view.findViewById(R.id.listViewAlumnos)
+        listViewAlumnos = binding.listViewAlumnos
         alumnoAdapter = AlumnoAdapter(requireContext(), alumnosList)
         listViewAlumnos.adapter = alumnoAdapter
 
         cargarAlumnos()
 
         alumnoAdapter.notifyDataSetChanged()
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.btnRegresar.setOnClickListener{
+            FirebaseAuth.getInstance().signOut()
+            Navigation.findNavController(view).navigate(R.id.action_terapeutaFragment_to_mainFragment)
+        }
     }
 
     private fun cargarAlumnos() {

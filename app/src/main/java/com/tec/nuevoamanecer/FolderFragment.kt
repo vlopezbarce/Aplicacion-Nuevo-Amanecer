@@ -50,17 +50,18 @@ class FolderFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentFolderBinding.inflate(inflater,container,false)
+
+        listViewImagenes = binding.listViewImagenes
+        imagenAdapter = ImagenAdapter(requireContext(), imagenesList, userUID)
+        listViewImagenes.adapter = imagenAdapter
+
+        cargarImagenes()
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        listViewImagenes = view.findViewById(R.id.listViewImagenes)
-        imagenAdapter = ImagenAdapter(requireContext(), imagenesList, userUID)
-        listViewImagenes.adapter = imagenAdapter
-
-        cargarImagenes()
 
         val imagenGaleria = registerForActivityResult(
             ActivityResultContracts.GetContent(),

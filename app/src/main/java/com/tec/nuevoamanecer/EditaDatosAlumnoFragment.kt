@@ -38,11 +38,6 @@ class EditaDatosAlumnoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentEditaDatosAlumnoBinding.inflate(inflater,container,false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         userRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -62,6 +57,12 @@ class EditaDatosAlumnoFragment : Fragment() {
 
             }
         })
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.btnRegresar.setOnClickListener{
             Navigation.findNavController(view).navigate(R.id.action_editaDatosAlumnoFragment_to_terapeutaFragment)

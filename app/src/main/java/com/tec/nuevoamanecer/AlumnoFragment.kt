@@ -36,11 +36,6 @@ class AlumnoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentAlumnoBinding.inflate(inflater,container,false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         userRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -56,6 +51,12 @@ class AlumnoFragment : Fragment() {
 
             }
         })
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.btnRegresar.setOnClickListener{
             FirebaseAuth.getInstance().signOut()
