@@ -7,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.tec.nuevoamanecer.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
@@ -42,9 +45,6 @@ class LoginFragment : Fragment() {
             loginUser()
         }
 
-        binding.btnAdmin.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_terapeutaFragment)
-        }
     }
 
     private fun loginUser() {
@@ -66,22 +66,53 @@ class LoginFragment : Fragment() {
 
     private fun checkUserTypeAndNavigate(userUID: String) {
         val database = FirebaseDatabase.getInstance().reference
-        database.child("Usuarios").child("Usuario").child(userUID).get()
-            .addOnSuccessListener { dataSnapshot ->
-                val userType = dataSnapshot.getValue(String::class.java)
-                when (userType) {
-                    "Alumno" -> Navigation.findNavController(binding.root).navigate(R.id.action_loginFragment_to_alumnoFragment)
-                    "Terapeuta" -> Navigation.findNavController(binding.root).navigate(R.id.action_loginFragment_to_terapeutaFragment)
-                    else -> {
-                        // Handle unexpected user type
-                        throw Exception("Unexpected user type")
+        val typeRef = database.child("Usuarios").child("Usuario").child(userUID)
+
+        typeRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    val userType = dataSnapshot.getValue(String::class.java)
+
+                    when (userType) {
+                        "Alumno" -> {
+                            val nivelRef = database.child("Usuarios").child("Alumnos").child(userUID).child("nivel")
+
+                            nivelRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                                override fun onDataChange(snapshot: DataSnapshot) {
+                                    val nivel = snapshot.getValue(String::class.java)?.toInt()
+
+                                    when (nivel) {
+                                        1 -> Navigation.findNavController(binding.root)
+                                            .navigate(R.id.action_loginFragment_to_alumnoFragment)
+                                        2 -> Navigation.findNavController(binding.root)
+                                            .navigate(R.id.action_loginFragment_to_alumnoFragment2)
+                                        3 -> Navigation.findNavController(binding.root)
+                                            .navigate(R.id.action_loginFragment_to_alumnoFragment3)
+                                        4 -> Navigation.findNavController(binding.root)
+                                            .navigate(R.id.action_loginFragment_to_alumnoFragment4)
+                                    }
+                                }
+
+                                override fun onCancelled(error: DatabaseError) {
+
+                                }
+                            })
+                        }
+                        "Terapeuta" -> Navigation.findNavController(binding.root)
+                            .navigate(R.id.action_loginFragment_to_terapeutaFragment)
+                        else -> {
+                            throw Exception("Unexpected user type")
+                        }
                     }
                 }
             }
-            .addOnFailureListener {
-                // Handle failure to retrieve data
+
+            override fun onCancelled(databaseError: DatabaseError) {
+
             }
+        })
     }
+
 
     companion object {
         @JvmStatic

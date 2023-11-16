@@ -6,5 +6,5 @@ data class Alumno(val id: String = "",
                   val fechaNacimiento: String = "",
                   val nivel: String = "",
     ) {
-    constructor() : this("", "", "", "")
+    constructor() : this("", "", "", "", "")
 }

@@ -12,10 +12,10 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.tec.nuevoamanecer.databinding.FragmentAlumnoBinding
+import com.tec.nuevoamanecer.databinding.FragmentAlumno2Binding
 
-class AlumnoFragment : Fragment() {
-    private var _binding : FragmentAlumnoBinding? = null
+class AlumnoFragment2 : Fragment() {
+    private var _binding : FragmentAlumno2Binding? = null
     private val binding get() = _binding!!
 
     private lateinit var database: DatabaseReference
@@ -35,7 +35,7 @@ class AlumnoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentAlumnoBinding.inflate(inflater,container,false)
+        _binding = FragmentAlumno2Binding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -59,11 +59,7 @@ class AlumnoFragment : Fragment() {
 
         binding.btnRegresar.setOnClickListener{
             FirebaseAuth.getInstance().signOut()
-            Navigation.findNavController(view).navigate(R.id.action_alumnoFragment_to_mainFragment)
-        }
-
-        binding.btnJuego1.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_alumnoFragment_to_game1Fragment)
+            Navigation.findNavController(view).navigate(R.id.action_alumnoFragment2_to_mainFragment)
         }
 
 

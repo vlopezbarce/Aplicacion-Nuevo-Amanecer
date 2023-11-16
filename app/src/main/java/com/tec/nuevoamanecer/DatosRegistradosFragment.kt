@@ -7,26 +7,35 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.tec.nuevoamanecer.databinding.FragmentDatosRegistradosBinding
 
 class DatosRegistradosFragment : Fragment() {
     private var _binding : FragmentDatosRegistradosBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var email: String
+    private lateinit var password: String
+    private lateinit var nombre: String
+    private lateinit var apellidos: String
+    private lateinit var fechaNacimiento: String
+    private lateinit var nivel: String
+
+    private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
-    private lateinit var userRef: DatabaseReference
-    private lateinit var userUID: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        email = arguments?.getString("email").orEmpty()
+        password = arguments?.getString("password").orEmpty()
+        nombre = arguments?.getString("nombre").orEmpty()
+        apellidos = arguments?.getString("apellidos").orEmpty()
+        fechaNacimiento = arguments?.getString("fechaNacimiento").orEmpty()
+        nivel = arguments?.getString("nivel").orEmpty()
+
+        auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().reference
-        userUID = arguments?.getString("userUID").orEmpty()
-        userRef = database.child("Usuarios").child("Alumnos").child(userUID)
     }
 
     override fun onCreateView(
@@ -40,36 +49,56 @@ class DatosRegistradosFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        userRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    val alumno = snapshot.getValue(Alumno::class.java)
-                    if (alumno != null) {
-                        binding.txtViewNombre.text = alumno.nombre
-                        binding.txtViewApellidos.text = alumno.apellidos
-                        binding.txtViewFecha.text = alumno.fechaNacimiento
-                        binding.txtViewNivel.text = alumno.nivel
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-        })
-
-        val user = FirebaseAuth.getInstance().currentUser
-        if (user != null) {
-            binding.txtViewCorreo.text = user.email
-        }
+        binding.txtViewNombre.text = nombre
+        binding.txtViewApellidos.text = apellidos
+        binding.txtViewFecha.text = fechaNacimiento
+        binding.txtViewNivel.text = nivel
+        binding.txtViewCorreo.text = email
 
         binding.btnRegresar.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_datosRegistradosFragment_to_datosDeAlumnoFragment)
+            val bundle = Bundle()
+            bundle.putString("email", email)
+            bundle.putString("password", password)
+            bundle.putString("nombre", nombre)
+            bundle.putString("apellidos", apellidos)
+            bundle.putString("fechaNacimiento", fechaNacimiento)
+            bundle.putString("nivel", nivel)
+
+            Navigation.findNavController(view).navigate(R.id.action_datosRegistradosFragment_to_datosDeAlumnoFragment, bundle)
         }
 
         binding.btnSiguiente.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_datosRegistradosFragment_to_alumnoFragment)
+            registerUser()
         }
+    }
+
+    private fun registerUser() {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val userUID = auth.currentUser?.uid
+                    if (userUID != null) {
+                        val alumno = Alumno(userUID, nombre, apellidos, fechaNacimiento, nivel)
+
+                        database.child("Usuarios").child("Usuario").child(userUID).setValue("Alumno")
+                        database.child("Usuarios").child("Alumnos").child(userUID).setValue(alumno)
+                            .addOnSuccessListener {
+                                when (nivel.toInt()) {
+                                    1 -> Navigation.findNavController(binding.root)
+                                        .navigate(R.id.action_datosRegistradosFragment_to_alumnoFragment)
+                                    2 -> Navigation.findNavController(binding.root)
+                                        .navigate(R.id.action_datosRegistradosFragment_to_alumnoFragment2)
+                                    3 -> Navigation.findNavController(binding.root)
+                                        .navigate(R.id.action_datosRegistradosFragment_to_alumnoFragment3)
+                                    4 -> Navigation.findNavController(binding.root)
+                                        .navigate(R.id.action_datosRegistradosFragment_to_alumnoFragment4)
+                                }
+                            }
+                            .addOnFailureListener {
+                            }
+                    }
+                }
+            }
     }
 
     companion object {

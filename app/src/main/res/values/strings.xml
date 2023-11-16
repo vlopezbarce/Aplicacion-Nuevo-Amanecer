@@ -28,12 +28,13 @@
     <string name="dato">dato</string>
 
     <!-- Alumno -->
-    <string name="hola_usuario">Hola Usuario</string>
+    <string name="hola">Hola</string>
+    <string name="usuario">Usuario</string>
     <string name="selecciona_juego">SELECCIONA EL JUEGO...</string>
     <string name="tablero">Tablero</string>
 
     <!-- Terapeuta -->
-    <string name="hola_terapeuta">Hola Terapeuta</string>
+    <string name="terapeuta">Terapeuta</string>
     <string name="buscar_alumno">BUSCAR ALUMNO...</string>
     <string name="nombre_alumno">NOMBRE DEL ALUMNO</string>
     <string name="editar">EDITAR</string>

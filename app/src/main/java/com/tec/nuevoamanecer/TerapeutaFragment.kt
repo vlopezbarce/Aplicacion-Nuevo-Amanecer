@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import androidx.navigation.Navigation
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -24,10 +25,17 @@ class TerapeutaFragment : Fragment() {
     private val alumnosList = mutableListOf<Alumno>()
     private lateinit var listViewAlumnos: ListView
 
+    private lateinit var userRef: DatabaseReference
+    private lateinit var auth: FirebaseAuth
+    private lateinit var userUID: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         database = FirebaseDatabase.getInstance().reference
+        auth = FirebaseAuth.getInstance()
+        userUID = auth.currentUser?.uid.orEmpty()
         alumnosRef = database.child("Usuarios").child("Alumnos")
+        userRef = database.child("Usuarios").child("Terapeutas").child(userUID)
     }
 
     override fun onCreateView(
@@ -41,7 +49,23 @@ class TerapeutaFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        userRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val terapeuta = snapshot.getValue(Terapeuta::class.java)
+                    if (terapeuta != null) {
+                        binding.txtViewNombre.text = terapeuta.nombre
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+
         binding.btnRegresar.setOnClickListener{
+            FirebaseAuth.getInstance().signOut()
             Navigation.findNavController(view).navigate(R.id.action_terapeutaFragment_to_mainFragment)
         }
 

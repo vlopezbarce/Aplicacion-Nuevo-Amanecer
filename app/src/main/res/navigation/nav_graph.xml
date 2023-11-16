@@ -31,6 +31,15 @@
         <action
             android:id="@+id/action_loginFragment_to_terapeutaFragment"
             app:destination="@id/terapeutaFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_alumnoFragment2"
+            app:destination="@id/alumnoFragment2" />
+        <action
+            android:id="@+id/action_loginFragment_to_alumnoFragment3"
+            app:destination="@id/alumnoFragment3" />
+        <action
+            android:id="@+id/action_loginFragment_to_alumnoFragment4"
+            app:destination="@id/alumnoFragment4" />
     </fragment>
     <fragment
         android:id="@+id/registroFragment"
@@ -67,6 +76,15 @@
         <action
             android:id="@+id/action_datosRegistradosFragment_to_datosDeAlumnoFragment"
             app:destination="@id/datosDeAlumnoFragment" />
+        <action
+            android:id="@+id/action_datosRegistradosFragment_to_alumnoFragment2"
+            app:destination="@id/alumnoFragment2" />
+        <action
+            android:id="@+id/action_datosRegistradosFragment_to_alumnoFragment3"
+            app:destination="@id/alumnoFragment3" />
+        <action
+            android:id="@+id/action_datosRegistradosFragment_to_alumnoFragment4"
+            app:destination="@id/alumnoFragment4" />
     </fragment>
     <fragment
         android:id="@+id/alumnoFragment"
@@ -76,6 +94,9 @@
         <action
             android:id="@+id/action_alumnoFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_alumnoFragment_to_game1Fragment"
+            app:destination="@id/game1Fragment" />
     </fragment>
     <fragment
         android:id="@+id/terapeutaFragment"
@@ -110,5 +131,41 @@
         <action
             android:id="@+id/action_folderFragment_to_editaDatosAlumnoFragment"
             app:destination="@id/editaDatosAlumnoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/game1Fragment"
+        android:name="com.tec.nuevoamanecer.Game1Fragment"
+        android:label="fragment_game_1"
+        tools:layout="@layout/fragment_game_1" >
+        <action
+            android:id="@+id/action_game1Fragment_to_alumnoFragment"
+            app:destination="@id/alumnoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/alumnoFragment2"
+        android:name="com.tec.nuevoamanecer.AlumnoFragment2"
+        android:label="fragment_alumno2"
+        tools:layout="@layout/fragment_alumno2" >
+        <action
+            android:id="@+id/action_alumnoFragment2_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/alumnoFragment3"
+        android:name="com.tec.nuevoamanecer.AlumnoFragment3"
+        android:label="fragment_alumno3"
+        tools:layout="@layout/fragment_alumno3" >
+        <action
+            android:id="@+id/action_alumnoFragment3_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/alumnoFragment4"
+        android:name="com.tec.nuevoamanecer.AlumnoFragment4"
+        android:label="fragment_alumno4"
+        tools:layout="@layout/fragment_alumno4" >
+        <action
+            android:id="@+id/action_alumnoFragment4_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
 </navigation>
