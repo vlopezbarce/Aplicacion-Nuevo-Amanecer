@@ -48,7 +48,7 @@ class DatosDeAlumnoFragment : Fragment() {
 
         val dropDownNivel = binding.dropDownNivel
         val options = arrayOf("", "1", "2", "3", "4")
-        val adapter = ArrayAdapter(requireContext(), R.layout.item_nivel, options)
+        val adapter = ArrayAdapter(requireContext(), R.layout.item_nivel_registro, options)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         dropDownNivel.adapter = adapter
         dropDownNivel.setSelection(options.indexOf(nivel))

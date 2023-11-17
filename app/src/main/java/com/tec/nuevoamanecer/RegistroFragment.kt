@@ -48,11 +48,10 @@ class RegistroFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.editTextCorreo.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {
-            }
+            override fun beforeTextChanged(text: CharSequence?, start: Int, count: Int, after: Int) {}
 
-            override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
-                val email = charSequence?.toString() ?: ""
+            override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
+                val email = text?.toString() ?: ""
                 if (isValidEmail(email)) {
                     binding.editTextCorreo.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icono_check, 0)
                 } else {
@@ -60,16 +59,14 @@ class RegistroFragment : Fragment() {
                 }
             }
 
-            override fun afterTextChanged(editable: Editable?) {
-            }
+            override fun afterTextChanged(text: Editable?) {}
         })
 
         binding.editTextContrasena.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {
-            }
+            override fun beforeTextChanged(text: CharSequence?, start: Int, count: Int, after: Int) {}
 
-            override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
-                val password = charSequence?.toString() ?: ""
+            override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
+                val password = text?.toString() ?: ""
                 if (isValidPassword(password)) {
                     binding.editTextContrasena.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icono_check, 0)
                 } else {
@@ -77,8 +74,7 @@ class RegistroFragment : Fragment() {
                 }
             }
 
-            override fun afterTextChanged(editable: Editable?) {
-            }
+            override fun afterTextChanged(text: Editable?) {}
         })
 
         binding.btnRegresar.setOnClickListener{

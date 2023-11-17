@@ -1,6 +1,8 @@
 package com.tec.nuevoamanecer
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -72,6 +74,16 @@ class TerapeutaFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.editTextBuscar.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(text: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
+                alumnoAdapter.filter.filter(text)
+            }
+
+            override fun afterTextChanged(text: Editable?) {}
+        })
 
         binding.btnRegresar.setOnClickListener{
             FirebaseAuth.getInstance().signOut()

@@ -43,7 +43,7 @@ class EditaDatosAlumnoFragment : Fragment() {
 
         val dropDownNivel = binding.dropDownNivel
         val options = arrayOf("", "1", "2", "3", "4")
-        val adapter = ArrayAdapter(requireContext(), R.layout.item_nivel, options)
+        val adapter = ArrayAdapter(requireContext(), R.layout.item_nivel_terapeuta, options)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         dropDownNivel.adapter = adapter
 
