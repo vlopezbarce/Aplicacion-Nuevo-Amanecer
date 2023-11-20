@@ -38,6 +38,10 @@
     <string name="animales">Animales</string>
     <string name="juego_1">Juego 1</string>
     <string name="juego_2">Juego 2</string>
+    <string name="juego_3">Juego 3</string>
+    <string name="juego_4">Juego 4</string>
+    <string name="juego_5">Juego 5</string>
+    <string name="juego_6">Juego 6</string>
 
     <!-- Terapeuta -->
     <string name="terapeuta">Terapeuta</string>

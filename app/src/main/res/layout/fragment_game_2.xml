@@ -16,22 +16,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="0dp" />
 
-    <TextView
-        android:id="@+id/Selecciona"
-        android:layout_width="526dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="377dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="377dp"
-        android:layout_marginBottom="672dp"
-        android:fontFamily="sans-serif-condensed"
-        android:text="SELECCIONA ..."
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="55dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <nl.dionsegijn.konfetti.KonfettiView
+        android:id="@+id/viewKonfetti"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -115,19 +103,43 @@
         app:layout_constraintStart_toStartOf="@+id/imagenFondo"
         app:layout_constraintTop_toTopOf="@+id/imagenFondo" />
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="601dp"
+        android:layout_height="213dp"
+        android:layout_marginStart="326dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/nube" />
+
+    <TextView
+        android:id="@+id/Selecciona"
+        android:layout_width="526dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="368dp"
+        android:layout_marginTop="41dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="selecciona ..."
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="55dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textAnimal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="540dp"
+        android:layout_marginTop="100dp"
         android:fontFamily="sans-serif-condensed"
-        android:text="ANIMAL"
-        android:textColor="@color/white"
-        android:textSize="50sp"
+        android:text=" animal "
+        android:textColor="@color/black"
+        android:textSize="55sp"
         android:textStyle="bold"
-        android:background="@color/gold"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Selecciona" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/btnRegresar"

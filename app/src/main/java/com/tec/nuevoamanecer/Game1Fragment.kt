@@ -12,6 +12,13 @@ import androidx.fragment.app.Fragment
 import kotlin.random.Random
 import androidx.navigation.Navigation
 import com.tec.nuevoamanecer.databinding.FragmentGame1Binding
+import android.graphics.Color
+import androidx.appcompat.app.AppCompatActivity
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.TextView
+import nl.dionsegijn.konfetti.models.Shape
+import nl.dionsegijn.konfetti.models.Size
 
 class Game1Fragment : Fragment() {
 
@@ -19,6 +26,7 @@ class Game1Fragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var progressBar: ProgressBar
+    private lateinit var viewKonfetti: nl.dionsegijn.konfetti.KonfettiView
     private var conta = 0
 
     override fun onCreateView(
@@ -33,23 +41,27 @@ class Game1Fragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         progressBar = binding.progressBar
+        viewKonfetti = binding.viewKonfetti
         val burbuja = binding.imagenBurbuja
         val contador = binding.textContador
         val mp = MediaPlayer.create(requireContext(), R.raw.sample)
+        val mpCheer = MediaPlayer.create(requireContext(), R.raw.cheer)
 
         burbuja.setOnClickListener {
-            if (conta < 95) {
-                conta += 5
+
+            if (conta < 84) {
+                conta += 6
                 progressBar.progress = conta
 
                 mp.start()
-                val random = Random.Default
+                val random = java.util.Random()
 
-                val sizeBase = 300
+                val sizeBase = 300;
                 val change = random.nextInt(300)
                 val newSize = sizeBase + change
                 burbuja.layoutParams.width = newSize
                 burbuja.layoutParams.height = newSize
+
 
                 val maxWidth = resources.displayMetrics.widthPixels - burbuja.width
                 val maxHeight = resources.displayMetrics.heightPixels - burbuja.height
@@ -62,15 +74,30 @@ class Game1Fragment : Fragment() {
                 params.topMargin = newMarginTop
                 burbuja.layoutParams = params
 
+
                 val temp = contador.text.toString().toInt()
                 contador.text = (temp + 1).toString()
                 Log.e(conta.toString(), "conta")
-            } else {
-                contador.text = "20"
-                conta += 5
+
+            } else if (conta == 84){
+                contador.text = "15"
+                conta = 100
                 progressBar.progress = conta
 
                 burbuja.visibility = View.INVISIBLE
+
+                mpCheer.start()
+                viewKonfetti.build()
+                    .addColors(Color.YELLOW, Color.BLUE, Color.GREEN, Color.MAGENTA)
+                    .setDirection(0.0, 359.0)
+                    .setSpeed(1f, 5f)
+                    .setFadeOutEnabled(true)
+                    .setTimeToLive(2000L)
+                    .addShapes(Shape.Square, Shape.Circle)
+                    .addSizes(Size(12))
+                    .setPosition(-50f, viewKonfetti.width + 50f, -50f, viewKonfetti.height + 50f)
+                    .streamFor(300, 3000L)
+
             }
         }
 

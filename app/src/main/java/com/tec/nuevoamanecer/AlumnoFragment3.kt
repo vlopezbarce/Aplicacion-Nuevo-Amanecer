@@ -62,6 +62,23 @@ class AlumnoFragment3 : Fragment() {
             Navigation.findNavController(view).navigate(R.id.action_alumnoFragment3_to_mainFragment)
         }
 
+        binding.btnJuego1.setOnClickListener{
+            Navigation.findNavController(view).navigate(R.id.action_alumnoFragment3_to_game1Fragment)
+        }
+
+        binding.btnJuego2.setOnClickListener{
+            Navigation.findNavController(view).navigate(R.id.action_alumnoFragment3_to_game2Fragment)
+        }
+
+        binding.btnJuego3.setOnClickListener{
+            Navigation.findNavController(view).navigate(R.id.action_alumnoFragment3_to_game3Fragment)
+        }
+
+        binding.btnJuego4.setOnClickListener{
+            Navigation.findNavController(view).navigate(R.id.action_alumnoFragment3_to_game4Fragment)
+        }
+
+
 
     }
 
