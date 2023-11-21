@@ -45,6 +45,7 @@ class TableroFragment : Fragment() {
                             imageUrl,
                             name,
                             description
+
                         )
                     }
                 }
