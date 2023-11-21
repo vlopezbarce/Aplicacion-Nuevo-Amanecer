@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.Navigation
 import com.google.firebase.database.DataSnapshot
@@ -70,7 +71,13 @@ class EditaDatosAlumnoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.btnTablero.setOnClickListener {
+            // Show a Toast message
+            Toast.makeText(context, "User ID: $userUID", Toast.LENGTH_SHORT).show()
 
+            // Navigate to TableroFragment
+            Navigation.findNavController(view).navigate(R.id.action_editaDatosAlumnoFragment_to_fragmentTablero)
+        }
         binding.btnRegresar.setOnClickListener{
             Navigation.findNavController(view).navigate(R.id.action_editaDatosAlumnoFragment_to_terapeutaFragment)
         }

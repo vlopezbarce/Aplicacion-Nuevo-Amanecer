@@ -4,25 +4,33 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.GridLayout
 import android.widget.ImageButton
+import androidx.fragment.app.Fragment
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import java.util.*
 
-class Tablero : AppCompatActivity() {
+class TableroFragment : Fragment() {
 
-    private val uidAlumno = "studentUID" // Replace with the actual student UID
-    private val databaseRef =
-        FirebaseDatabase.getInstance().getReference("Tablero").child(uidAlumno)
+    private lateinit var uidAlumno: String // Now declared as lateinit
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        uidAlumno = arguments?.getString("userUID").orEmpty() // Retrieve the UID
+    }
+    private val databaseRef by lazy {
+        FirebaseDatabase.getInstance().getReference("Usuarios").child("Tablero").child(uidAlumno)
+    }
+
     private val storageRef = FirebaseStorage.getInstance().reference.child("images")
     private lateinit var gridLayout: GridLayout
 
-    // Use a result launcher to handle the image picker result
     private val imagePickerResultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -30,9 +38,8 @@ class Tablero : AppCompatActivity() {
                     val selectedButton =
                         gridLayout.findViewWithTag<Button>(currentSelectedButtonTag)
                     uploadImageToFirebaseStorage(uri) { uid, imageUrl ->
-                        // Image uploaded successfully, now update the database
-                        val name = findViewById<EditText>(R.id.first_input).text.toString()
-                        val description = findViewById<EditText>(R.id.second_input).text.toString()
+                        val name = view?.findViewById<EditText>(R.id.first_input)?.text.toString()
+                        val description = view?.findViewById<EditText>(R.id.second_input)?.text.toString()
                         storeImageMetadataToDatabase(
                             selectedButton.tag.toString(),
                             imageUrl,
@@ -46,21 +53,25 @@ class Tablero : AppCompatActivity() {
 
     private var currentSelectedButtonTag: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_tablero)
 
-        gridLayout = findViewById(R.id.button_grid)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_tablero, container, false)
 
-        assignUidsToButtons()
+        gridLayout = view.findViewById(R.id.button_grid)
+        assignUidsToButtons(view)
 
-        val submitButton = findViewById<ImageButton>(R.id.btnSiguiente)
+        val submitButton = view.findViewById<ImageButton>(R.id.btnSiguiente)
         submitButton.setOnClickListener {
-            submitData()
+            submitData(view)
         }
+
+        return view
     }
 
-    private fun assignUidsToButtons() {
+    private fun assignUidsToButtons(view: View) {
         databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val uids = dataSnapshot.children.mapNotNull { it.key }
@@ -86,11 +97,10 @@ class Tablero : AppCompatActivity() {
     private fun checkButtonData(button: Button, uidButton: String) {
         databaseRef.child(uidButton).get().addOnSuccessListener { dataSnapshot ->
             if (dataSnapshot.exists()) {
-                // Button already has an image and data, populate the fields for editing
                 val description = dataSnapshot.child("Description").value as String?
                 val name = dataSnapshot.child("name").value as String?
-                findViewById<EditText>(R.id.first_input).setText(name)
-                findViewById<EditText>(R.id.second_input).setText(description)
+                view?.findViewById<EditText>(R.id.first_input)?.setText(name)
+                view?.findViewById<EditText>(R.id.second_input)?.setText(description)
             } else {
                 // Button is empty, prompt to pick an image
                 promptImageSelection()
@@ -100,9 +110,9 @@ class Tablero : AppCompatActivity() {
         }
     }
 
-    private fun submitData() {
-        val name = findViewById<EditText>(R.id.first_input).text.toString()
-        val description = findViewById<EditText>(R.id.second_input).text.toString()
+    private fun submitData(view: View) {
+        val name = view.findViewById<EditText>(R.id.first_input).text.toString()
+        val description = view.findViewById<EditText>(R.id.second_input).text.toString()
         val uidButton = currentSelectedButtonTag ?: return
 
         val buttonRef = databaseRef.child(uidButton)
@@ -110,7 +120,6 @@ class Tablero : AppCompatActivity() {
         val data = mapOf(
             "name" to name,
             "Description" to description
-            // Add other data fields if necessary
         )
 
         buttonRef.updateChildren(data).addOnSuccessListener {

@@ -11,7 +11,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.tec.nuevoamanecer.databinding.FragmentDatosRegistradosBinding
 
-class DatosRegistradosFragment : Fragment() {
+class  DatosRegistradosFragment : Fragment() {
     private var _binding: FragmentDatosRegistradosBinding? = null
     private val binding get() = _binding!!
 

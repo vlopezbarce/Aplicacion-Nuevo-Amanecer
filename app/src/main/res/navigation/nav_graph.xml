@@ -110,6 +110,9 @@
         <action
             android:id="@+id/action_editaDatosAlumnoFragment_to_folderFragment"
             app:destination="@id/folderFragment" />
+        <action
+            android:id="@+id/action_editaDatosAlumnoFragment_to_fragmentTablero"
+            app:destination="@id/fragmentTablero" />
     </fragment>
     <fragment
         android:id="@+id/folderFragment"
@@ -299,5 +302,12 @@
         <action
             android:id="@+id/action_game6Fragment_to_alumnoFragment4"
             app:destination="@id/alumnoFragment4" />
+    </fragment>
+    <fragment android:id="@+id/fragmentTablero"
+        android:name="com.tec.nuevoamanecer.TableroFragment"
+        android:label="fragment_tablero"
+        tools:layout="@layout/fragment_tablero">
+
+
     </fragment>
 </navigation>
