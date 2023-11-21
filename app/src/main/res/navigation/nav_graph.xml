@@ -188,6 +188,9 @@
         <action
             android:id="@+id/action_alumnoFragment3_to_game4Fragment"
             app:destination="@id/game4Fragment" />
+        <action
+            android:id="@+id/action_alumnoFragment3_to_game5Fragment"
+            app:destination="@id/game5Fragment" />
     </fragment>
     <fragment
         android:id="@+id/alumnoFragment4"
@@ -209,6 +212,9 @@
         <action
             android:id="@+id/action_alumnoFragment4_to_game4Fragment"
             app:destination="@id/game4Fragment" />
+        <action
+            android:id="@+id/action_alumnoFragment4_to_game5Fragment"
+            app:destination="@id/game5Fragment" />
     </fragment>
     <fragment
         android:id="@+id/game2Fragment"
@@ -250,6 +256,18 @@
             app:destination="@id/alumnoFragment3" />
         <action
             android:id="@+id/action_game4Fragment_to_alumnoFragment4"
+            app:destination="@id/alumnoFragment4" />
+    </fragment>
+    <fragment
+        android:id="@+id/game5Fragment"
+        android:name="com.tec.nuevoamanecer.Game5Fragment"
+        android:label="fragment_game_5"
+        tools:layout="@layout/fragment_game_5" >
+        <action
+            android:id="@+id/action_game5Fragment_to_alumnoFragment3"
+            app:destination="@id/alumnoFragment3" />
+        <action
+            android:id="@+id/action_game5Fragment_to_alumnoFragment4"
             app:destination="@id/alumnoFragment4" />
     </fragment>
 </navigation>
