@@ -78,6 +78,14 @@ class AlumnoFragment4 : Fragment() {
             Navigation.findNavController(view).navigate(R.id.action_alumnoFragment4_to_game4Fragment)
         }
 
+        binding.btnJuego5.setOnClickListener{
+            Navigation.findNavController(view).navigate(R.id.action_alumnoFragment4_to_game5Fragment)
+        }
+
+        binding.btnJuego6.setOnClickListener{
+            Navigation.findNavController(view).navigate(R.id.action_alumnoFragment4_to_game6Fragment)
+        }
+
 
     }
 
