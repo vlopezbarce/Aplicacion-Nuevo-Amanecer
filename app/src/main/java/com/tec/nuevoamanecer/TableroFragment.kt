@@ -46,6 +46,7 @@ class TableroFragment : Fragment() {
                             name,
                             description
 
+
                         )
                     }
                 }
