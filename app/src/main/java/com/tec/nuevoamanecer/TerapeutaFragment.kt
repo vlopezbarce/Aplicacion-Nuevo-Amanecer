@@ -18,7 +18,7 @@ import com.google.firebase.database.ValueEventListener
 import com.tec.nuevoamanecer.databinding.FragmentTerapeutaBinding
 
 class TerapeutaFragment : Fragment() {
-    private var _binding : FragmentTerapeutaBinding? = null
+    private var _binding: FragmentTerapeutaBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var database: DatabaseReference
@@ -44,7 +44,7 @@ class TerapeutaFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentTerapeutaBinding.inflate(inflater,container,false)
+        _binding = FragmentTerapeutaBinding.inflate(inflater, container, false)
 
         userRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -56,9 +56,7 @@ class TerapeutaFragment : Fragment() {
                 }
             }
 
-            override fun onCancelled(error: DatabaseError) {
-
-            }
+            override fun onCancelled(error: DatabaseError) {}
         })
 
         listViewAlumnos = binding.listViewAlumnos
@@ -103,18 +101,7 @@ class TerapeutaFragment : Fragment() {
                 alumnoAdapter.notifyDataSetChanged()
             }
 
-            override fun onCancelled(databaseError: DatabaseError) {
-
-            }
+            override fun onCancelled(databaseError: DatabaseError) {}
         })
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            TerapeutaFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
     }
 }

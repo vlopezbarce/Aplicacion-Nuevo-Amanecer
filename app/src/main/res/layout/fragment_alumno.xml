@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/lilita_one"
         android:text="@string/hola"
         android:textColor="@color/verde"
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/lilita_one"
         android:text="@string/usuario"
         android:textColor="@color/verde"
@@ -44,19 +44,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtViewHola" />
 
-    <TextView
-        android:id="@+id/textViewNum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        android:text="1"
-        android:fontFamily="@font/lilita_one"
-        android:textColor="@color/verde"
-        android:textSize="100sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <GridLayout
         android:id="@+id/layoutJuegos"
         android:layout_width="match_parent"
@@ -74,20 +61,22 @@
         <ImageButton
             android:id="@+id/btnJuego1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="300dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
+            android:scaleType="fitCenter"
             android:background="@color/transparente"
-            android:src="@drawable/boton_placeholder" />
+            android:src="@drawable/juego1_miniatura" />
 
         <ImageButton
             android:id="@+id/btnJuego2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="300dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
+            android:scaleType="fitCenter"
             android:background="@color/transparente"
-            android:src="@drawable/boton_placeholder" />
+            android:src="@drawable/juego2_miniatura" />
 
         <TextView
             android:id="@+id/txtViewJuego1"
@@ -95,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/lilita_one"
-            android:text="@string/burbujas"
+            android:text="@string/juego_1"
             android:textColor="@color/black"
             android:textSize="40sp" />
 
@@ -105,7 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/lilita_one"
-            android:text="@string/animales"
+            android:text="@string/juego_2"
             android:textColor="@color/black"
             android:textSize="40sp" />
 

@@ -21,7 +21,7 @@ import java.util.Calendar
 import java.util.Date
 
 class EditaDatosAlumnoFragment : Fragment() {
-    private var _binding : FragmentEditaDatosAlumnoBinding? = null
+    private var _binding: FragmentEditaDatosAlumnoBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var database: DatabaseReference
@@ -39,7 +39,7 @@ class EditaDatosAlumnoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentEditaDatosAlumnoBinding.inflate(inflater,container,false)
+        _binding = FragmentEditaDatosAlumnoBinding.inflate(inflater, container, false)
 
         val dropDownNivel = binding.dropDownNivel
         val options = arrayOf("", "1", "2", "3", "4")
@@ -129,14 +129,5 @@ class EditaDatosAlumnoFragment : Fragment() {
 
         datePickerDialog.datePicker.init(currentYear, currentMonth, currentDay, null)
         datePickerDialog.show()
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            EditaDatosAlumnoFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
     }
 }

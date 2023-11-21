@@ -12,6 +12,11 @@ import android.view.animation.RotateAnimation
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.tec.nuevoamanecer.databinding.FragmentGame2Binding
 import nl.dionsegijn.konfetti.models.Shape
 import nl.dionsegijn.konfetti.models.Size
@@ -23,6 +28,24 @@ class Game2Fragment : Fragment() {
 
     private lateinit var rotate: RotateAnimation
     private lateinit var viewKonfetti: nl.dionsegijn.konfetti.KonfettiView
+    private var nivel: Int? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val database = FirebaseDatabase.getInstance().reference
+        val auth = FirebaseAuth.getInstance()
+        val userUID = auth.currentUser?.uid.orEmpty()
+        val nivelRef = database.child("Usuarios").child("Alumnos").child(userUID).child("nivel")
+
+        nivelRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val nivelValue = snapshot.getValue(String::class.java)?.toInt()
+                nivel = nivelValue
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,284 +59,82 @@ class Game2Fragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewKonfetti = binding.viewKonfetti
+        var textoAnimal = binding.textAnimal
 
         val mpIncorrecto = MediaPlayer.create(requireContext(), R.raw.incorrecto)
         val mpCheer = MediaPlayer.create(requireContext(), R.raw.cheer)
-        val mpCerdo = MediaPlayer.create(requireContext(), R.raw.cerdo)
-        val mpChango = MediaPlayer.create(requireContext(), R.raw.chango)
-        val mpTigre = MediaPlayer.create(requireContext(), R.raw.tigre)
-        val mpRana = MediaPlayer.create(requireContext(), R.raw.rana)
-        val mpVaca = MediaPlayer.create(requireContext(), R.raw.vaca)
 
-        var textoAnimal = binding.textAnimal
-        val chango = binding.Chango
-        val rana = binding.Rana
-        val vaca = binding.Vaca
-        val tigre = binding.Tigre
-        val cerdo = binding.Cerdo
+        data class Animal(
+            val nombre: String,
+            val animal: ImageButton,
+            val sonido: Int
+        )
 
-        var animalesZoo = arrayOf(chango, rana, vaca, tigre, cerdo)
-        var nombresAnimales = arrayOf("Chango", "Rana", "Vaca", "Tigre", "Cerdo")
-        val animalesCompletado = arrayOf(chango, rana, vaca, tigre, cerdo)
+        var animales = mutableListOf<Animal>(
+            Animal("Chango", binding.Chango, R.raw.chango),
+            Animal("Rana", binding.Rana, R.raw.rana),
+            Animal("Vaca", binding.Vaca, R.raw.vaca),
+            Animal("Tigre", binding.Tigre, R.raw.tigre),
+            Animal("Cerdo", binding.Cerdo, R.raw.cerdo)
+        )
 
         val random = java.util.Random()
-        var seleccion = random.nextInt(animalesZoo.size)
+        var seleccion = random.nextInt(animales.size)
+        movimientoImagen(animales[seleccion].animal)
+        textoAnimal.text = animales[seleccion].nombre
 
-        movimientoImagen(animalesZoo[seleccion])
-        textoAnimal.text = nombresAnimales[seleccion]
+        animales.forEach { (_, animal, sonido) ->
+            animal.setOnClickListener {
+                if (animales.isNotEmpty()) {
+                    if (animales[seleccion].animal.id == animal.id) {
+                        animales.removeAt(seleccion)
+                        stop(animal)
+                        MediaPlayer.create(requireContext(), sonido).start()
 
-        chango.setOnClickListener {
-            if (animalesZoo.isNotEmpty()) {
-                if (animalesZoo[seleccion].id == chango.id) {
-                    val temporal = animalesZoo.sliceArray(0 until seleccion) + animalesZoo.sliceArray(
-                        seleccion + 1 until animalesZoo.size)
-                    val temporalNombres = nombresAnimales.sliceArray(0 until seleccion) + nombresAnimales.sliceArray(
-                        seleccion + 1 until animalesZoo.size)
+                        if (animales.isNotEmpty()) {
+                            seleccion = random.nextInt(animales.size)
+                            movimientoImagen(animales[seleccion].animal)
 
-                    animalesZoo = temporal
-                    nombresAnimales = temporalNombres
+                            Log.d("Animal anterior", textoAnimal.text.toString())
+                            Log.d("Animal nuevo", animales[seleccion].nombre)
+                            textoAnimal.text = animales[seleccion].nombre
+                        } else {
+                            textoAnimal.visibility = View.INVISIBLE
 
-                    stop(chango)
-                    mpChango.start()
-                    if (animalesZoo.isNotEmpty()) {
-                        seleccion = random.nextInt(animalesZoo.size)
-                        movimientoImagen(animalesZoo[seleccion])
+                            animales.forEach { (_, animal, _) ->
+                                movimientoImagen(animal)
+                            }
 
-                        Log.e("Animal anterior", textoAnimal.text.toString())
-                        textoAnimal.text = nombresAnimales[seleccion].toString()
-                        Log.e("Animal nuevo", textoAnimal.text.toString())
+                            mpCheer.start()
+                            viewKonfetti.build()
+                                .addColors(Color.YELLOW, Color.BLUE, Color.GREEN, Color.MAGENTA)
+                                .setDirection(0.0, 359.0)
+                                .setSpeed(1f, 5f)
+                                .setFadeOutEnabled(true)
+                                .setTimeToLive(2000L)
+                                .addShapes(Shape.Square, Shape.Circle)
+                                .addSizes(Size(12))
+                                .setPosition(-50f, viewKonfetti.width + 50f, -50f, viewKonfetti.height + 50f)
+                                .streamFor(300, 3000L)
+                        }
+                    } else {
+                        mpIncorrecto.start()
                     }
-                    else {
-                        textoAnimal.visibility = View.INVISIBLE
-
-                        movimientoImagen(animalesCompletado[0])
-                        movimientoImagen(animalesCompletado[1])
-                        movimientoImagen(animalesCompletado[2])
-                        movimientoImagen(animalesCompletado[3])
-                        movimientoImagen(animalesCompletado[4])
-
-                        mpCheer.start()
-                        viewKonfetti.build()
-                            .addColors(Color.YELLOW, Color.BLUE, Color.GREEN, Color.MAGENTA)
-                            .setDirection(0.0, 359.0)
-                            .setSpeed(1f, 5f)
-                            .setFadeOutEnabled(true)
-                            .setTimeToLive(2000L)
-                            .addShapes(Shape.Square, Shape.Circle)
-                            .addSizes(Size(12))
-                            .setPosition(-50f, viewKonfetti.width + 50f, -50f, viewKonfetti.height + 50f)
-                            .streamFor(300, 3000L)
-
-                    }
-
-                } else {
-                    mpIncorrecto.start()
-                }
-            }
-        }
-
-        rana.setOnClickListener {
-            if (animalesZoo.isNotEmpty()) {
-                if (animalesZoo[seleccion].id == rana.id) {
-                    val temporal = animalesZoo.sliceArray(0 until seleccion) + animalesZoo.sliceArray(
-                        seleccion + 1 until animalesZoo.size)
-                    val temporalNombres = nombresAnimales.sliceArray(0 until seleccion) + nombresAnimales.sliceArray(
-                        seleccion + 1 until animalesZoo.size)
-
-                    animalesZoo = temporal
-                    nombresAnimales = temporalNombres
-
-                    stop(rana)
-                    mpRana.start()
-                    if (animalesZoo.isNotEmpty()) {
-                        seleccion = random.nextInt(animalesZoo.size)
-                        movimientoImagen(animalesZoo[seleccion])
-
-                        Log.e("Animal anterior", textoAnimal.text.toString())
-                        textoAnimal.text = nombresAnimales[seleccion].toString()
-                        Log.e("Animal nuevo", textoAnimal.text.toString())
-                    }
-                    else {
-                        textoAnimal.visibility = View.INVISIBLE
-
-                        movimientoImagen(animalesCompletado[0])
-                        movimientoImagen(animalesCompletado[1])
-                        movimientoImagen(animalesCompletado[2])
-                        movimientoImagen(animalesCompletado[3])
-                        movimientoImagen(animalesCompletado[4])
-
-                        mpCheer.start()
-                        viewKonfetti.build()
-                            .addColors(Color.YELLOW, Color.BLUE, Color.GREEN, Color.MAGENTA)
-                            .setDirection(0.0, 359.0)
-                            .setSpeed(1f, 5f)
-                            .setFadeOutEnabled(true)
-                            .setTimeToLive(2000L)
-                            .addShapes(Shape.Square, Shape.Circle)
-                            .addSizes(Size(12))
-                            .setPosition(-50f, viewKonfetti.width + 50f, -50f, viewKonfetti.height + 50f)
-                            .streamFor(300, 3000L)
-
-                    }
-
-                } else {
-                    mpIncorrecto.start()
-                }
-            }
-        }
-
-        vaca.setOnClickListener {
-            if (animalesZoo.isNotEmpty()) {
-                if (animalesZoo[seleccion].id == vaca.id) {
-                    val temporal = animalesZoo.sliceArray(0 until seleccion) + animalesZoo.sliceArray(
-                        seleccion + 1 until animalesZoo.size)
-                    val temporalNombres = nombresAnimales.sliceArray(0 until seleccion) + nombresAnimales.sliceArray(
-                        seleccion + 1 until animalesZoo.size)
-
-                    animalesZoo = temporal
-                    nombresAnimales = temporalNombres
-
-                    stop(vaca)
-                    mpVaca.start()
-                    if (animalesZoo.isNotEmpty()) {
-                        seleccion = random.nextInt(animalesZoo.size)
-                        movimientoImagen(animalesZoo[seleccion])
-
-                        Log.e("Animal anterior", textoAnimal.text.toString())
-                        textoAnimal.text = nombresAnimales[seleccion].toString()
-                        Log.e("Animal nuevo", textoAnimal.text.toString())
-                    }
-                    else {
-                        textoAnimal.visibility = View.INVISIBLE
-
-                        movimientoImagen(animalesCompletado[0])
-                        movimientoImagen(animalesCompletado[1])
-                        movimientoImagen(animalesCompletado[2])
-                        movimientoImagen(animalesCompletado[3])
-                        movimientoImagen(animalesCompletado[4])
-
-                        mpCheer.start()
-                        viewKonfetti.build()
-                            .addColors(Color.YELLOW, Color.BLUE, Color.GREEN, Color.MAGENTA)
-                            .setDirection(0.0, 359.0)
-                            .setSpeed(1f, 5f)
-                            .setFadeOutEnabled(true)
-                            .setTimeToLive(2000L)
-                            .addShapes(Shape.Square, Shape.Circle)
-                            .addSizes(Size(12))
-                            .setPosition(-50f, viewKonfetti.width + 50f, -50f, viewKonfetti.height + 50f)
-                            .streamFor(300, 3000L)
-
-                    }
-
-                } else {
-                    mpIncorrecto.start()
-                }
-            }
-        }
-
-        tigre.setOnClickListener {
-            if (animalesZoo.isNotEmpty()) {
-                if (animalesZoo[seleccion].id == tigre.id) {
-                    val temporal = animalesZoo.sliceArray(0 until seleccion) + animalesZoo.sliceArray(
-                        seleccion + 1 until animalesZoo.size)
-                    val temporalNombres = nombresAnimales.sliceArray(0 until seleccion) + nombresAnimales.sliceArray(
-                        seleccion + 1 until animalesZoo.size)
-
-                    animalesZoo = temporal
-                    nombresAnimales = temporalNombres
-
-                    stop(tigre)
-                    mpTigre.start()
-                    if (animalesZoo.isNotEmpty()) {
-                        seleccion = random.nextInt(animalesZoo.size)
-                        movimientoImagen(animalesZoo[seleccion])
-
-                        Log.e("Animal anterior", textoAnimal.text.toString())
-                        textoAnimal.text = nombresAnimales[seleccion].toString()
-                        Log.e("Animal nuevo", textoAnimal.text.toString())
-                    }
-                    else {
-                        textoAnimal.visibility = View.INVISIBLE
-
-                        movimientoImagen(animalesCompletado[0])
-                        movimientoImagen(animalesCompletado[1])
-                        movimientoImagen(animalesCompletado[2])
-                        movimientoImagen(animalesCompletado[3])
-                        movimientoImagen(animalesCompletado[4])
-
-                        mpCheer.start()
-                        viewKonfetti.build()
-                            .addColors(Color.YELLOW, Color.BLUE, Color.GREEN, Color.MAGENTA)
-                            .setDirection(0.0, 359.0)
-                            .setSpeed(1f, 5f)
-                            .setFadeOutEnabled(true)
-                            .setTimeToLive(2000L)
-                            .addShapes(Shape.Square, Shape.Circle)
-                            .addSizes(Size(12))
-                            .setPosition(-50f, viewKonfetti.width + 50f, -50f, viewKonfetti.height + 50f)
-                            .streamFor(300, 3000L)
-
-                    }
-
-                } else {
-                    mpIncorrecto.start()
-                }
-            }
-        }
-
-        cerdo.setOnClickListener {
-            if (animalesZoo.isNotEmpty()) {
-                if (animalesZoo[seleccion].id == cerdo.id) {
-                    val temporal = animalesZoo.sliceArray(0 until seleccion) + animalesZoo.sliceArray(
-                        seleccion + 1 until animalesZoo.size)
-                    val temporalNombres = nombresAnimales.sliceArray(0 until seleccion) + nombresAnimales.sliceArray(
-                        seleccion + 1 until animalesZoo.size)
-
-                    animalesZoo = temporal
-                    nombresAnimales = temporalNombres
-
-                    stop(cerdo)
-                    mpCerdo.start()
-                    if (animalesZoo.isNotEmpty()) {
-                        seleccion = random.nextInt(animalesZoo.size)
-                        movimientoImagen(animalesZoo[seleccion])
-
-                        Log.e("Animal anterior", textoAnimal.text.toString())
-                        textoAnimal.text = nombresAnimales[seleccion].toString()
-                        Log.e("Animal nuevo", textoAnimal.text.toString())
-                    }
-                    else {
-                        textoAnimal.visibility = View.INVISIBLE
-
-                        movimientoImagen(animalesCompletado[0])
-                        movimientoImagen(animalesCompletado[1])
-                        movimientoImagen(animalesCompletado[2])
-                        movimientoImagen(animalesCompletado[3])
-                        movimientoImagen(animalesCompletado[4])
-
-                        mpCheer.start()
-                        viewKonfetti.build()
-                            .addColors(Color.YELLOW, Color.BLUE, Color.GREEN, Color.MAGENTA)
-                            .setDirection(0.0, 359.0)
-                            .setSpeed(1f, 5f)
-                            .setFadeOutEnabled(true)
-                            .setTimeToLive(2000L)
-                            .addShapes(Shape.Square, Shape.Circle)
-                            .addSizes(Size(12))
-                            .setPosition(-50f, viewKonfetti.width + 50f, -50f, viewKonfetti.height + 50f)
-                            .streamFor(300, 3000L)
-
-                    }
-
-                } else {
-                    mpIncorrecto.start()
                 }
             }
         }
 
         binding.btnRegresar.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_game2Fragment_to_alumnoFragment)
+            when (nivel) {
+                1 -> Navigation.findNavController(binding.root)
+                    .navigate(R.id.action_game2Fragment_to_alumnoFragment)
+                2 -> Navigation.findNavController(binding.root)
+                    .navigate(R.id.action_game2Fragment_to_alumnoFragment2)
+                3 -> Navigation.findNavController(binding.root)
+                    .navigate(R.id.action_game2Fragment_to_alumnoFragment3)
+                4 -> Navigation.findNavController(binding.root)
+                    .navigate(R.id.action_game2Fragment_to_alumnoFragment4)
+            }
         }
     }
 
@@ -331,10 +152,5 @@ class Game2Fragment : Fragment() {
         rotate = RotateAnimation(0f, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
 
         view.startAnimation(rotate)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

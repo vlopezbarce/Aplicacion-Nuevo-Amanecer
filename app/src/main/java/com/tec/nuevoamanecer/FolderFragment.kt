@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.Toast
-import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.Navigation
 import com.google.firebase.Firebase
@@ -23,7 +22,7 @@ import com.google.firebase.storage.storage
 import com.tec.nuevoamanecer.databinding.FragmentFolderBinding
 
 class FolderFragment : Fragment() {
-    private var _binding : FragmentFolderBinding? = null
+    private var _binding: FragmentFolderBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var database: DatabaseReference
@@ -35,7 +34,6 @@ class FolderFragment : Fragment() {
     private lateinit var imagenAdapter: ImagenAdapter
     private val imagenesList = mutableListOf<Imagen>()
     private lateinit var listViewImagenes: ListView
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +47,7 @@ class FolderFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentFolderBinding.inflate(inflater,container,false)
+        _binding = FragmentFolderBinding.inflate(inflater, container, false)
 
         listViewImagenes = binding.listViewImagenes
         imagenAdapter = ImagenAdapter(requireContext(), imagenesList, userUID)
@@ -64,36 +62,35 @@ class FolderFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val imagenGaleria = registerForActivityResult(
-            ActivityResultContracts.GetContent(),
-            ActivityResultCallback { selectedUri ->
-                if (selectedUri != null) {
-                    // Agregar imagen con su nombre y path a Firebase Storage
-                    val nombre = getFileName(selectedUri)
-                    val path = "Tablero/$userUID/$nombre"
+            ActivityResultContracts.GetContent()
+        ) { selectedUri ->
+            if (selectedUri != null) {
+                // Agregar imagen con su nombre y path a Firebase Storage
+                val nombre = getFileName(selectedUri)
+                val path = "Tablero/$userUID/$nombre"
 
-                    storageRef.getReference(path)
-                        .putFile(selectedUri)
-                        .addOnSuccessListener { task ->
-                            task.metadata!!.reference!!.downloadUrl
-                                .addOnSuccessListener {
-                                    // Agregar imagen con clave única a Usuario asociado en Realtime Database
-                                    val imagenId = database.push().key ?: return@addOnSuccessListener
-                                    val imagen = nombre?.let { it -> Imagen(imagenId, it, path) }
+                storageRef.getReference(path)
+                    .putFile(selectedUri)
+                    .addOnSuccessListener { task ->
+                        task.metadata!!.reference!!.downloadUrl
+                            .addOnSuccessListener {
+                                // Agregar imagen con clave única a Usuario asociado en Realtime Database
+                                val imagenId = database.push().key ?: return@addOnSuccessListener
+                                val imagen = nombre?.let { it -> Imagen(imagenId, it, path) }
 
-                                    imagenesRef.child(imagenId).setValue(imagen)
-                                        .addOnSuccessListener {
-                                            Toast.makeText(requireContext(), "Imagen subida exitosamente", Toast.LENGTH_SHORT).show()
-                                        }
-                                        .addOnFailureListener {
-                                            Toast.makeText(requireContext(), "Error al subir imagen", Toast.LENGTH_SHORT).show()
-                                        }
-                                }
-                        }
-                } else {
-                    Toast.makeText(requireContext(), "Por favor selecciona una imagen.", Toast.LENGTH_SHORT).show()
-                }
+                                imagenesRef.child(imagenId).setValue(imagen)
+                                    .addOnSuccessListener {
+                                        Toast.makeText(requireContext(), "Imagen subida exitosamente", Toast.LENGTH_SHORT).show()
+                                    }
+                                    .addOnFailureListener {
+                                        Toast.makeText(requireContext(), "Error al subir imagen", Toast.LENGTH_SHORT).show()
+                                    }
+                            }
+                    }
+            } else {
+                Toast.makeText(requireContext(), "Por favor selecciona una imagen.", Toast.LENGTH_SHORT).show()
             }
-        )
+        }
 
         binding.btnRegresar.setOnClickListener{
             val bundle = Bundle()
@@ -136,18 +133,7 @@ class FolderFragment : Fragment() {
                 imagenAdapter.notifyDataSetChanged()
             }
 
-            override fun onCancelled(databaseError: DatabaseError) {
-
-            }
+            override fun onCancelled(databaseError: DatabaseError) {}
         })
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            FolderFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
     }
 }

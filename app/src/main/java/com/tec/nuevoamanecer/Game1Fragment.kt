@@ -9,14 +9,14 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import kotlin.random.Random
 import androidx.navigation.Navigation
 import com.tec.nuevoamanecer.databinding.FragmentGame1Binding
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.TextView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import nl.dionsegijn.konfetti.models.Shape
 import nl.dionsegijn.konfetti.models.Size
 
@@ -28,6 +28,24 @@ class Game1Fragment : Fragment() {
     private lateinit var progressBar: ProgressBar
     private lateinit var viewKonfetti: nl.dionsegijn.konfetti.KonfettiView
     private var conta = 0
+    private var nivel: Int? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val database = FirebaseDatabase.getInstance().reference
+        val auth = FirebaseAuth.getInstance()
+        val userUID = auth.currentUser?.uid.orEmpty()
+        val nivelRef = database.child("Usuarios").child("Alumnos").child(userUID).child("nivel")
+
+        nivelRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val nivelValue = snapshot.getValue(String::class.java)?.toInt()
+                nivel = nivelValue
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +66,6 @@ class Game1Fragment : Fragment() {
         val mpCheer = MediaPlayer.create(requireContext(), R.raw.cheer)
 
         burbuja.setOnClickListener {
-
             if (conta < 84) {
                 conta += 6
                 progressBar.progress = conta
@@ -102,7 +119,16 @@ class Game1Fragment : Fragment() {
         }
 
         binding.btnRegresar.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_game1Fragment_to_alumnoFragment)
+            when (nivel) {
+                1 -> Navigation.findNavController(binding.root)
+                    .navigate(R.id.action_game1Fragment_to_alumnoFragment)
+                2 -> Navigation.findNavController(binding.root)
+                    .navigate(R.id.action_game1Fragment_to_alumnoFragment2)
+                3 -> Navigation.findNavController(binding.root)
+                    .navigate(R.id.action_game1Fragment_to_alumnoFragment3)
+                4 -> Navigation.findNavController(binding.root)
+                    .navigate(R.id.action_game1Fragment_to_alumnoFragment4)
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ import com.google.firebase.database.ValueEventListener
 import com.tec.nuevoamanecer.databinding.FragmentAlumno2Binding
 
 class AlumnoFragment2 : Fragment() {
-    private var _binding : FragmentAlumno2Binding? = null
+    private var _binding: FragmentAlumno2Binding? = null
     private val binding get() = _binding!!
 
     private lateinit var database: DatabaseReference
@@ -35,7 +35,7 @@ class AlumnoFragment2 : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentAlumno2Binding.inflate(inflater,container,false)
+        _binding = FragmentAlumno2Binding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -52,9 +52,7 @@ class AlumnoFragment2 : Fragment() {
                 }
             }
 
-            override fun onCancelled(error: DatabaseError) {
-
-            }
+            override fun onCancelled(error: DatabaseError) {}
         })
 
         binding.btnRegresar.setOnClickListener{
@@ -62,33 +60,22 @@ class AlumnoFragment2 : Fragment() {
             Navigation.findNavController(view).navigate(R.id.action_alumnoFragment2_to_mainFragment)
         }
 
-        binding.btnJuego1.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_alumnoFragment2_to_game1Fragment)
-        }
+        val botones = listOf(
+            binding.btnJuego1, binding.btnJuego2,
+            binding.btnJuego3, binding.btnJuego4
+        )
 
-        binding.btnJuego2.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_alumnoFragment2_to_game2Fragment)
-        }
-
-        binding.btnJuego3.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_alumnoFragment2_to_game3Fragment)
-        }
-
-        binding.btnJuego4.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_alumnoFragment2_to_game4Fragment)
-        }
-
-
-
-
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            AlumnoFragment().apply {
-                arguments = Bundle().apply {
+        botones.forEachIndexed { index, btnJuego ->
+            btnJuego.setOnClickListener {
+                val actionId = when (index) {
+                    0 -> R.id.action_alumnoFragment2_to_game1Fragment
+                    1 -> R.id.action_alumnoFragment2_to_game2Fragment
+                    2 -> R.id.action_alumnoFragment2_to_game3Fragment
+                    3 -> R.id.action_alumnoFragment2_to_game4Fragment
+                    else -> R.id.action_alumnoFragment2_to_mainFragment
                 }
+                Navigation.findNavController(view).navigate(actionId)
             }
+        }
     }
 }

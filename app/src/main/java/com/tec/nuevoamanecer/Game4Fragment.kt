@@ -2,21 +2,24 @@ package com.tec.nuevoamanecer
 
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import kotlin.random.Random
 import androidx.navigation.Navigation
 import android.graphics.Color
 import nl.dionsegijn.konfetti.models.Shape
 import nl.dionsegijn.konfetti.models.Size
 import android.view.DragEvent
+import android.widget.ImageView
+import android.widget.TextView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.tec.nuevoamanecer.databinding.FragmentGame4Binding
-
 
 class Game4Fragment : Fragment() {
 
@@ -25,7 +28,26 @@ class Game4Fragment : Fragment() {
 
     private lateinit var progressBar: ProgressBar
     private lateinit var viewKonfetti: nl.dionsegijn.konfetti.KonfettiView
+    private lateinit var contador: TextView
     private var conta = 0
+    private var nivel: Int? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val database = FirebaseDatabase.getInstance().reference
+        val auth = FirebaseAuth.getInstance()
+        val userUID = auth.currentUser?.uid.orEmpty()
+        val nivelRef = database.child("Usuarios").child("Alumnos").child(userUID).child("nivel")
+
+        nivelRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val nivelValue = snapshot.getValue(String::class.java)?.toInt()
+                nivel = nivelValue
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,145 +62,74 @@ class Game4Fragment : Fragment() {
 
         progressBar = binding.progressBar
         viewKonfetti = binding.viewKonfetti
-
-        val trianguloRojo = binding.trianguloRojo
-        val triangulo = binding.triangulo
-
-        val cuadradoVerde = binding.cuadradoVerde
-        val cuadrado = binding.cuadrado
-
-        val circuloAzul = binding.circuloAzul
-        val circulo = binding.circulo
-
-        val contador = binding.textContador
-
-        //val random = java.util.Random()
+        contador = binding.textContador
 
         val mpCorrecto = MediaPlayer.create(requireContext(), R.raw.correcto)
         val mpCheer = MediaPlayer.create(requireContext(), R.raw.cheer)
 
-        trianguloRojo.setOnLongClickListener { view ->
-            val dragData = View.DragShadowBuilder(view)
-            view.startDragAndDrop(null, dragData, view, 0)
-        }
+        data class Figura(
+            val color: ImageView,
+            val sombra: ImageView,
+            val imagenCompleta: Int
+        )
 
-        triangulo.setOnDragListener { _, event ->
-            when (event.action) {
-                DragEvent.ACTION_DROP -> {
-                    if (event.localState == trianguloRojo) {
-                        mpCorrecto.start()
+        val figuras = listOf(
+            Figura(binding.trianguloRojo, binding.triangulo, R.drawable.triangulorojo),
+            Figura(binding.cuadradoVerde, binding.cuadrado, R.drawable.cuadradoverde),
+            Figura(binding.circuloAzul, binding.circulo, R.drawable.circuloazul)
+        )
 
-                        triangulo.setImageResource(R.drawable.triangulorojo)
+        figuras.forEach { (color, sombra, imagenCompleta) ->
+            color.setOnLongClickListener { view ->
+                val dragData = View.DragShadowBuilder(view)
+                view.startDragAndDrop(null, dragData, view, 0)
+            }
 
-                        val temp = contador.text.toString().toInt()
-                        contador.text = (temp + 1).toString()
-                        trianguloRojo.visibility = View.GONE
-                        if (conta < 99) {
-                            conta += 33
-                            if (conta == 99){
-                                conta = 100
-                                mpCheer.start()
-                                viewKonfetti.build()
-                                    .addColors(Color.YELLOW, Color.BLUE, Color.GREEN, Color.MAGENTA)
-                                    .setDirection(0.0, 359.0)
-                                    .setSpeed(1f, 5f)
-                                    .setFadeOutEnabled(true)
-                                    .setTimeToLive(2000L)
-                                    .addShapes(Shape.Square, Shape.Circle)
-                                    .addSizes(Size(12))
-                                    .setPosition(-50f, viewKonfetti.width + 50f, -50f, viewKonfetti.height + 50f)
-                                    .streamFor(300, 3000L)
+            sombra.setOnDragListener { _, event ->
+                when (event.action) {
+                    DragEvent.ACTION_DROP -> {
+                        if (event.localState == color) {
+                            mpCorrecto.start()
+
+                            sombra.setImageResource(imagenCompleta)
+
+                            val temp = contador.text.toString().toInt()
+                            contador.text = (temp + 1).toString()
+                            color.visibility = View.GONE
+                            if (conta < 99) {
+                                conta += 33
+                                if (conta == 99) {
+                                    conta = 100
+                                    mpCheer.start()
+                                    viewKonfetti.build()
+                                        .addColors(Color.YELLOW, Color.BLUE, Color.GREEN, Color.MAGENTA)
+                                        .setDirection(0.0, 359.0)
+                                        .setSpeed(1f, 5f)
+                                        .setFadeOutEnabled(true)
+                                        .setTimeToLive(2000L)
+                                        .addShapes(Shape.Square, Shape.Circle)
+                                        .addSizes(Size(12))
+                                        .setPosition(-50f, viewKonfetti.width + 50f, -50f, viewKonfetti.height + 50f)
+                                        .streamFor(300, 3000L)
+                                }
+                                progressBar.progress = conta
                             }
-                            progressBar.progress = conta
                         }
                     }
                 }
+                true
             }
-            true
-        }
-
-        cuadradoVerde.setOnLongClickListener { view ->
-            val dragData = View.DragShadowBuilder(view)
-            view.startDragAndDrop(null, dragData, view, 0) // Set the local state to the view being dragged
-        }
-
-        cuadrado.setOnDragListener { _, event ->
-            when (event.action) {
-                DragEvent.ACTION_DROP -> {
-                    if (event.localState == cuadradoVerde) {
-                        mpCorrecto.start()
-
-                        cuadrado.setImageResource(R.drawable.cuadradoverde)
-
-                        val temp = contador.text.toString().toInt()
-                        contador.text = (temp + 1).toString()
-                        cuadradoVerde.visibility = View.GONE
-                        if (conta < 99) {
-                            conta += 33
-                            if (conta == 99){
-                                conta = 100
-                                mpCheer.start()
-                                viewKonfetti.build()
-                                    .addColors(Color.YELLOW, Color.BLUE, Color.GREEN, Color.MAGENTA)
-                                    .setDirection(0.0, 359.0)
-                                    .setSpeed(1f, 5f)
-                                    .setFadeOutEnabled(true)
-                                    .setTimeToLive(2000L)
-                                    .addShapes(Shape.Square, Shape.Circle)
-                                    .addSizes(Size(12))
-                                    .setPosition(-50f, viewKonfetti.width + 50f, -50f, viewKonfetti.height + 50f)
-                                    .streamFor(300, 3000L)
-                            }
-                            progressBar.progress = conta
-                        }
-                    }
-                }
-            }
-            true
-        }
-
-        circuloAzul.setOnLongClickListener { view ->
-            val dragData = View.DragShadowBuilder(view)
-            view.startDragAndDrop(null, dragData, view, 0) // Set the local state to the view being dragged
-        }
-
-        circulo.setOnDragListener { _, event ->
-            when (event.action) {
-                DragEvent.ACTION_DROP -> {
-                    if (event.localState == circuloAzul) {
-                        mpCorrecto.start()
-
-                        circulo.setImageResource(R.drawable.circuloazul)
-
-                        val temp = contador.text.toString().toInt()
-                        contador.text = (temp + 1).toString()
-                        circuloAzul.visibility = View.GONE
-                        if (conta < 99) {
-                            conta += 33
-                            if (conta == 99){
-                                conta = 100
-                                mpCheer.start()
-                                viewKonfetti.build()
-                                    .addColors(Color.YELLOW, Color.BLUE, Color.GREEN, Color.MAGENTA)
-                                    .setDirection(0.0, 359.0)
-                                    .setSpeed(1f, 5f)
-                                    .setFadeOutEnabled(true)
-                                    .setTimeToLive(2000L)
-                                    .addShapes(Shape.Square, Shape.Circle)
-                                    .addSizes(Size(12))
-                                    .setPosition(-50f, viewKonfetti.width + 50f, -50f, viewKonfetti.height + 50f)
-                                    .streamFor(300, 3000L)
-                            }
-                            progressBar.progress = conta
-                        }
-                    }
-                }
-            }
-            true
         }
 
         binding.btnRegresar.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_game4Fragment_to_alumnoFragment2)
+            when (nivel) {
+                2 -> Navigation.findNavController(binding.root)
+                    .navigate(R.id.action_game4Fragment_to_alumnoFragment2)
+                3 -> Navigation.findNavController(binding.root)
+                    .navigate(R.id.action_game4Fragment_to_alumnoFragment3)
+                4 -> Navigation.findNavController(binding.root)
+                    .navigate(R.id.action_game4Fragment_to_alumnoFragment4)
+            }
         }
     }
 }

@@ -43,7 +43,6 @@ class LoginFragment : Fragment() {
         binding.btnSiguiente.setOnClickListener {
             loginUser()
         }
-
     }
 
     private fun loginUser() {
@@ -115,9 +114,7 @@ class LoginFragment : Fragment() {
                                     }
                                 }
 
-                                override fun onCancelled(error: DatabaseError) {
-
-                                }
+                                override fun onCancelled(error: DatabaseError) {}
                             })
                         }
                         "Terapeuta" -> Navigation.findNavController(binding.root).navigate(R.id.action_loginFragment_to_terapeutaFragment)
@@ -133,19 +130,7 @@ class LoginFragment : Fragment() {
                 }
             }
 
-            override fun onCancelled(databaseError: DatabaseError) {
-
-            }
+            override fun onCancelled(databaseError: DatabaseError) {}
         })
-    }
-
-
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            LoginFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
     }
 }

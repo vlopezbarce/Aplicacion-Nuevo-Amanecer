@@ -16,7 +16,7 @@ import java.util.Calendar
 import java.util.Date
 
 class DatosDeAlumnoFragment : Fragment() {
-    private var _binding : FragmentDatosDeAlumnoBinding? = null
+    private var _binding: FragmentDatosDeAlumnoBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var email: String
@@ -40,7 +40,7 @@ class DatosDeAlumnoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentDatosDeAlumnoBinding.inflate(inflater,container,false)
+        _binding = FragmentDatosDeAlumnoBinding.inflate(inflater, container, false)
 
         binding.editTextNombre.setText(nombre)
         binding.editTextApellidos.setText(apellidos)
@@ -127,14 +127,5 @@ class DatosDeAlumnoFragment : Fragment() {
 
         datePickerDialog.datePicker.init(currentYear, currentMonth, currentDay, null)
         datePickerDialog.show()
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            DatosDeAlumnoFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
     }
 }

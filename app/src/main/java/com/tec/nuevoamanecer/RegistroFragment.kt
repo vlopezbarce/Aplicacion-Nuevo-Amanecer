@@ -12,7 +12,7 @@ import androidx.navigation.Navigation
 import com.tec.nuevoamanecer.databinding.FragmentRegistroBinding
 
 class RegistroFragment : Fragment() {
-    private var _binding : FragmentRegistroBinding? = null
+    private var _binding: FragmentRegistroBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var email: String
@@ -36,7 +36,7 @@ class RegistroFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentRegistroBinding.inflate(inflater,container,false)
+        _binding = FragmentRegistroBinding.inflate(inflater, container, false)
 
         binding.editTextCorreo.setText(email)
         binding.editTextContrasena.setText(password)
@@ -122,14 +122,5 @@ class RegistroFragment : Fragment() {
     private fun isValidPassword(password: String): Boolean {
         val passwordCheck = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$".toRegex()
         return passwordCheck.matches(password)
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            LoginFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
     }
 }

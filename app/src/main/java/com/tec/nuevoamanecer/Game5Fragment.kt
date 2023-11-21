@@ -2,23 +2,23 @@ package com.tec.nuevoamanecer
 
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import kotlin.random.Random
 import androidx.navigation.Navigation
 import android.graphics.Color
 import nl.dionsegijn.konfetti.models.Shape
 import nl.dionsegijn.konfetti.models.Size
 import android.view.DragEvent
-import android.widget.ImageButton
-import android.widget.TextView
+import android.widget.ImageView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.tec.nuevoamanecer.databinding.FragmentGame5Binding
-
 
 class Game5Fragment : Fragment() {
 
@@ -28,12 +28,30 @@ class Game5Fragment : Fragment() {
     private lateinit var progressBar: ProgressBar
     private lateinit var viewKonfetti: nl.dionsegijn.konfetti.KonfettiView
     private var conta = 0
+    private var nivel: Int? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val database = FirebaseDatabase.getInstance().reference
+        val auth = FirebaseAuth.getInstance()
+        val userUID = auth.currentUser?.uid.orEmpty()
+        val nivelRef = database.child("Usuarios").child("Alumnos").child(userUID).child("nivel")
+
+        nivelRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val nivelValue = snapshot.getValue(String::class.java)?.toInt()
+                nivel = nivelValue
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentGame5Binding.inflate(inflater, container,false)
+        _binding = FragmentGame5Binding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -42,204 +60,84 @@ class Game5Fragment : Fragment() {
 
         progressBar = binding.progressBar
         viewKonfetti = binding.viewKonfetti
-
-        val manzana = binding.manzana
-        manzana.visibility = View.INVISIBLE
-        val canastamanzana = binding.canastamanzana
-
-        val naranja = binding.naranja
-        naranja.visibility = View.INVISIBLE
-        val canastanaranja = binding.canastanaranja
-
-        val platano = binding.platano
-        platano.visibility = View.INVISIBLE
-        val canastaplatano = binding.canastaplatano
-
-        val uva = binding.uva
-        uva.visibility = View.INVISIBLE
-        val canastauva = binding.canastauva
-
         val contador = binding.textContador
-
-        val random = java.util.Random()
-
-        val indice = 0
-        val opciones = arrayOf(manzana, naranja, platano, uva)
-
-        val seleccion = random.nextInt(5)
-        opciones[seleccion].visibility = View.VISIBLE
 
         val mpCorrecto = MediaPlayer.create(requireContext(), R.raw.correcto)
         val mpCheer = MediaPlayer.create(requireContext(), R.raw.cheer)
-        val mpInstrucicones = MediaPlayer.create(requireContext(), R.raw.instrucciones)
-        mpInstrucicones.start()
+        val mpInstrucciones = MediaPlayer.create(requireContext(), R.raw.instrucciones)
+        mpInstrucciones.start()
 
-        manzana.setOnLongClickListener { view ->
-            val dragData = View.DragShadowBuilder(view)
-            view.startDragAndDrop(null, dragData, view, 0)
-        }
+        data class Fruta(
+            val fruta: ImageView,
+            val canasta: View
+        )
 
-        canastamanzana.setOnDragListener { _, event ->
-            when (event.action) {
-                DragEvent.ACTION_DROP -> {
-                    if (event.localState == manzana) {
-                        mpCorrecto.start()
+        val frutas = listOf(
+            Fruta(binding.manzana, binding.canastamanzana),
+            Fruta(binding.naranja, binding.canastanaranja),
+            Fruta(binding.platano, binding.canastaplatano),
+            Fruta(binding.uva, binding.canastauva)
+        )
 
-                        val temp = contador.text.toString().toInt()
-                        contador.text = (temp + 1).toString()
-                        manzana.visibility = View.INVISIBLE
-                        if (conta < 100) {
-                            conta += 10
-                            progressBar.progress = conta
-                            val seleccion = random.nextInt(3)
-                            opciones[seleccion].visibility = View.VISIBLE
-                            if (conta == 100){
-                                mpCheer.start()
-                                opciones[seleccion].visibility = View.INVISIBLE
-                                viewKonfetti.build()
-                                    .addColors(Color.YELLOW, Color.BLUE,Color.GREEN,Color.MAGENTA)
-                                    .setDirection(0.0, 359.0)
-                                    .setSpeed(1f, 5f)
-                                    .setFadeOutEnabled(true)
-                                    .setTimeToLive(2000L)
-                                    .addShapes(Shape.Square, Shape.Circle)
-                                    .addSizes(Size(12))
-                                    .setPosition(-50f, viewKonfetti.width + 50f, -50f, viewKonfetti.height + 50f)
-                                    .streamFor(300, 3000L)
+        val random = java.util.Random()
+        var seleccion = random.nextInt(frutas.size)
+
+        frutas.forEachIndexed { indice, (fruta, canasta) ->
+            fruta.visibility = if (indice == seleccion) View.VISIBLE else View.INVISIBLE
+
+            fruta.setOnLongClickListener { view ->
+                val dragData = View.DragShadowBuilder(view)
+                view.startDragAndDrop(null, dragData, view, 0)
+            }
+
+            canasta.setOnDragListener { _, event ->
+                when (event.action) {
+                    DragEvent.ACTION_DROP -> {
+                        if (event.localState == fruta) {
+                            mpCorrecto.start()
+
+                            val temp = contador.text.toString().toInt()
+                            contador.text = (temp + 1).toString()
+                            fruta.visibility = View.INVISIBLE
+                            if (conta < 100) {
+                                conta += 10
+                                progressBar.progress = conta
+                                val randomIndex = (0 until frutas.size).random()
+                                frutas[randomIndex].fruta.visibility = View.VISIBLE
+                                if (conta == 100) {
+                                    mpCheer.start()
+                                    frutas[randomIndex].fruta.visibility = View.INVISIBLE
+                                    viewKonfetti.build()
+                                        .addColors(Color.YELLOW, Color.BLUE, Color.GREEN, Color.MAGENTA)
+                                        .setDirection(0.0, 359.0)
+                                        .setSpeed(1f, 5f)
+                                        .setFadeOutEnabled(true)
+                                        .setTimeToLive(2000L)
+                                        .addShapes(Shape.Square, Shape.Circle)
+                                        .addSizes(Size(12))
+                                        .setPosition(
+                                            -50f,
+                                            viewKonfetti.width + 50f,
+                                            -50f,
+                                            viewKonfetti.height + 50f
+                                        )
+                                        .streamFor(300, 3000L)
+                                }
                             }
                         }
-
                     }
                 }
+                true
             }
-            true
-        }
-
-        naranja.setOnLongClickListener { view ->
-            val dragData = View.DragShadowBuilder(view)
-            view.startDragAndDrop(null, dragData, view, 0)
-        }
-
-        canastanaranja.setOnDragListener { _, event ->
-            when (event.action) {
-                DragEvent.ACTION_DROP -> {
-                    if (event.localState == naranja) {
-                        mpCorrecto.start()
-
-                        val temp = contador.text.toString().toInt()
-                        contador.text = (temp + 1).toString()
-                        naranja.visibility = View.INVISIBLE
-                        if (conta < 100) {
-                            conta += 10
-                            progressBar.progress = conta
-                            val seleccion = random.nextInt(3)
-                            opciones[seleccion].visibility = View.VISIBLE
-                            if (conta == 100){
-                                mpCheer.start()
-                                opciones[seleccion].visibility = View.INVISIBLE
-                                viewKonfetti.build()
-                                    .addColors(Color.YELLOW, Color.BLUE,Color.GREEN,Color.MAGENTA)
-                                    .setDirection(0.0, 359.0)
-                                    .setSpeed(1f, 5f)
-                                    .setFadeOutEnabled(true)
-                                    .setTimeToLive(2000L)
-                                    .addShapes(Shape.Square, Shape.Circle)
-                                    .addSizes(Size(12))
-                                    .setPosition(-50f, viewKonfetti.width + 50f, -50f, viewKonfetti.height + 50f)
-                                    .streamFor(300, 3000L)
-                            }
-                        }
-
-                    }
-                }
-            }
-            true
-        }
-
-        platano.setOnLongClickListener { view ->
-            val dragData = View.DragShadowBuilder(view)
-            view.startDragAndDrop(null, dragData, view, 0)
-        }
-
-        canastaplatano.setOnDragListener { _, event ->
-            when (event.action) {
-                DragEvent.ACTION_DROP -> {
-                    if (event.localState == platano) {
-                        mpCorrecto.start()
-
-                        val temp = contador.text.toString().toInt()
-                        contador.text = (temp + 1).toString()
-                        platano.visibility = View.INVISIBLE
-                        if (conta < 100) {
-                            conta += 10
-                            progressBar.progress = conta
-                            val seleccion = random.nextInt(3)
-                            opciones[seleccion].visibility = View.VISIBLE
-                            if (conta == 100){
-                                mpCheer.start()
-                                opciones[seleccion].visibility = View.INVISIBLE
-                                viewKonfetti.build()
-                                    .addColors(Color.YELLOW, Color.BLUE,Color.GREEN,Color.MAGENTA)
-                                    .setDirection(0.0, 359.0)
-                                    .setSpeed(1f, 5f)
-                                    .setFadeOutEnabled(true)
-                                    .setTimeToLive(2000L)
-                                    .addShapes(Shape.Square, Shape.Circle)
-                                    .addSizes(Size(12))
-                                    .setPosition(-50f, viewKonfetti.width + 50f, -50f, viewKonfetti.height + 50f)
-                                    .streamFor(300, 3000L)
-                            }
-                        }
-
-                    }
-                }
-            }
-            true
-        }
-
-        uva.setOnLongClickListener { view ->
-            val dragData = View.DragShadowBuilder(view)
-            view.startDragAndDrop(null, dragData, view, 0)
-        }
-
-        canastauva.setOnDragListener { _, event ->
-            when (event.action) {
-                DragEvent.ACTION_DROP -> {
-                    if (event.localState == uva) {
-                        mpCorrecto.start()
-
-                        val temp = contador.text.toString().toInt()
-                        contador.text = (temp + 1).toString()
-                        uva.visibility = View.INVISIBLE
-                        if (conta < 100) {
-                            conta += 10
-                            progressBar.progress = conta
-                            val seleccion = random.nextInt(3)
-                            opciones[seleccion].visibility = View.VISIBLE
-                            if (conta == 100){
-                                mpCheer.start()
-                                opciones[seleccion].visibility = View.INVISIBLE
-                                viewKonfetti.build()
-                                    .addColors(Color.YELLOW, Color.BLUE,Color.GREEN,Color.MAGENTA)
-                                    .setDirection(0.0, 359.0)
-                                    .setSpeed(1f, 5f)
-                                    .setFadeOutEnabled(true)
-                                    .setTimeToLive(2000L)
-                                    .addShapes(Shape.Square, Shape.Circle)
-                                    .addSizes(Size(12))
-                                    .setPosition(-50f, viewKonfetti.width + 50f, -50f, viewKonfetti.height + 50f)
-                                    .streamFor(300, 3000L)
-                            }
-                        }
-
-                    }
-                }
-            }
-            true
         }
 
         binding.btnRegresar.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_game5Fragment_to_alumnoFragment3)
+            when (nivel) {
+                3 -> Navigation.findNavController(binding.root)
+                    .navigate(R.id.action_game5Fragment_to_alumnoFragment3)
+                4 -> Navigation.findNavController(binding.root)
+                    .navigate(R.id.action_game5Fragment_to_alumnoFragment4)
+            }
         }
     }
 }
