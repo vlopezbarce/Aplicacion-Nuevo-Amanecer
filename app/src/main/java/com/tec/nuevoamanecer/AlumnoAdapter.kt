@@ -2,21 +2,24 @@ package com.tec.nuevoamanecer
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.navigation.Navigation
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
-class AlumnoAdapter(context: Context, alumnos: List<Alumno>) :
-    ArrayAdapter<Alumno>(context, 0, alumnos) {
+class AlumnoAdapter(context: Context, private val alumnos: List<Alumno>) :
+    ArrayAdapter<Alumno>(context, 0, alumnos), Filterable {
 
     private lateinit var database: DatabaseReference
+    private var busquedaAlumnos: List<Alumno> = alumnos
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view : View =
@@ -46,5 +49,42 @@ class AlumnoAdapter(context: Context, alumnos: List<Alumno>) :
         }
 
         return view
+    }
+
+    override fun getCount(): Int {
+        return busquedaAlumnos.size
+    }
+
+    override fun getItem(position: Int): Alumno? {
+        return busquedaAlumnos[position]
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(busqueda: CharSequence?): FilterResults {
+                val resultados = FilterResults()
+                val listaBusqueda = mutableListOf<Alumno>()
+
+                if (busqueda.isNullOrBlank()) {
+                    listaBusqueda.addAll(alumnos)
+                } else {
+                    for (alumno in alumnos) {
+                        val nombre = "${alumno.nombre} ${alumno.apellidos}".lowercase()
+                        if (nombre.contains(busqueda.toString().lowercase().trim())) {
+                            listaBusqueda.add(alumno)
+                        }
+                    }
+                }
+
+                resultados.values = listaBusqueda
+                resultados.count = listaBusqueda.size
+                return resultados
+            }
+
+            override fun publishResults(busqueda: CharSequence?, resultados: FilterResults?) {
+                busquedaAlumnos = resultados?.values as? List<Alumno> ?: emptyList()
+                notifyDataSetChanged()
+            }
+        }
     }
 }

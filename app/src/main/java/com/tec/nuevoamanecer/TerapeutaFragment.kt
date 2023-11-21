@@ -1,6 +1,8 @@
 package com.tec.nuevoamanecer
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +18,7 @@ import com.google.firebase.database.ValueEventListener
 import com.tec.nuevoamanecer.databinding.FragmentTerapeutaBinding
 
 class TerapeutaFragment : Fragment() {
-    private var _binding : FragmentTerapeutaBinding? = null
+    private var _binding: FragmentTerapeutaBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var database: DatabaseReference
@@ -42,12 +44,7 @@ class TerapeutaFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentTerapeutaBinding.inflate(inflater,container,false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentTerapeutaBinding.inflate(inflater, container, false)
 
         userRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -59,23 +56,37 @@ class TerapeutaFragment : Fragment() {
                 }
             }
 
-            override fun onCancelled(error: DatabaseError) {
-
-            }
+            override fun onCancelled(error: DatabaseError) {}
         })
 
-        binding.btnRegresar.setOnClickListener{
-            FirebaseAuth.getInstance().signOut()
-            Navigation.findNavController(view).navigate(R.id.action_terapeutaFragment_to_mainFragment)
-        }
-
-        listViewAlumnos = view.findViewById(R.id.listViewAlumnos)
+        listViewAlumnos = binding.listViewAlumnos
         alumnoAdapter = AlumnoAdapter(requireContext(), alumnosList)
         listViewAlumnos.adapter = alumnoAdapter
 
         cargarAlumnos()
 
         alumnoAdapter.notifyDataSetChanged()
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.editTextBuscar.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(text: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
+                alumnoAdapter.filter.filter(text)
+            }
+
+            override fun afterTextChanged(text: Editable?) {}
+        })
+
+        binding.btnRegresar.setOnClickListener{
+            FirebaseAuth.getInstance().signOut()
+            Navigation.findNavController(view).navigate(R.id.action_terapeutaFragment_to_mainFragment)
+        }
     }
 
     private fun cargarAlumnos() {
@@ -90,18 +101,7 @@ class TerapeutaFragment : Fragment() {
                 alumnoAdapter.notifyDataSetChanged()
             }
 
-            override fun onCancelled(databaseError: DatabaseError) {
-
-            }
+            override fun onCancelled(databaseError: DatabaseError) {}
         })
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            TerapeutaFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
     }
 }

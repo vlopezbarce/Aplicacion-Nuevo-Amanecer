@@ -7,7 +7,7 @@
     tools:context=".DatosDeAlumnoFragment">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imgViewFondo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
@@ -40,104 +40,116 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="500dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginStart="80dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtViewDatos"
-        app:layout_constraintBottom_toTopOf="@id/btnSiguiente"
-        tools:layout_editor_absoluteX="1dp">
+        app:layout_constraintBottom_toTopOf="@+id/btnSiguiente" >
 
-        <LinearLayout
-            android:layout_width="500dp"
+        <TextView
+            android:id="@+id/txtViewNombre"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
-            android:orientation="vertical">
+            android:fontFamily="@font/lilita_one"
+            android:text="@string/nombre"
+            android:textColor="@color/azul_datos"
+            android:textSize="30sp" />
 
-            <TextView
-                android:id="@+id/txtViewNombre"
+        <EditText
+            android:id="@+id/editTextNombre"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edit_text_redondo"
+            android:fontFamily="@font/lilita_one"
+            android:inputType="text"
+            android:paddingLeft="20dp"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/txtViewApellidos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/lilita_one"
+            android:text="@string/apellidos"
+            android:textColor="@color/azul_datos"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/editTextApellidos"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edit_text_redondo"
+            android:fontFamily="@font/lilita_one"
+            android:inputType="text"
+            android:paddingLeft="20dp"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/txtViewFecha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/lilita_one"
+            android:text="@string/fecha_nacimiento"
+            android:textColor="@color/azul_datos"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/editTextFecha"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edit_text_redondo"
+            android:clickable="true"
+            android:drawableRight="@drawable/icono_fecha_azul"
+            android:focusable="false"
+            android:fontFamily="@font/lilita_one"
+            android:inputType="none"
+            android:paddingLeft="20dp"
+            android:paddingEnd="20dp"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/txtViewNivel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/lilita_one"
+            android:text="@string/nivel"
+            android:textColor="@color/azul_datos"
+            android:textSize="30sp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp">
+
+            <Spinner
+                android:id="@+id/dropDownNivel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edit_text_redondo"
+                android:paddingLeft="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imgViewFlecha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/lilita_one"
-                android:textColor="@color/azul_datos"
-                android:textSize="30sp"
-                android:text="@string/nombre" />
+                android:layout_marginEnd="20dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/flecha_dropdown_azul"
+                app:layout_constraintBottom_toBottomOf="@+id/dropDownNivel"
+                app:layout_constraintEnd_toEndOf="@+id/dropDownNivel"
+                app:layout_constraintTop_toTopOf="@+id/dropDownNivel" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <EditText
-                android:id="@+id/editTextNombre"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/lilita_one"
-                android:paddingLeft="20dp"
-                android:textSize="30sp"
-                android:background="@drawable/edit_text_redondo"
-                android:inputType="text" />
-
-            <TextView
-                android:id="@+id/txtViewApellidos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/lilita_one"
-                android:textColor="@color/azul_datos"
-                android:textSize="30sp"
-                android:text="@string/apellidos" />
-
-            <EditText
-                android:id="@+id/editTextApellidos"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/lilita_one"
-                android:paddingLeft="20dp"
-                android:textSize="30sp"
-                android:background="@drawable/edit_text_redondo"
-                android:inputType="text" />
-
-            <TextView
-                android:id="@+id/txtViewFecha"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/lilita_one"
-                android:textColor="@color/azul_datos"
-                android:textSize="30sp"
-                android:text="@string/fecha_nacimiento" />
-
-            <EditText
-                android:id="@+id/editTextFecha"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/lilita_one"
-                android:paddingLeft="20dp"
-                android:textSize="30sp"
-                android:background="@drawable/edit_text_redondo"
-                android:inputType="none"
-                android:focusable="false"
-                android:clickable="true" />
-
-            <TextView
-                android:id="@+id/txtViewNivel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/lilita_one"
-                android:textColor="@color/azul_datos"
-                android:textSize="30sp"
-                android:text="@string/nivel" />
-
-            <EditText
-                android:id="@+id/editTextNivel"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/lilita_one"
-                android:paddingLeft="20dp"
-                android:textSize="30sp"
-                android:background="@drawable/edit_text_redondo"
-                android:inputType="number" />
-        </LinearLayout>
     </LinearLayout>
 
     <ImageButton

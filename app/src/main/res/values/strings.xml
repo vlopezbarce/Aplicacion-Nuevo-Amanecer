@@ -33,6 +33,14 @@
     <string name="selecciona_juego">SELECCIONA EL JUEGO...</string>
     <string name="tablero">Tablero</string>
 
+    <!-- Juegos -->
+    <string name="juego_1">Burbujas</string>
+    <string name="juego_2">Animales</string>
+    <string name="juego_3">Abejas</string>
+    <string name="juego_4">Figuras</string>
+    <string name="juego_5">Frutas</string>
+    <string name="juego_6">Bebés</string>
+
     <!-- Terapeuta -->
     <string name="terapeuta">Terapeuta</string>
     <string name="buscar_alumno">BUSCAR ALUMNO...</string>

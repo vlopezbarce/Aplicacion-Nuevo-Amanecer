@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/granja"
+    tools:context=".Game6Fragment">
+
+    <TextView
+        android:id="@+id/textContador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="216dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="0"
+        android:textColor="@color/black"
+        android:textSize="55sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/ProgressBarStyle"
+        android:layout_width="800dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/cerdo"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="496dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/cerdof" />
+
+    <ImageView
+        android:id="@+id/chango"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="236dp"
+        android:layout_marginTop="496dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/changof" />
+
+    <ImageView
+        android:id="@+id/tigre"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="444dp"
+        android:layout_marginTop="504dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/tigref" />
+
+    <ImageView
+        android:id="@+id/rana"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="300dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ranaf" />
+
+    <ImageView
+        android:id="@+id/vaca"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="320dp"
+        android:layout_marginTop="304dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/vacaf" />
+
+    <ImageButton
+        android:id="@+id/bebeCerdo"
+        android:layout_width="122dp"
+        android:layout_height="102dp"
+        android:layout_marginStart="1020dp"
+        android:layout_marginTop="376dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/cerdof"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/bebeVaca"
+        android:layout_width="120dp"
+        android:layout_height="101dp"
+        android:layout_marginStart="876dp"
+        android:layout_marginTop="452dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/vacaf"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/bebeRana"
+        android:layout_width="112dp"
+        android:layout_height="109dp"
+        android:layout_marginStart="864dp"
+        android:layout_marginTop="328dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/ranaf"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/bebeTigre"
+        android:layout_width="125dp"
+        android:layout_height="107dp"
+        android:layout_marginStart="1104dp"
+        android:layout_marginTop="504dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/tigref"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/bebeChango"
+        android:layout_width="110dp"
+        android:layout_height="108dp"
+        android:layout_marginStart="976dp"
+        android:layout_marginTop="552dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/changof"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <nl.dionsegijn.konfetti.KonfettiView
+        android:id="@+id/viewKonfetti"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnRegresar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:background="@color/transparente"
+        android:scaleType="fitCenter"
+        android:src="@drawable/flecha_atras_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

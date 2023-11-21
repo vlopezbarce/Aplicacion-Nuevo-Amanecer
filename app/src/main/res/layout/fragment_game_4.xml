@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/galaxia"
+    tools:context=".Game4Fragment">
+
+    <ImageView
+        android:id="@+id/triangulo"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginStart="800dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginEnd="275dp"
+        android:layout_marginBottom="510dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/triangulo"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/cuadrado"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginStart="800dp"
+        android:layout_marginTop="330dp"
+        android:layout_marginEnd="275dp"
+        android:layout_marginBottom="290dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/cuadrado"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/circulo"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginStart="800dp"
+        android:layout_marginTop="550dp"
+        android:layout_marginEnd="275dp"
+        android:layout_marginBottom="70dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/circulo"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/trianguloRojo"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginStart="275dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginEnd="800dp"
+        android:layout_marginBottom="510dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/triangulorojo"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/cuadradoVerde"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginStart="275dp"
+        android:layout_marginTop="330dp"
+        android:layout_marginEnd="800dp"
+        android:layout_marginBottom="290dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/cuadradoverde"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/circuloAzul"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginStart="275dp"
+        android:layout_marginTop="550dp"
+        android:layout_marginEnd="800dp"
+        android:layout_marginBottom="70dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/circuloazul"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/ProgressBarStyle"
+        android:layout_width="800dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textContador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="216dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif-medium"
+        android:inputType="number"
+        android:text="0"
+        android:textColor="@color/black"
+        android:textSize="55sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <nl.dionsegijn.konfetti.KonfettiView
+        android:id="@+id/viewKonfetti"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnRegresar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/transparente"
+        android:scaleType="fitCenter"
+        android:src="@drawable/flecha_atras_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

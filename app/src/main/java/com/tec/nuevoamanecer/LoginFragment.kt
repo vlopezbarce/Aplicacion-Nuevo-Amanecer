@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -17,12 +18,10 @@ class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
-    // Firebase Authentication
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()
     }
 
@@ -44,24 +43,46 @@ class LoginFragment : Fragment() {
         binding.btnSiguiente.setOnClickListener {
             loginUser()
         }
-
     }
 
     private fun loginUser() {
         val email = binding.editTextCorreo.text.toString()
         val password = binding.editTextContrasena.text.toString()
 
-        // Validate email and password
-
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val userUID = auth.currentUser?.uid.orEmpty()
-                    checkUserTypeAndNavigate(userUID)
-                } else {
-                    // Handle errors, e.g., incorrect credentials
+        if (email.isNotEmpty() && password.isNotEmpty()){
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val userUID = auth.currentUser?.uid.orEmpty()
+                        checkUserTypeAndNavigate(userUID)
+                    } else {
+                        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+                        val errorMessage = task.exception?.message.orEmpty()
+                        when {
+                            errorMessage.contains("blocked", ignoreCase = true) -> {
+                                alertDialogBuilder.setTitle("Demasiados Intentos")
+                                alertDialogBuilder.setMessage("Demasiados intentos fallidos. Por favor, intenta más tarde.")
+                            }
+                            else -> {
+                                alertDialogBuilder.setTitle("Datos Incorrectos")
+                                alertDialogBuilder.setMessage("Correo o contraseña no válido.")
+                            }
+                        }
+                        alertDialogBuilder.setPositiveButton("OK") { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        alertDialogBuilder.create().show()
+                    }
                 }
+        } else {
+            val alertDialogBuilder = AlertDialog.Builder(requireContext())
+            alertDialogBuilder.setTitle("Datos Insuficientes")
+            alertDialogBuilder.setMessage("Por favor, ingresa todos los campos requeridos.")
+            alertDialogBuilder.setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
             }
+            alertDialogBuilder.create().show()
+        }
     }
 
     private fun checkUserTypeAndNavigate(userUID: String) {
@@ -93,33 +114,23 @@ class LoginFragment : Fragment() {
                                     }
                                 }
 
-                                override fun onCancelled(error: DatabaseError) {
-
-                                }
+                                override fun onCancelled(error: DatabaseError) {}
                             })
                         }
-                        "Terapeuta" -> Navigation.findNavController(binding.root)
-                            .navigate(R.id.action_loginFragment_to_terapeutaFragment)
-                        else -> {
-                            throw Exception("Unexpected user type")
-                        }
+                        "Terapeuta" -> Navigation.findNavController(binding.root).navigate(R.id.action_loginFragment_to_terapeutaFragment)
                     }
+                } else {
+                    val alertDialogBuilder = AlertDialog.Builder(requireContext())
+                    alertDialogBuilder.setTitle("Error")
+                    alertDialogBuilder.setMessage("Usuario no encontrado.")
+                    alertDialogBuilder.setPositiveButton("OK") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    alertDialogBuilder.create().show()
                 }
             }
 
-            override fun onCancelled(databaseError: DatabaseError) {
-
-            }
+            override fun onCancelled(databaseError: DatabaseError) {}
         })
-    }
-
-
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            LoginFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
     }
 }

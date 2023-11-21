@@ -9,7 +9,7 @@ import androidx.navigation.Navigation
 import com.tec.nuevoamanecer.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
-    private var _binding : FragmentMainBinding? = null
+    private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +20,7 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentMainBinding.inflate(inflater,container,false)
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -34,14 +34,5 @@ class MainFragment : Fragment() {
         binding.btnRegistrar.setOnClickListener{
             Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_registroFragment)
         }
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            MainFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
     }
 }

@@ -87,18 +87,6 @@
             app:destination="@id/alumnoFragment4" />
     </fragment>
     <fragment
-        android:id="@+id/alumnoFragment"
-        android:name="com.tec.nuevoamanecer.AlumnoFragment"
-        android:label="fragment_alumno"
-        tools:layout="@layout/fragment_alumno" >
-        <action
-            android:id="@+id/action_alumnoFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
-        <action
-            android:id="@+id/action_alumnoFragment_to_game1Fragment"
-            app:destination="@id/game1Fragment" />
-    </fragment>
-    <fragment
         android:id="@+id/terapeutaFragment"
         android:name="com.tec.nuevoamanecer.TerapeutaFragment"
         android:label="fragment_terapeuta"
@@ -133,13 +121,19 @@
             app:destination="@id/editaDatosAlumnoFragment" />
     </fragment>
     <fragment
-        android:id="@+id/game1Fragment"
-        android:name="com.tec.nuevoamanecer.Game1Fragment"
-        android:label="fragment_game_1"
-        tools:layout="@layout/fragment_game_1" >
+        android:id="@+id/alumnoFragment"
+        android:name="com.tec.nuevoamanecer.AlumnoFragment"
+        android:label="fragment_alumno"
+        tools:layout="@layout/fragment_alumno" >
         <action
-            android:id="@+id/action_game1Fragment_to_alumnoFragment"
-            app:destination="@id/alumnoFragment" />
+            android:id="@+id/action_alumnoFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_alumnoFragment_to_game1Fragment"
+            app:destination="@id/game1Fragment" />
+        <action
+            android:id="@+id/action_alumnoFragment_to_game2Fragment"
+            app:destination="@id/game2Fragment" />
     </fragment>
     <fragment
         android:id="@+id/alumnoFragment2"
@@ -149,6 +143,18 @@
         <action
             android:id="@+id/action_alumnoFragment2_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_alumnoFragment2_to_game1Fragment"
+            app:destination="@id/game1Fragment" />
+        <action
+            android:id="@+id/action_alumnoFragment2_to_game2Fragment"
+            app:destination="@id/game2Fragment" />
+        <action
+            android:id="@+id/action_alumnoFragment2_to_game3Fragment"
+            app:destination="@id/game3Fragment" />
+        <action
+            android:id="@+id/action_alumnoFragment2_to_game4Fragment"
+            app:destination="@id/game4Fragment" />
     </fragment>
     <fragment
         android:id="@+id/alumnoFragment3"
@@ -158,6 +164,24 @@
         <action
             android:id="@+id/action_alumnoFragment3_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_alumnoFragment3_to_game1Fragment"
+            app:destination="@id/game1Fragment" />
+        <action
+            android:id="@+id/action_alumnoFragment3_to_game2Fragment"
+            app:destination="@id/game2Fragment" />
+        <action
+            android:id="@+id/action_alumnoFragment3_to_game3Fragment"
+            app:destination="@id/game3Fragment" />
+        <action
+            android:id="@+id/action_alumnoFragment3_to_game4Fragment"
+            app:destination="@id/game4Fragment" />
+        <action
+            android:id="@+id/action_alumnoFragment3_to_game5Fragment"
+            app:destination="@id/game5Fragment" />
+        <action
+            android:id="@+id/action_alumnoFragment3_to_game6Fragment"
+            app:destination="@id/game6Fragment" />
     </fragment>
     <fragment
         android:id="@+id/alumnoFragment4"
@@ -167,5 +191,113 @@
         <action
             android:id="@+id/action_alumnoFragment4_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_alumnoFragment4_to_game1Fragment"
+            app:destination="@id/game1Fragment" />
+        <action
+            android:id="@+id/action_alumnoFragment4_to_game2Fragment"
+            app:destination="@id/game2Fragment" />
+        <action
+            android:id="@+id/action_alumnoFragment4_to_game3Fragment"
+            app:destination="@id/game3Fragment" />
+        <action
+            android:id="@+id/action_alumnoFragment4_to_game4Fragment"
+            app:destination="@id/game4Fragment" />
+        <action
+            android:id="@+id/action_alumnoFragment4_to_game5Fragment"
+            app:destination="@id/game5Fragment" />
+        <action
+            android:id="@+id/action_alumnoFragment4_to_game6Fragment"
+            app:destination="@id/game6Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/game1Fragment"
+        android:name="com.tec.nuevoamanecer.Game1Fragment"
+        android:label="fragment_game_1"
+        tools:layout="@layout/fragment_game_1" >
+        <action
+            android:id="@+id/action_game1Fragment_to_alumnoFragment"
+            app:destination="@id/alumnoFragment" />
+        <action
+            android:id="@+id/action_game1Fragment_to_alumnoFragment2"
+            app:destination="@id/alumnoFragment2" />
+        <action
+            android:id="@+id/action_game1Fragment_to_alumnoFragment3"
+            app:destination="@id/alumnoFragment3" />
+        <action
+            android:id="@+id/action_game1Fragment_to_alumnoFragment4"
+            app:destination="@id/alumnoFragment4" />
+    </fragment>
+    <fragment
+        android:id="@+id/game2Fragment"
+        android:name="com.tec.nuevoamanecer.Game2Fragment"
+        android:label="fragment_game_2"
+        tools:layout="@layout/fragment_game_2" >
+        <action
+            android:id="@+id/action_game2Fragment_to_alumnoFragment"
+            app:destination="@id/alumnoFragment" />
+        <action
+            android:id="@+id/action_game2Fragment_to_alumnoFragment2"
+            app:destination="@id/alumnoFragment2" />
+        <action
+            android:id="@+id/action_game2Fragment_to_alumnoFragment3"
+            app:destination="@id/alumnoFragment3" />
+        <action
+            android:id="@+id/action_game2Fragment_to_alumnoFragment4"
+            app:destination="@id/alumnoFragment4" />
+    </fragment>
+    <fragment
+        android:id="@+id/game3Fragment"
+        android:name="com.tec.nuevoamanecer.Game3Fragment"
+        android:label="fragment_game_3"
+        tools:layout="@layout/fragment_game_3" >
+        <action
+            android:id="@+id/action_game3Fragment_to_alumnoFragment2"
+            app:destination="@id/alumnoFragment2" />
+        <action
+            android:id="@+id/action_game3Fragment_to_alumnoFragment3"
+            app:destination="@id/alumnoFragment3" />
+        <action
+            android:id="@+id/action_game3Fragment_to_alumnoFragment4"
+            app:destination="@id/alumnoFragment4" />
+    </fragment>
+    <fragment
+        android:id="@+id/game4Fragment"
+        android:name="com.tec.nuevoamanecer.Game4Fragment"
+        android:label="fragment_game_4"
+        tools:layout="@layout/fragment_game_4" >
+        <action
+            android:id="@+id/action_game4Fragment_to_alumnoFragment2"
+            app:destination="@id/alumnoFragment2" />
+        <action
+            android:id="@+id/action_game4Fragment_to_alumnoFragment3"
+            app:destination="@id/alumnoFragment3" />
+        <action
+            android:id="@+id/action_game4Fragment_to_alumnoFragment4"
+            app:destination="@id/alumnoFragment4" />
+    </fragment>
+    <fragment
+        android:id="@+id/game5Fragment"
+        android:name="com.tec.nuevoamanecer.Game5Fragment"
+        android:label="fragment_game_5"
+        tools:layout="@layout/fragment_game_5" >
+        <action
+            android:id="@+id/action_game5Fragment_to_alumnoFragment3"
+            app:destination="@id/alumnoFragment3" />
+        <action
+            android:id="@+id/action_game5Fragment_to_alumnoFragment4"
+            app:destination="@id/alumnoFragment4" />
+    </fragment>
+    <fragment
+        android:id="@+id/game6Fragment"
+        android:name="com.tec.nuevoamanecer.Game6Fragment"
+        android:label="fragment_game_6"
+        tools:layout="@layout/fragment_game_6" >
+        <action
+            android:id="@+id/action_game6Fragment_to_alumnoFragment3"
+            app:destination="@id/alumnoFragment3" />
+        <action
+            android:id="@+id/action_game6Fragment_to_alumnoFragment4"
+            app:destination="@id/alumnoFragment4" />
     </fragment>
 </navigation>

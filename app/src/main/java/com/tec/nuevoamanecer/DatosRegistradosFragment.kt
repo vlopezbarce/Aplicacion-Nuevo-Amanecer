@@ -12,7 +12,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.tec.nuevoamanecer.databinding.FragmentDatosRegistradosBinding
 
 class DatosRegistradosFragment : Fragment() {
-    private var _binding : FragmentDatosRegistradosBinding? = null
+    private var _binding: FragmentDatosRegistradosBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var email: String
@@ -42,18 +42,19 @@ class DatosRegistradosFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentDatosRegistradosBinding.inflate(inflater,container,false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentDatosRegistradosBinding.inflate(inflater, container, false)
 
         binding.txtViewNombre.text = nombre
         binding.txtViewApellidos.text = apellidos
         binding.txtViewFecha.text = fechaNacimiento
         binding.txtViewNivel.text = nivel
         binding.txtViewCorreo.text = email
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.btnRegresar.setOnClickListener{
             val bundle = Bundle()
@@ -97,15 +98,6 @@ class DatosRegistradosFragment : Fragment() {
                             .addOnFailureListener {
                             }
                     }
-                }
-            }
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            DatosRegistradosFragment().apply {
-                arguments = Bundle().apply {
                 }
             }
     }

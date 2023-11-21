@@ -15,7 +15,7 @@ import com.google.firebase.database.ValueEventListener
 import com.tec.nuevoamanecer.databinding.FragmentAlumnoBinding
 
 class AlumnoFragment : Fragment() {
-    private var _binding : FragmentAlumnoBinding? = null
+    private var _binding: FragmentAlumnoBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var database: DatabaseReference
@@ -35,12 +35,7 @@ class AlumnoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentAlumnoBinding.inflate(inflater,container,false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentAlumnoBinding.inflate(inflater, container, false)
 
         userRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -52,29 +47,33 @@ class AlumnoFragment : Fragment() {
                 }
             }
 
-            override fun onCancelled(error: DatabaseError) {
-
-            }
+            override fun onCancelled(error: DatabaseError) {}
         })
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.btnRegresar.setOnClickListener{
             FirebaseAuth.getInstance().signOut()
             Navigation.findNavController(view).navigate(R.id.action_alumnoFragment_to_mainFragment)
         }
 
-        binding.btnJuego1.setOnClickListener{
-            Navigation.findNavController(view).navigate(R.id.action_alumnoFragment_to_game1Fragment)
-        }
+        val botones = listOf(
+            binding.btnJuego1, binding.btnJuego2
+        )
 
-
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            AlumnoFragment().apply {
-                arguments = Bundle().apply {
+        botones.forEachIndexed { index, btnJuego ->
+            btnJuego.setOnClickListener {
+                val actionId = when (index) {
+                    0 -> R.id.action_alumnoFragment_to_game1Fragment
+                    1 -> R.id.action_alumnoFragment_to_game2Fragment
+                    else -> R.id.action_alumnoFragment_to_mainFragment
                 }
+                Navigation.findNavController(view).navigate(actionId)
             }
+        }
     }
 }
