@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Top yellow rectangle section with two input fields -->
+    <LinearLayout
+        android:id="@+id/top_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFEB3B"
+        android:orientation="horizontal"
+        android:padding="16dp"> <!-- Assuming yellow background -->
+
+        <EditText
+            android:id="@+id/first_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Input 1" />
+
+        <EditText
+            android:id="@+id/second_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Input 2" />
+    </LinearLayout>
+
+    <!-- GridLayout for buttons -->
+    <GridLayout
+        android:id="@+id/button_grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_section"
+        android:background="#FFFFFF"
+        android:columnCount="3"
+        android:padding="16dp"
+        android:rowCount="3">
+
+        <!-- Dynamically add buttons here based on your requirements -->
+        <!-- Example for a single button -->
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            android:background="#2196F3"
+            android:text="Button 1" /> <!-- Assuming blue background for button -->
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            android:background="#2196F3"
+            android:text="Button 2" /> <!-- Assuming blue background for button -->
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            android:background="#2196F3"
+            android:text="Button 3" /> <!-- Assuming blue background for button -->
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            android:background="#2196F3"
+            android:text="Button 4" /> <!-- Assuming blue background for button -->
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            android:background="#2196F3"
+            android:text="Button 5" /> <!-- Assuming blue background for button -->
+
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            android:background="#2196F3"
+            android:text="Button 6" /> <!-- Assuming blue background for button -->
+
+        <Button
+            android:id="@+id/button7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            android:background="#2196F3"
+            android:text="Button 7" /> <!-- Assuming blue background for button -->
+
+        <Button
+            android:id="@+id/button8"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            android:background="#2196F3"
+            android:text="Button 8" /> <!-- Assuming blue background for button -->
+
+        <Button
+            android:id="@+id/button9"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            android:background="#2196F3"
+            android:text="Button 9" /> <!-- Assuming blue background for button -->
+
+    </GridLayout>
+
+    <!-- Other layout elements -->
+
+    <ImageButton
+        android:id="@+id/btnSiguiente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="30dp"
+        android:background="@color/transparente"
+        android:scaleType="fitCenter"
+        android:src="@drawable/boton_siguiente"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>
