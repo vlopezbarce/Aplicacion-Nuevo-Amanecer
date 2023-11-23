@@ -42,6 +42,7 @@ class TableroFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_tablero, container, false)
 
+
         gridLayout = view.findViewById(R.id.button_grid)
         assignUidsToButtons(view)
 
