@@ -45,7 +45,7 @@ class TableroFragment : Fragment() {
 
         gridLayout = view.findViewById(R.id.button_grid)
         assignUidsToButtons(view)
-
+//
         // Programmatically trigger a click event for each button
         view.post {
             for (i in 0 until gridLayout.childCount) {
