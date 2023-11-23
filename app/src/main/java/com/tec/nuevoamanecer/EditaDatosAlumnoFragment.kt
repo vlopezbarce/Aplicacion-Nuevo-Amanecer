@@ -72,12 +72,12 @@ class EditaDatosAlumnoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnTablero.setOnClickListener {
-            // Show a Toast message
-            Toast.makeText(context, "User ID: $userUID", Toast.LENGTH_SHORT).show()
+            val bundle = Bundle()
+            bundle.putString("userUID", userUID)
 
-            // Navigate to TableroFragment
-            Navigation.findNavController(view).navigate(R.id.action_editaDatosAlumnoFragment_to_fragmentTablero)
+            Navigation.findNavController(view).navigate(R.id.action_editaDatosAlumnoFragment_to_fragmentTablero, bundle)
         }
+
         binding.btnRegresar.setOnClickListener{
             Navigation.findNavController(view).navigate(R.id.action_editaDatosAlumnoFragment_to_terapeutaFragment)
         }

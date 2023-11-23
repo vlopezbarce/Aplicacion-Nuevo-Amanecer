@@ -80,7 +80,7 @@ class  DatosRegistradosFragment : Fragment() {
                     val userUID = auth.currentUser?.uid
                     if (userUID != null) {
                         val alumno = Alumno(userUID, nombre, apellidos, fechaNacimiento, nivel)
-
+                        database.child("Usuarios").child("Tablero").child(userUID).setValue("")
                         database.child("Usuarios").child("Usuario").child(userUID).setValue("Alumno")
                         database.child("Usuarios").child("Alumnos").child(userUID).setValue(alumno)
                             .addOnSuccessListener {
