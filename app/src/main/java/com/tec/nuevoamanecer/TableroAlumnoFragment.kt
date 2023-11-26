@@ -36,6 +36,7 @@ class TableroAlumnoFragment : Fragment() {
         Toast.makeText(context, uidAlumno, Toast.LENGTH_SHORT).show()
     }
 
+
     
         override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
