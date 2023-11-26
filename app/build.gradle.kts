@@ -61,6 +61,8 @@ dependencies {
     implementation("com.github.bumptech.glide:compiler:4.12.0")
     implementation("nl.dionsegijn:konfetti:1.2.2")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    implementation("com.github.bumptech.glide:compiler:4.12.0")
 }
 
 apply(plugin = "androidx.navigation.safeargs.kotlin")

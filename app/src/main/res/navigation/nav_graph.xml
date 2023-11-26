@@ -217,7 +217,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentTableroAlumno"
-        android:name="com.tec.nuevoamanecer.TableroAlumnoFragment"
+        android:name="com.tec.nuevoamanecer.AlumnoTableroFragment"
         android:label="fragment_tableroalumno"
         tools:layout="@layout/fragment_tableroalumno">
     </fragment>

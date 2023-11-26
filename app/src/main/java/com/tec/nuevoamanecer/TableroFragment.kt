@@ -112,9 +112,6 @@ class TableroFragment : Fragment() {
         })
     }
 
-
-
-
     private fun assignUidsToButtons(view: View) {
         databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
