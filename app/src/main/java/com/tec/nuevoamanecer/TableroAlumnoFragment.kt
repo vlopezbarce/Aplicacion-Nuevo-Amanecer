@@ -19,95 +19,101 @@ import java.util.UUID
 
 
 class TableroAlumnoFragment : Fragment() {
+    private lateinit var database: DatabaseReference
+    private lateinit var userRef: DatabaseReference
+    private lateinit var auth: FirebaseAuth
     private lateinit var uidAlumno: String
+
     private lateinit var gridLayout: GridLayout
     private lateinit var carouselRecyclerView: RecyclerView
     private val carouselAdapter = CarouselAdapter()
-    private lateinit var auth: FirebaseAuth
-
-    private val databaseRef by lazy {
-        FirebaseDatabase.getInstance().getReference("Usuarios").child("Tablero").child(uidAlumno)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        database = FirebaseDatabase.getInstance().reference
         auth = FirebaseAuth.getInstance()
-        uidAlumno = auth.currentUser?.uid.orEmpty() // Getting the UID of the current user
+        uidAlumno = auth.currentUser?.uid.orEmpty()
+        userRef = database.child("Usuarios").child("Alumnos").child(uidAlumno)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_tableroalumno, container, false)
+        gridLayout = view.findViewById(R.id.button_grid)
+        carouselRecyclerView = view.findViewById(R.id.carousel_recyclerview)
+        // setupGridLayout()
+        setupCarousel()
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         Toast.makeText(context, uidAlumno, Toast.LENGTH_SHORT).show()
     }
 
-
-    
-        override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
-        ): View? {
-            val view = inflater.inflate(R.layout.fragment_tableroalumno, container, false)
-            gridLayout = view.findViewById(R.id.button_grid)
-            carouselRecyclerView = view.findViewById(R.id.carousel_recyclerview)
-            setupGridLayout()
-            setupCarousel()
-            return view
-        }
-
-        private fun setupGridLayout() {
-            databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    dataSnapshot.children.forEachIndexed { index, snapshot ->
-                        if (index < gridLayout.childCount) {
-                            val childView = gridLayout.getChildAt(index) as? ImageButton
-                            val imageUrl = snapshot.child("url").value as String?
-                            childView?.tag = snapshot.key
-                            if (imageUrl != null) {
-                                if (childView != null) {
-                                    Glide.with(this@TableroAlumnoFragment)
-                                        .load(imageUrl)
-                                        .centerCrop()
-                                        .into(childView)
-                                }
-                                carouselAdapter.addImage(childView?.drawable)
+    /**
+    private fun setupGridLayout() {
+        databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                dataSnapshot.children.forEachIndexed { index, snapshot ->
+                    if (index < gridLayout.childCount) {
+                        val childView = gridLayout.getChildAt(index) as? ImageButton
+                        val imageUrl = snapshot.child("url").value as String?
+                        childView?.tag = snapshot.key
+                        if (imageUrl != null) {
+                            if (childView != null) {
+                                Glide.with(this@TableroAlumnoFragment)
+                                    .load(imageUrl)
+                                    .centerCrop()
+                                    .into(childView)
                             }
+                            carouselAdapter.addImage(childView?.drawable)
                         }
                     }
                 }
-
-                override fun onCancelled(databaseError: DatabaseError) {
-                    // Handle error
-                }
-            })
-        }
-
-        private fun setupCarousel() {
-            carouselRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            carouselRecyclerView.adapter = carouselAdapter
-        }
-
-        class CarouselAdapter : RecyclerView.Adapter<CarouselAdapter.ViewHolder>() {
-            private val images: MutableList<Drawable> = mutableListOf()
-
-            fun addImage(drawable: Drawable?) {
-                drawable?.let {
-                    images.add(it)
-                    notifyItemInserted(images.size - 1)
-                }
             }
 
-            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-                val imageView = ImageButton(parent.context)
-                imageView.layoutParams = ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                )
-                return ViewHolder(imageView)
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle error
             }
-
-            override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-                holder.imageView.setImageDrawable(images[position])
-            }
-
-            override fun getItemCount(): Int = images.size
-
-            class ViewHolder(val imageView: ImageButton) : RecyclerView.ViewHolder(imageView)
-        }
+        })
     }
+    */
+
+    private fun setupCarousel() {
+        carouselRecyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        carouselRecyclerView.adapter = carouselAdapter
+    }
+
+    class CarouselAdapter : RecyclerView.Adapter<CarouselAdapter.ViewHolder>() {
+        private val images: MutableList<Drawable> = mutableListOf()
+
+        fun addImage(drawable: Drawable?) {
+            drawable?.let {
+                images.add(it)
+                notifyItemInserted(images.size - 1)
+            }
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            val imageView = ImageButton(parent.context)
+            imageView.layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            return ViewHolder(imageView)
+        }
+
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            holder.imageView.setImageDrawable(images[position])
+        }
+
+        override fun getItemCount(): Int = images.size
+
+        class ViewHolder(val imageView: ImageButton) : RecyclerView.ViewHolder(imageView)
+    }
+}
 
