@@ -59,7 +59,7 @@ class AlumnoFragment4 : Fragment() {
         })
         binding.btnTablero.setOnClickListener {
             // Navigate to TableroFragment
-            Navigation.findNavController(view).navigate(R.id.action_alumnoFragment4_to_tableroFragment)
+            Navigation.findNavController(view).navigate(R.id.action_alumnoFragment4_to_fragmentTableroAlumno)
         }
         binding.btnRegresar.setOnClickListener{
             FirebaseAuth.getInstance().signOut()
