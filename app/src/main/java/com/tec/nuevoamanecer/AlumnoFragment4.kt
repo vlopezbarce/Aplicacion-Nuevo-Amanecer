@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -21,14 +22,15 @@ class AlumnoFragment4 : Fragment() {
     private lateinit var database: DatabaseReference
     private lateinit var userRef: DatabaseReference
     private lateinit var auth: FirebaseAuth
-    private lateinit var userUID: String
+    private lateinit var uidAlumno: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         database = FirebaseDatabase.getInstance().reference
         auth = FirebaseAuth.getInstance()
-        userUID = auth.currentUser?.uid.orEmpty()
-        userRef = database.child("Usuarios").child("Alumnos").child(userUID)
+        uidAlumno = auth.currentUser?.uid.orEmpty()
+        userRef = database.child("Usuarios").child("Alumnos").child(uidAlumno)
+        Toast.makeText(context, uidAlumno, Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreateView(
@@ -37,6 +39,7 @@ class AlumnoFragment4 : Fragment() {
     ): View? {
         _binding = FragmentAlumno4Binding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,7 +57,10 @@ class AlumnoFragment4 : Fragment() {
 
             override fun onCancelled(error: DatabaseError) {}
         })
-
+        binding.btnTablero.setOnClickListener {
+            // Navigate to TableroFragment
+            Navigation.findNavController(view).navigate(R.id.action_alumnoFragment4_to_tableroFragment)
+        }
         binding.btnRegresar.setOnClickListener{
             FirebaseAuth.getInstance().signOut()
             Navigation.findNavController(view).navigate(R.id.action_alumnoFragment4_to_mainFragment)

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Top yellow rectangle section with two input fields -->
+    <LinearLayout
+        android:id="@+id/top_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFEB3B"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/first_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Input 1" />
+
+        <Spinner
+            android:id="@+id/description_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <!-- GridLayout for buttons -->
+    <GridLayout
+        android:id="@+id/button_grid"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/top_section"
+        android:layout_above="@+id/carousel_recyclerview"
+        android:background="#2196F3"
+        android:columnCount="3"
+        android:padding="16dp"
+        android:rowCount="3">
+
+        <!-- Dynamically add buttons here based on your requirements -->
+
+    </GridLayout>
+
+    <!-- Carousel implemented with RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/carousel_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_above="@id/btnSiguiente"
+        android:background="#ffffff"
+        android:padding="8dp" />
+
+    <!-- Other layout elements -->
+
+    <ImageButton
+        android:id="@+id/btnSiguiente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="30dp"
+        android:background="@color/transparente"
+        android:scaleType="fitCenter"
+        android:src="@drawable/boton_siguiente"
+        android:layout_above="@id/btnIzquierda"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/btnIzquierda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:text="btnIzquierda" />
+
+    <!-- Button on the bottom right corner -->
+    <Button
+        android:id="@+id/btnDerecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:text="btnDerecha" />
+
+</RelativeLayout>

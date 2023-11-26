@@ -212,7 +212,15 @@
         <action
             android:id="@+id/action_alumnoFragment4_to_game6Fragment"
             app:destination="@id/game6Fragment" />
+        <action
+            android:id="@+id/action_alumnoFragment4_to_tableroFragment"
+            app:destination="@id/tableroFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/tableroFragment"
+        android:name="com.tec.nuevoamanecer.TableroFragment"
+        android:label="fragment_tablero"
+        tools:layout="@layout/fragment_tablero" />
     <fragment
         android:id="@+id/game1Fragment"
         android:name="com.tec.nuevoamanecer.Game1Fragment"
