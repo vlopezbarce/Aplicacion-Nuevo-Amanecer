@@ -2,7 +2,6 @@ package com.tec.nuevoamanecer
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -17,15 +16,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
 import java.util.*
 
 class TableroFragment : Fragment() {
     private lateinit var uidAlumno: String
     private lateinit var gridLayout: GridLayout
     private var currentSelectedButtonTag: String? = null
-    private var currentCategory: String = "Familia" // Default category
+    private var currentCategory: String = "Familia"
 
     private val databaseRef by lazy {
         FirebaseDatabase.getInstance().getReference("Usuarios").child("Tablero").child(uidAlumno)

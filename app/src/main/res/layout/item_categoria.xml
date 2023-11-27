@@ -1,0 +1,42 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="20dp"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imgCategoria"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/boton_placeholder" />
+
+        <TextView
+            android:id="@+id/txtViewCategoria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textAlignment="center"
+            android:fontFamily="@font/lilita_one"
+            android:text="@string/nombre"
+            android:textColor="@color/black"
+            android:textSize="40sp" />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btnEliminar"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:background="@color/transparente"
+        android:src="@drawable/icono_eliminar"
+        android:scaleType="fitCenter" >
+    </ImageButton>
+
+</LinearLayout>

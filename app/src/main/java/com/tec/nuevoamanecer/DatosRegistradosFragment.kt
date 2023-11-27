@@ -9,6 +9,8 @@ import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.tec.nuevoamanecer.databinding.FragmentDatosRegistradosBinding
 
 class  DatosRegistradosFragment : Fragment() {
@@ -24,6 +26,7 @@ class  DatosRegistradosFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
+    private lateinit var storage: StorageReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +39,7 @@ class  DatosRegistradosFragment : Fragment() {
 
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().reference
+        storage = FirebaseStorage.getInstance().reference
     }
 
     override fun onCreateView(
@@ -80,6 +84,9 @@ class  DatosRegistradosFragment : Fragment() {
                     val userUID = auth.currentUser?.uid
                     if (userUID != null) {
                         val alumno = Alumno(userUID, nombre, apellidos, fechaNacimiento, nivel)
+                        if (userUID.toInt() == 4) {
+                            storage.child("Tablero").child(userUID).putBytes(byteArrayOf())
+                        }
                         database.child("Usuarios").child("Tablero").child(userUID).setValue("")
                         database.child("Usuarios").child("Usuario").child(userUID).setValue("Alumno")
                         database.child("Usuarios").child("Alumnos").child(userUID).setValue(alumno)

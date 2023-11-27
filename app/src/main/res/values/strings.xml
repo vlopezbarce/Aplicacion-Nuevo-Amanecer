@@ -47,9 +47,8 @@
     <string name="nombre_alumno">NOMBRE DEL ALUMNO</string>
     <string name="editar">EDITAR</string>
 
-    <!-- Imágenes -->
-    <string name="imagenes">IMÁGENES</string>
-    <string name="nombre_imagen">NOMBRE DE LA IMAGEN</string>
-    <string name="subir_imagen">Subir Imagen</string>
+    <!-- Tablero -->
+    <string name="categorias">Categorías</string>
+    <string name="anadir_categoria">Añadir Nueva Categoría:</string>
 
 </resources>
