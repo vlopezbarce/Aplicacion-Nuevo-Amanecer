@@ -1,5 +1,6 @@
 package com.tec.nuevoamanecer
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,10 +10,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
@@ -21,10 +20,22 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.tec.nuevoamanecer.databinding.FragmentAlumno4Binding
+import com.google.firebase.storage.StorageReference
+import com.tec.nuevoamanecer.databinding.FragmentTableroalumnoBinding
+
 
 class AlumnoTableroFragment : Fragment() {
+
+    private var _binding: FragmentTableroalumnoBinding? = null
+
+    private val binding get() = _binding!!
+
     private lateinit var database: DatabaseReference
+    private lateinit var categoriasRef : DatabaseReference
+    private lateinit var storageRef : StorageReference
+    private lateinit var userUID: String
+    private lateinit var uri: Uri
+
     private lateinit var userRef: DatabaseReference
     private lateinit var auth: FirebaseAuth
     private lateinit var uidAlumno: String
@@ -50,7 +61,7 @@ class AlumnoTableroFragment : Fragment() {
         recyclerView = view.findViewById(R.id.carousel_recyclerview)
         imageAdapter = ImageAdapter()
         recyclerView.adapter = imageAdapter
-        recyclerView.layoutManager = GridLayoutManager(context, 3,RecyclerView.VERTICAL, false)
+        recyclerView.layoutManager = GridLayoutManager(context, 2,RecyclerView.HORIZONTAL, false)
 
         val spinner = view.findViewById<Spinner>(R.id.description_spinner)
         val categories = arrayOf("Familia", "Horario", "Escuela", "Dias de La semana", "Colores", "Clima", "Animales")
@@ -106,7 +117,7 @@ class AlumnoTableroFragment : Fragment() {
 
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
-            val itemView = LayoutInflater.from(parent.context).inflate(R.layout.image_item, parent, false)
+            val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_image, parent, false)
             return ImageViewHolder(itemView)
         }
 

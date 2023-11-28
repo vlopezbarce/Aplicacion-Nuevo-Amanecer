@@ -47,7 +47,7 @@ class TableroFragment : Fragment() {
         val categories = arrayOf("Familia", "Horario", "Escuela", "Dias de La semana", "Colores", "Clima", "Animales")
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, categories)
         descriptionSpinner.adapter = adapter
-        gridLayout = view.findViewById(R.id.button_grid)
+        gridLayout = view.findViewById(R.id.buttonGrid)
         assignUidsToButtons(view)
 
         descriptionSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
