@@ -1,67 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".AlumnoTableroFragment"
+    >
 
     <!-- Top section with EditText and Spinner -->
     <LinearLayout
         android:id="@+id/top_section"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFEB3B"
         android:orientation="horizontal"
-        android:padding="16dp">
+        android:padding="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/first_input"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Input 1" />
+        <ImageButton
+            android:id="@+id/btnRegresar"
+            android:layout_width="74dp"
+            android:layout_height="63dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/flecha_atras"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnBorrar"
+            android:layout_width="125dp"
+            android:layout_height="79dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/boton_borrar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnBackspace"
+            android:layout_width="125dp"
+            android:layout_height="79dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/boton_backspace"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnSpeak"
+            android:layout_width="125dp"
+            android:layout_height="79dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="100dp"
+            android:background="@drawable/boton_sonido"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Spinner
             android:id="@+id/description_spinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/lilita_one"
+            android:textColor="@color/black"
+            android:textSize="60sp" />
 
     </LinearLayout>
 
-    <!-- RecyclerView for displaying images -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/carousel_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/top_section"
-        android:padding="8dp" />
+        android:layout_height="450dp"
+        android:layout_below="@+id/top_section"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="85dp"
 
-    <!-- Buttons at the bottom -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal">
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/btnIzquierda"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="btnIzquierda" />
+    <ImageButton
+        android:id="@+id/btnAnt"
+        android:layout_width="185dp"
+        android:layout_height="159dp"
+        android:layout_marginTop="540dp"
+        android:layout_marginEnd="1076dp"
+        android:background="@drawable/boton_ant_tablero"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/btnSiguiente"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/transparente"
-            android:scaleType="fitCenter"
-            android:src="@drawable/boton_siguiente" />
+    <ImageButton
+        android:id="@+id/btnSig"
+        android:layout_width="185dp"
+        android:layout_height="159dp"
+        android:layout_marginTop="540dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/boton_sig_tablero"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/btnDerecha"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="btnDerecha" />
 
-    </LinearLayout>
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

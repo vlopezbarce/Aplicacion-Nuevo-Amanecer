@@ -46,27 +46,14 @@
 
     <ImageButton
         android:id="@+id/btnTablero"
-        android:layout_width="350dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="416dp"
+        android:layout_height="143dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="60dp"
-        android:background="@drawable/boton_placeholder"
+        android:background="@drawable/boton_tablero"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txtViewTablero"
-        android:layout_width="350dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="60dp"
-        android:gravity="center"
-        android:fontFamily="@font/lilita_one"
-        android:text="@string/tablero"
-        android:textColor="@color/verde"
-        android:textSize="100sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <GridLayout
         android:id="@+id/layoutJuegos"

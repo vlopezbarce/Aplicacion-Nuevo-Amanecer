@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -49,7 +50,7 @@ class AlumnoTableroFragment : Fragment() {
         recyclerView = view.findViewById(R.id.carousel_recyclerview)
         imageAdapter = ImageAdapter()
         recyclerView.adapter = imageAdapter
-        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.layoutManager = GridLayoutManager(context, 3,RecyclerView.VERTICAL, false)
 
         val spinner = view.findViewById<Spinner>(R.id.description_spinner)
         val categories = arrayOf("Familia", "Horario", "Escuela", "Dias de La semana", "Colores", "Clima", "Animales")
@@ -103,26 +104,25 @@ class AlumnoTableroFragment : Fragment() {
             notifyDataSetChanged()
         }
 
+
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
-            val imageView = ImageView(parent.context).apply {
-                layoutParams = ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT
-                )
-                scaleType = ImageView.ScaleType.CENTER_CROP
-            }
-            return ImageViewHolder(imageView)
+            val itemView = LayoutInflater.from(parent.context).inflate(R.layout.image_item, parent, false)
+            return ImageViewHolder(itemView)
         }
 
         override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
             Glide.with(holder.itemView.context)
                 .load(imageUrls[position])
-                .override(600, 400) // Use appropriate size that suits your needs
                 .into(holder.imageView)
         }
 
+
         override fun getItemCount(): Int = imageUrls.size
 
-        class ImageViewHolder(val imageView: ImageView) : RecyclerView.ViewHolder(imageView)
+
+        class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            val imageView: ImageView = itemView.findViewById(R.id.imageView)
+        }
+
     }
 }
