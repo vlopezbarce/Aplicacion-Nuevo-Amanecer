@@ -14,11 +14,14 @@ import android.view.ViewGroup
 import androidx.navigation.Navigation
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 
 class AlumnoAdapter(context: Context, private val alumnos: List<Alumno>) :
     ArrayAdapter<Alumno>(context, 0, alumnos), Filterable {
 
     private lateinit var database: DatabaseReference
+    private lateinit var storage: StorageReference
     private var busquedaAlumnos: List<Alumno> = alumnos
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -38,10 +41,14 @@ class AlumnoAdapter(context: Context, private val alumnos: List<Alumno>) :
         }
 
         database = FirebaseDatabase.getInstance().reference
+        storage = FirebaseStorage.getInstance().reference
 
         val btnEliminar = view.findViewById<ImageButton>(R.id.btnEliminar)
         btnEliminar.setOnClickListener {
             if (alumno != null) {
+                if (alumno.nivel.toInt() == 4) {
+                    storage.child("Tablero").child(alumno.id).delete()
+                }
                 database.child("Usuarios").child("Alumnos").child(alumno.id).removeValue()
                 database.child("Usuarios").child("Usuario").child(alumno.id).removeValue()
                 database.child("Usuarios").child("Tablero").child(alumno.id).removeValue()
