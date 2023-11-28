@@ -46,9 +46,6 @@ class AlumnoAdapter(context: Context, private val alumnos: List<Alumno>) :
         val btnEliminar = view.findViewById<ImageButton>(R.id.btnEliminar)
         btnEliminar.setOnClickListener {
             if (alumno != null) {
-                if (alumno.nivel.toInt() == 4) {
-                    storage.child("Tablero").child(alumno.id).delete()
-                }
                 database.child("Usuarios").child("Alumnos").child(alumno.id).removeValue()
                 database.child("Usuarios").child("Usuario").child(alumno.id).removeValue()
                 database.child("Usuarios").child("Tablero").child(alumno.id).removeValue()
