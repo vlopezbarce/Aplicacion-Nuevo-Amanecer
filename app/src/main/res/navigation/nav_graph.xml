@@ -302,9 +302,22 @@
     <fragment
         android:id="@+id/categoriasFragment"
         android:name="com.tec.nuevoamanecer.CategoriasFragment"
-        android:label="CategoriasFragment" >
+        android:label="fragment_categorias"
+        tools:layout="@layout/fragment_categorias" >
         <action
             android:id="@+id/action_categoriasFragment_to_editaDatosAlumnoFragment"
             app:destination="@id/editaDatosAlumnoFragment" />
+        <action
+            android:id="@+id/action_categoriasFragment_to_tableroFragment"
+            app:destination="@id/tableroFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tableroFragment"
+        android:name="com.tec.nuevoamanecer.TableroFragment"
+        android:label="fragment_tablero"
+        tools:layout="@layout/fragment_tablero" >
+        <action
+            android:id="@+id/action_tableroFragment_to_categoriasFragment"
+            app:destination="@id/categoriasFragment" />
     </fragment>
 </navigation>

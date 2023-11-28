@@ -2,6 +2,7 @@ package com.tec.nuevoamanecer
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.Firebase
@@ -49,7 +51,8 @@ class CategoriasFragment : Fragment() {
     ): View? {
         _binding = FragmentCategoriasBinding.inflate(inflater, container, false)
 
-        recyclerViewCategorias = binding.scrollView.findViewById(R.id.listaCategorias)
+        recyclerViewCategorias = binding.recyclerCategorias
+        recyclerViewCategorias.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         categoriaAdapter = CategoriaAdapter(requireContext(), userUID, categoriasList)
         recyclerViewCategorias.adapter = categoriaAdapter
 
@@ -71,11 +74,15 @@ class CategoriasFragment : Fragment() {
 
                 uri = selectedUri
             } else {
-                Toast.makeText(requireContext(), "Por favor selecciona una imagen.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Por favor selecciona una imagen.",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
-        binding.btnRegresar.setOnClickListener{
+        binding.btnRegresar.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("userUID", userUID)
             Navigation.findNavController(view).navigate(R.id.action_categoriasFragment_to_editaDatosAlumnoFragment, bundle)
@@ -95,14 +102,16 @@ class CategoriasFragment : Fragment() {
                     .putFile(uri!!)
                     .addOnSuccessListener { task ->
                         task.metadata!!.reference!!.downloadUrl
-                            .addOnSuccessListener { imageUri ->
-                                categoriasRef.setValue(categoriaNombre)
+                            .addOnSuccessListener { _ ->
+                                categoriasRef.child(categoriaNombre).setValue("")
                                     .addOnSuccessListener {
                                         Toast.makeText(
                                             requireContext(),
                                             "Imagen y categoría subidas exitosamente",
                                             Toast.LENGTH_SHORT
                                         ).show()
+
+                                        cargarCategorias()
                                     }
                                     .addOnFailureListener {
                                         Toast.makeText(
@@ -114,7 +123,11 @@ class CategoriasFragment : Fragment() {
                             }
                     }
             } else {
-                Toast.makeText(requireContext(), "Por favor selecciona una imagen y proporciona un nombre de categoría.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Por favor selecciona una imagen y proporciona un nombre de categoría.",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -125,9 +138,21 @@ class CategoriasFragment : Fragment() {
                 categoriasList.clear()
 
                 for (categoriaSnapshot in dataSnapshot.children) {
-                    val categoria = Categoria(categoriaSnapshot.key.orEmpty())
-                    categoriasList.add(categoria)
+                    categoriaSnapshot?.let {
+                        val key = it.key
+                        val value = it.value
+
+                        Log.d("CargarCategorias", "Key: $key, Value: $value")
+
+                        val categoria = Categoria(key.orEmpty())
+                        categoriasList.add(categoria)
+                    }
                 }
+
+                if (categoriasList.isEmpty()) {
+                    Log.d("CargarCategorias", "No categorias")
+                }
+
                 categoriaAdapter.notifyDataSetChanged()
             }
 

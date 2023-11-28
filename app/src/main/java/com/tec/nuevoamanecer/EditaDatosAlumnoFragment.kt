@@ -122,21 +122,23 @@ class EditaDatosAlumnoFragment : Fragment() {
 
             nivelRef.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    val nivel = dataSnapshot.getValue(Int::class.java)
+                    val nivel = dataSnapshot.getValue(String::class.java)
 
-                    if (nivel == 4) {
-                        val bundle = Bundle()
-                        bundle.putString("userUID", userUID)
-                        Navigation.findNavController(view).navigate(R.id.action_editaDatosAlumnoFragment_to_categoriasFragment, bundle)
-                    } else {
-                        val alertDialogBuilder = AlertDialog.Builder(requireContext())
-                        alertDialogBuilder.setTitle("Acceso Denegado")
-                        alertDialogBuilder.setMessage("El usuario no cuenta con un tablero.")
-                        alertDialogBuilder.setPositiveButton("OK") { dialog, _ ->
-                            dialog.dismiss()
+                    if (nivel != null) {
+                        if (nivel.toInt() == 4) {
+                            val bundle = Bundle()
+                            bundle.putString("userUID", userUID)
+                            Navigation.findNavController(view).navigate(R.id.action_editaDatosAlumnoFragment_to_categoriasFragment, bundle)
+                        } else {
+                            val alertDialogBuilder = AlertDialog.Builder(requireContext())
+                            alertDialogBuilder.setTitle("Acceso Denegado")
+                            alertDialogBuilder.setMessage("El usuario no cuenta con un tablero.")
+                            alertDialogBuilder.setPositiveButton("OK") { dialog, _ ->
+                                dialog.dismiss()
+                            }
+                            val alertDialog = alertDialogBuilder.create()
+                            alertDialog.show()
                         }
-                        val alertDialog = alertDialogBuilder.create()
-                        alertDialog.show()
                     }
                 }
 
