@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
-class AlumnoCategoriaAdapter(private val context: Context, private val userUID: String, private val categorias: List<Categoria>) :
+class AlumnoCategoriaAdapter(private val context: Context, private val userUID: String, private val categorias: List<Categoria>, private val ttsList: MutableList<Imagen>, private val isFeminineVoice: Boolean) :
     RecyclerView.Adapter<AlumnoCategoriaAdapter.CategoriaViewHolder>() {
 
     private val storage: StorageReference = FirebaseStorage.getInstance().reference
@@ -55,6 +55,8 @@ class AlumnoCategoriaAdapter(private val context: Context, private val userUID: 
                 val bundle = Bundle()
                 bundle.putString("userUID", userUID)
                 bundle.putString("categoria", categoria.nombre)
+                bundle.putParcelableArrayList("ttsList", ArrayList(ttsList))
+                bundle.putBoolean("isFeminineVoice", isFeminineVoice)
                 Navigation.findNavController(itemView).navigate(R.id.action_alumnoCategoriasFragment_to_alumnoTableroFragment, bundle)
             }
         }

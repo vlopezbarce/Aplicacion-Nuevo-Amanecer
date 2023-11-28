@@ -2,12 +2,13 @@ package com.tec.nuevoamanecer
 
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
@@ -18,8 +19,9 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.tec.nuevoamanecer.databinding.FragmentAlumnotableroBinding
+import java.util.Locale
 
-class AlumnoTableroFragment : Fragment() {
+class AlumnoTableroFragment : Fragment(), TextToSpeech.OnInitListener {
     private var _binding: FragmentAlumnotableroBinding? = null
 
     private val binding get() = _binding!!
@@ -30,12 +32,16 @@ class AlumnoTableroFragment : Fragment() {
     private lateinit var userUID: String
 
     private lateinit var categoria: String
-    private lateinit var imagenAdapter: ImagenAdapter
+    private lateinit var recyclerViewImagenes: RecyclerView
     private val imagenesList = mutableListOf<Imagen>()
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var imagenAdapter: ImagenAdapter
+
+    private lateinit var recyclerViewTTS: RecyclerView
+    private val ttsList = mutableListOf<Imagen>()
+    private lateinit var ttsAdapter: TTSAdapter
 
     private var tts: TextToSpeech? = null
-    private var isFeminineVoice = true
+    private var isFeminineVoice: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +50,10 @@ class AlumnoTableroFragment : Fragment() {
         userUID = arguments?.getString("userUID").orEmpty()
         categoria = arguments?.getString("categoria").orEmpty()
         imagenesRef = database.child("Usuarios").child("Tablero").child(userUID).child(categoria)
+        isFeminineVoice = arguments?.getBoolean("isFeminineVoice") ?: true
+
+        ttsList.clear()
+        ttsList.addAll(arguments?.getParcelableArrayList<Imagen>("ttsList") ?: arrayListOf())
     }
 
     override fun onCreateView(
@@ -52,10 +62,19 @@ class AlumnoTableroFragment : Fragment() {
     ): View? {
         _binding = FragmentAlumnotableroBinding.inflate(inflater, container, false)
 
-        recyclerView = binding.recyclerViewImagenes
-        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        imagenAdapter = ImagenAdapter(requireContext(), imagenesList)
-        recyclerView.adapter = imagenAdapter
+        tts = TextToSpeech(requireContext(), this)
+
+        recyclerViewTTS = binding.recyclerViewTTS
+        ttsAdapter = TTSAdapter(requireContext(), ttsList)
+        recyclerViewTTS.adapter = ttsAdapter
+        recyclerViewTTS.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        ttsAdapter.notifyDataSetChanged()
+
+        recyclerViewImagenes = binding.recyclerViewImagenes
+        imagenAdapter = ImagenAdapter(requireContext(), imagenesList, ttsList, ttsAdapter)
+        recyclerViewImagenes.adapter = imagenAdapter
+        recyclerViewImagenes.layoutManager = GridLayoutManager(context, 2, RecyclerView.HORIZONTAL, false)
 
         cargarImagenes()
 
@@ -68,23 +87,37 @@ class AlumnoTableroFragment : Fragment() {
         binding.btnRegresar.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("userUID", userUID)
+            bundle.putParcelableArrayList("ttsList", ArrayList(ttsList))
+            bundle.putBoolean("isFeminineVoice", isFeminineVoice)
             Navigation.findNavController(view).navigate(R.id.action_alumnoTableroFragment_to_alumnoCategoriasFragment, bundle)
         }
 
-        binding.btnBorrar.setOnClickListener {
+        binding.btnBackspace.setOnClickListener {
+            if (ttsList.isNotEmpty()) {
+                ttsList.removeAt(ttsList.size - 1)
+                ttsAdapter.notifyItemRemoved(ttsList.size)
+            }
+        }
 
+        binding.btnBorrar.setOnClickListener {
+            ttsList.clear()
+            ttsAdapter.notifyDataSetChanged()
+        }
+
+        binding.btnSpeak.setOnClickListener {
+            val textToSpeak = StringBuilder()
+            ttsList.forEach { imagen ->
+                textToSpeak.append("${imagen.nombre} ")
+            }
+
+            val text = textToSpeak.toString()
+            tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
         }
 
         binding.btnSwitch.setOnClickListener {
             isFeminineVoice = !isFeminineVoice
             updateVoice()
         }
-
-        binding.btnRegresar.setOnClickListener {
-
-        }
-
-
     }
 
     private fun cargarImagenes() {
@@ -114,15 +147,28 @@ class AlumnoTableroFragment : Fragment() {
         })
     }
 
-
     private fun updateVoice() {
+        Log.d("voice", isFeminineVoice.toString())
         if (isFeminineVoice) {
-            // Set pitch for feminine voice (higher pitch)
-            tts!!.setPitch(1.0f)
+            Log.d("voice", "cambiando pitch femenino")
+            tts?.setPitch(1.0f)
         } else {
-            // Set pitch for masculine voice (lower pitch)
-            tts!!.setPitch(0.4f)
+            Log.d("voice", "cambiando pitch masculino")
+            tts?.setPitch(0.4f)
         }
     }
 
+    override fun onInit(status: Int) {
+        if (status == TextToSpeech.SUCCESS) {
+            val result = tts!!.setLanguage(Locale("es", "MX"))
+
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e("TTS", "El idioma especificado no es compatible")
+            } else {
+                updateVoice()
+            }
+        } else {
+            Log.e("TTS", "Error de inicialización")
+        }
+    }
 }

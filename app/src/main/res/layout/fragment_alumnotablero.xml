@@ -28,22 +28,22 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/btnBorrar"
-            android:layout_width="125dp"
-            android:layout_height="79dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/boton_borrar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
             android:id="@+id/btnBackspace"
             android:layout_width="125dp"
             android:layout_height="79dp"
             android:layout_marginTop="1dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/boton_backspace"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnBorrar"
+            android:layout_width="125dp"
+            android:layout_height="79dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/boton_borrar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -86,7 +86,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/ttp_recyclerview"
+        android:id="@+id/recyclerViewTTS"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_below="@+id/recyclerViewImagenes"
