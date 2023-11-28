@@ -103,7 +103,7 @@ class CategoriasFragment : Fragment() {
                     .addOnSuccessListener { task ->
                         task.metadata!!.reference!!.downloadUrl
                             .addOnSuccessListener { _ ->
-                                categoriasRef.child(categoriaNombre).setValue("")
+                                categoriasRef.child(categoriaNombre).child("categoria").setValue("true")
                                     .addOnSuccessListener {
                                         Toast.makeText(
                                             requireContext(),
@@ -140,17 +140,9 @@ class CategoriasFragment : Fragment() {
                 for (categoriaSnapshot in dataSnapshot.children) {
                     categoriaSnapshot?.let {
                         val key = it.key
-                        val value = it.value
-
-                        Log.d("CargarCategorias", "Key: $key, Value: $value")
-
                         val categoria = Categoria(key.orEmpty())
                         categoriasList.add(categoria)
                     }
-                }
-
-                if (categoriasList.isEmpty()) {
-                    Log.d("CargarCategorias", "No categorias")
                 }
 
                 categoriaAdapter.notifyDataSetChanged()

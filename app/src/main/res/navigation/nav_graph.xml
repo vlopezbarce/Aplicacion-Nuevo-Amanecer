@@ -308,16 +308,16 @@
             android:id="@+id/action_categoriasFragment_to_editaDatosAlumnoFragment"
             app:destination="@id/editaDatosAlumnoFragment" />
         <action
-            android:id="@+id/action_categoriasFragment_to_tableroFragment"
-            app:destination="@id/tableroFragment" />
+            android:id="@+id/action_categoriasFragment_to_imagenesFragment"
+            app:destination="@id/imagenesFragment" />
     </fragment>
     <fragment
-        android:id="@+id/tableroFragment"
-        android:name="com.tec.nuevoamanecer.TableroFragment"
+        android:id="@+id/imagenesFragment"
+        android:name="com.tec.nuevoamanecer.ImagenesFragment"
         android:label="fragment_tablero"
-        tools:layout="@layout/fragment_tablero" >
+        tools:layout="@layout/fragment_imagenes" >
         <action
-            android:id="@+id/action_tableroFragment_to_categoriasFragment"
+            android:id="@+id/action_imagenesFragment_to_categoriasFragment"
             app:destination="@id/categoriasFragment" />
     </fragment>
 </navigation>

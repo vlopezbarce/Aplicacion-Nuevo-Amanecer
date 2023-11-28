@@ -2,7 +2,6 @@ package com.tec.nuevoamanecer
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +23,7 @@ class CategoriaAdapter(private val context: Context, private val userUID: String
     private val storage: StorageReference = FirebaseStorage.getInstance().reference
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriaViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_categoria, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.item_imagen_editar, parent, false)
         return CategoriaViewHolder(view)
     }
 
@@ -38,8 +37,8 @@ class CategoriaAdapter(private val context: Context, private val userUID: String
     }
 
     inner class CategoriaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val btnCategoria: ImageView = itemView.findViewById(R.id.btnCategoria)
-        private val txtViewCategoria: TextView = itemView.findViewById(R.id.txtViewCategoria)
+        private val btnCategoria: ImageView = itemView.findViewById(R.id.btnImagen)
+        private val txtViewCategoria: TextView = itemView.findViewById(R.id.txtViewImagen)
         private val btnEliminar: ImageButton = itemView.findViewById(R.id.btnEliminar)
 
         fun bind(categoria: Categoria) {
@@ -65,7 +64,7 @@ class CategoriaAdapter(private val context: Context, private val userUID: String
                 val bundle = Bundle()
                 bundle.putString("userUID", userUID)
                 bundle.putString("categoria", categoria.nombre)
-                Navigation.findNavController(itemView).navigate(R.id.action_categoriasFragment_to_tableroFragment, bundle)
+                Navigation.findNavController(itemView).navigate(R.id.action_categoriasFragment_to_imagenesFragment, bundle)
             }
 
             btnEliminar.setOnClickListener{
