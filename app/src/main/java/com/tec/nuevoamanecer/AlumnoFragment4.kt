@@ -21,14 +21,14 @@ class AlumnoFragment4 : Fragment() {
     private lateinit var database: DatabaseReference
     private lateinit var userRef: DatabaseReference
     private lateinit var auth: FirebaseAuth
-    private lateinit var uidAlumno: String
+    private lateinit var userUID: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         database = FirebaseDatabase.getInstance().reference
         auth = FirebaseAuth.getInstance()
-        uidAlumno = auth.currentUser?.uid.orEmpty()
-        userRef = database.child("Usuarios").child("Alumnos").child(uidAlumno)
+        userUID = auth.currentUser?.uid.orEmpty()
+        userRef = database.child("Usuarios").child("Alumnos").child(userUID)
     }
 
     override fun onCreateView(
@@ -55,7 +55,9 @@ class AlumnoFragment4 : Fragment() {
             override fun onCancelled(error: DatabaseError) {}
         })
         binding.btnTablero.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_alumnoFragment4_to_fragmentTableroAlumno)
+            val bundle = Bundle()
+            bundle.putString("userUID", userUID)
+            Navigation.findNavController(view).navigate(R.id.action_alumnoFragment4_to_alumnoCategoriasFragment, bundle)
         }
         binding.btnRegresar.setOnClickListener{
             FirebaseAuth.getInstance().signOut()

@@ -50,5 +50,7 @@
     <!-- Tablero -->
     <string name="categorias">Categorías</string>
     <string name="anadir_categoria">Añadir Nueva Categoría:</string>
+    <string name="imagenes">Imágenes</string>
+    <string name="anadir_imagen">Añadir Nueva Imagen:</string>
 
 </resources>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CategoriasFragment">
+    tools:context=".ImagenesFragment">
 
     <ImageButton
         android:id="@+id/btnRegresar"
@@ -19,13 +19,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtViewCategorias"
+        android:id="@+id/txtViewImagenes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/lilita_one"
-        android:text="@string/categorias"
+        android:text="@string/imagenes"
         android:textColor="@color/verde"
         android:textSize="90sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +33,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerCategorias"
+        android:id="@+id/recyclerImagenes"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:orientation="horizontal"
@@ -46,12 +46,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/txtViewCategorias"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewImagenes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
-            android:id="@+id/btnCategoria"
+            android:id="@+id/btnImagen"
             android:layout_width="250dp"
             android:layout_height="250dp"
             android:scaleType="centerCrop"
@@ -64,16 +64,16 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/txtViewAnadirCategoria"
+                android:id="@+id/txtViewAnadirImagen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lilita_one"
-                android:text="@string/anadir_categoria"
+                android:text="@string/anadir_imagen"
                 android:textColor="@color/verde"
                 android:textSize="40sp" />
 
             <EditText
-                android:id="@+id/editTextCategoria"
+                android:id="@+id/editTextImagen"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginTop="10dp"
