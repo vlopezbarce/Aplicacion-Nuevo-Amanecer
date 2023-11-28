@@ -1,9 +1,11 @@
 package com.tec.nuevoamanecer
 
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,6 +33,9 @@ class AlumnoTableroFragment : Fragment() {
     private lateinit var imagenAdapter: ImagenAdapter
     private val imagenesList = mutableListOf<Imagen>()
     private lateinit var recyclerView: RecyclerView
+
+    private var tts: TextToSpeech? = null
+    private var isFeminineVoice = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +70,21 @@ class AlumnoTableroFragment : Fragment() {
             bundle.putString("userUID", userUID)
             Navigation.findNavController(view).navigate(R.id.action_alumnoTableroFragment_to_alumnoCategoriasFragment, bundle)
         }
+
+        binding.btnBorrar.setOnClickListener {
+
+        }
+
+        binding.btnSwitch.setOnClickListener {
+            isFeminineVoice = !isFeminineVoice
+            updateVoice()
+        }
+
+        binding.btnRegresar.setOnClickListener {
+
+        }
+
+
     }
 
     private fun cargarImagenes() {
@@ -93,4 +113,16 @@ class AlumnoTableroFragment : Fragment() {
             override fun onCancelled(databaseError: DatabaseError) {}
         })
     }
+
+
+    private fun updateVoice() {
+        if (isFeminineVoice) {
+            // Set pitch for feminine voice (higher pitch)
+            tts!!.setPitch(1.0f)
+        } else {
+            // Set pitch for masculine voice (lower pitch)
+            tts!!.setPitch(0.4f)
+        }
+    }
+
 }

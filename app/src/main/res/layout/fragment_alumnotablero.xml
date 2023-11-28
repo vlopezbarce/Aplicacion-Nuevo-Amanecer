@@ -52,8 +52,19 @@
             android:layout_width="125dp"
             android:layout_height="79dp"
             android:layout_marginTop="1dp"
-            android:layout_marginEnd="100dp"
+            android:layout_marginEnd="400dp"
             android:background="@drawable/boton_sonido"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnSwitch"
+            android:layout_width="125dp"
+            android:layout_height="79dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="200dp"
+            android:background="@drawable/boton_switch"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
