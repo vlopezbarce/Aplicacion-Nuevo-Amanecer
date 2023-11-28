@@ -11,7 +11,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.tec.nuevoamanecer.databinding.FragmentDatosRegistradosBinding
 
-class DatosRegistradosFragment : Fragment() {
+class  DatosRegistradosFragment : Fragment() {
     private var _binding: FragmentDatosRegistradosBinding? = null
     private val binding get() = _binding!!
 
@@ -80,7 +80,9 @@ class DatosRegistradosFragment : Fragment() {
                     val userUID = auth.currentUser?.uid
                     if (userUID != null) {
                         val alumno = Alumno(userUID, nombre, apellidos, fechaNacimiento, nivel)
-
+                        if (nivel.toInt() == 4) {
+                            database.child("Usuarios").child("Tablero").child(userUID).setValue("")
+                        }
                         database.child("Usuarios").child("Usuario").child(userUID).setValue("Alumno")
                         database.child("Usuarios").child("Alumnos").child(userUID).setValue(alumno)
                             .addOnSuccessListener {

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.Navigation
 import com.google.firebase.database.DataSnapshot
@@ -15,6 +16,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.tec.nuevoamanecer.databinding.FragmentEditaDatosAlumnoBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -25,12 +28,14 @@ class EditaDatosAlumnoFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var database: DatabaseReference
+    private lateinit var storage: StorageReference
     private lateinit var userRef : DatabaseReference
     private lateinit var userUID: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         database = FirebaseDatabase.getInstance().reference
+        storage = FirebaseStorage.getInstance().reference
         userUID = arguments?.getString("userUID").orEmpty()
         userRef = database.child("Usuarios").child("Alumnos").child(userUID)
     }
@@ -87,6 +92,19 @@ class EditaDatosAlumnoFragment : Fragment() {
                 userRef.child("fechaNacimiento").setValue(fechaNacimiento)
                 userRef.child("nivel").setValue(nivel)
 
+                if (nivel.toInt() == 4) {
+                    storage.child("Tablero").child(userUID).putBytes(byteArrayOf())
+                } else {
+                    val tableroRef = storage.child("Tablero").child(userUID)
+                    tableroRef.listAll()
+                        .addOnSuccessListener { items ->
+                            if (items.items.isNotEmpty()) {
+                                tableroRef.delete()
+                            }
+                        }
+                        .addOnFailureListener {}
+                }
+
                 Navigation.findNavController(view).navigate(R.id.action_editaDatosAlumnoFragment_to_terapeutaFragment)
             } else {
                 val alertDialogBuilder = AlertDialog.Builder(requireContext())
@@ -99,10 +117,33 @@ class EditaDatosAlumnoFragment : Fragment() {
             }
         }
 
-        binding.btnFolder.setOnClickListener{
-            val bundle = Bundle()
-            bundle.putString("userUID", userUID)
-            Navigation.findNavController(view).navigate(R.id.action_editaDatosAlumnoFragment_to_folderFragment, bundle)
+        binding.btnTablero.setOnClickListener {
+            val nivelRef = userRef.child("nivel")
+
+            nivelRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val nivel = dataSnapshot.getValue(String::class.java)
+
+                    if (nivel != null) {
+                        if (nivel.toInt() == 4) {
+                            val bundle = Bundle()
+                            bundle.putString("userUID", userUID)
+                            Navigation.findNavController(view).navigate(R.id.action_editaDatosAlumnoFragment_to_categoriasFragment, bundle)
+                        } else {
+                            val alertDialogBuilder = AlertDialog.Builder(requireContext())
+                            alertDialogBuilder.setTitle("Acceso Denegado")
+                            alertDialogBuilder.setMessage("El usuario no cuenta con un tablero.")
+                            alertDialogBuilder.setPositiveButton("OK") { dialog, _ ->
+                                dialog.dismiss()
+                            }
+                            val alertDialog = alertDialogBuilder.create()
+                            alertDialog.show()
+                        }
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {}
+            })
         }
 
         binding.editTextFecha.setOnClickListener {

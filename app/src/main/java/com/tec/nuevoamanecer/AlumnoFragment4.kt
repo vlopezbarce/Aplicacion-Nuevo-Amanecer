@@ -54,7 +54,11 @@ class AlumnoFragment4 : Fragment() {
 
             override fun onCancelled(error: DatabaseError) {}
         })
-
+        binding.btnTablero.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("userUID", userUID)
+            Navigation.findNavController(view).navigate(R.id.action_alumnoFragment4_to_alumnoCategoriasFragment, bundle)
+        }
         binding.btnRegresar.setOnClickListener{
             FirebaseAuth.getInstance().signOut()
             Navigation.findNavController(view).navigate(R.id.action_alumnoFragment4_to_mainFragment)

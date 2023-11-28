@@ -105,14 +105,14 @@
                 android:layout_height="70dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/edit_text_redondo"
+                android:clickable="true"
                 android:drawableRight="@drawable/icono_fecha_verde"
-                android:paddingEnd="20dp"
-                android:fontFamily="@font/lilita_one"
-                android:paddingLeft="20dp"
-                android:textSize="40sp"
-                android:inputType="none"
                 android:focusable="false"
-                android:clickable="true" />
+                android:fontFamily="@font/lilita_one"
+                android:inputType="none"
+                android:paddingLeft="20dp"
+                android:paddingEnd="20dp"
+                android:textSize="40sp" />
 
         </LinearLayout>
 
@@ -150,11 +150,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:src="@drawable/flecha_dropdown_verde"
                     android:scaleType="centerCrop"
+                    android:src="@drawable/flecha_dropdown_verde"
+                    app:layout_constraintBottom_toBottomOf="@+id/dropDownNivel"
                     app:layout_constraintEnd_toEndOf="@+id/dropDownNivel"
-                    app:layout_constraintTop_toTopOf="@+id/dropDownNivel"
-                    app:layout_constraintBottom_toBottomOf="@+id/dropDownNivel" />
+                    app:layout_constraintTop_toTopOf="@+id/dropDownNivel" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -163,7 +163,7 @@
                 android:layout_gravity="bottom">
 
                 <ImageButton
-                    android:id="@+id/btnFolder"
+                    android:id="@+id/btnTablero"
                     android:layout_width="400dp"
                     android:layout_height="220dp"
                     android:layout_marginTop="50dp"
@@ -172,7 +172,7 @@
                     android:src="@drawable/icono_folder"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"></ImageButton>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/txtViewFolder"
@@ -180,9 +180,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:fontFamily="@font/lilita_one"
-                    android:text="@string/imagenes"
+                    android:text="@string/tablero"
                     android:textColor="@color/white"
-                    android:textSize="50sp"
+                    android:textSize="60sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
