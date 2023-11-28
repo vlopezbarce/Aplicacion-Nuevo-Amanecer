@@ -28,7 +28,7 @@ class ImagenesFragment : Fragment() {
     private lateinit var uri: Uri
 
     private lateinit var categoria: String
-    private lateinit var imagenAdapter: ImagenAdapter
+    private lateinit var imagenAdapter: ImagenEditarAdapter
     private val imagenesList = mutableListOf<Imagen>()
     private lateinit var recyclerViewImagenes: RecyclerView
 
@@ -49,7 +49,7 @@ class ImagenesFragment : Fragment() {
 
         recyclerViewImagenes = binding.recyclerImagenes
         recyclerViewImagenes.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        imagenAdapter = ImagenAdapter(requireContext(), userUID, categoria, imagenesList)
+        imagenAdapter = ImagenEditarAdapter(requireContext(), userUID, categoria, imagenesList)
         recyclerViewImagenes.adapter = imagenAdapter
 
         cargarImagenes()

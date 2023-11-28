@@ -200,14 +200,17 @@
             android:id="@+id/action_alumnoFragment4_to_game6Fragment"
             app:destination="@id/game6Fragment" />
         <action
-            android:id="@+id/action_alumnoFragment4_to_fragmentTableroAlumno"
-            app:destination="@id/fragmentTableroAlumno" />
+            android:id="@+id/action_alumnoFragment4_to_alumnoCategoriasFragment"
+            app:destination="@id/alumnoCategoriasFragment" />
     </fragment>
     <fragment
-        android:id="@+id/fragmentTableroAlumno"
+        android:id="@+id/alumnoTableroFragment"
         android:name="com.tec.nuevoamanecer.AlumnoTableroFragment"
         android:label="fragment_tableroalumno"
-        tools:layout="@layout/fragment_tableroalumno">
+        tools:layout="@layout/fragment_alumnotablero">
+        <action
+            android:id="@+id/action_alumnoTableroFragment_to_alumnoCategoriasFragment"
+            app:destination="@id/alumnoCategoriasFragment" />
     </fragment>
     <fragment
         android:id="@+id/game1Fragment"
@@ -319,5 +322,17 @@
         <action
             android:id="@+id/action_imagenesFragment_to_categoriasFragment"
             app:destination="@id/categoriasFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/alumnoCategoriasFragment"
+        android:name="com.tec.nuevoamanecer.AlumnoCategoriasFragment"
+        android:label="fragment_alumnocategorias"
+        tools:layout="@layout/fragment_alumnocategorias" >
+        <action
+            android:id="@+id/action_alumnoCategoriasFragment_to_alumnoFragment4"
+            app:destination="@id/alumnoFragment4" />
+        <action
+            android:id="@+id/action_alumnoCategoriasFragment_to_alumnoTableroFragment"
+            app:destination="@id/alumnoTableroFragment" />
     </fragment>
 </navigation>

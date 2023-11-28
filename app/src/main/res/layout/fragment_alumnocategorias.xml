@@ -4,10 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AlumnoTableroFragment"
-    >
+    tools:context=".AlumnoCategoriasFragment">
 
-    <!-- Top section with EditText and Spinner -->
     <LinearLayout
         android:id="@+id/top_section"
         android:layout_width="match_parent"
@@ -59,20 +57,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Spinner
-            android:id="@+id/description_spinner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/lilita_one"
-            android:textColor="@color/black"
-            android:textSize="60sp" />
-
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/carousel_recyclerview"
+        android:id="@+id/recyclerViewCategorias"
         android:layout_width="match_parent"
         android:layout_height="450dp"
         android:layout_below="@+id/top_section"
@@ -90,7 +78,7 @@
         android:id="@+id/ttp_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_below="@+id/carousel_recyclerview"
+        android:layout_below="@+id/recyclerViewCategorias"
         android:layout_marginStart="8dp"
         android:layout_marginTop="550dp"
 
