@@ -45,8 +45,6 @@ class AlumnoCategoriasFragment : Fragment(), TextToSpeech.OnInitListener {
         categoriasRef = database.child("Usuarios").child("Tablero").child(userUID)
         isFeminineVoice = arguments?.getBoolean("isFeminineVoice") ?: true
 
-        Log.d("isFeminineVoice", isFeminineVoice.toString())
-
         ttsList.clear()
         ttsList.addAll(arguments?.getParcelableArrayList<Imagen>("ttsList") ?: arrayListOf())
     }
@@ -131,13 +129,10 @@ class AlumnoCategoriasFragment : Fragment(), TextToSpeech.OnInitListener {
     }
 
     private fun updateVoice() {
-        Log.d("voice", isFeminineVoice.toString())
         if (isFeminineVoice) {
-            Log.d("voice", "cambiando pitch femenino")
-            tts?.setPitch(2.0f) // Intenta con diferentes valores
+            tts?.setPitch(1.0f)
         } else {
-            Log.d("voice", "cambiando pitch masculino")
-            tts?.setPitch(0.1f) // Intenta con diferentes valores
+            tts?.setPitch(0.4f)
         }
     }
 

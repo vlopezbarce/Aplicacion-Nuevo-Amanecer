@@ -148,12 +148,9 @@ class AlumnoTableroFragment : Fragment(), TextToSpeech.OnInitListener {
     }
 
     private fun updateVoice() {
-        Log.d("voice", isFeminineVoice.toString())
         if (isFeminineVoice) {
-            Log.d("voice", "cambiando pitch femenino")
             tts?.setPitch(1.0f)
         } else {
-            Log.d("voice", "cambiando pitch masculino")
             tts?.setPitch(0.4f)
         }
     }
